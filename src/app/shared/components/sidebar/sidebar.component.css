@@ -1,0 +1,13 @@
+profile-card {
+  text-align: center;
+  padding: 20px;
+}
+
+profile-card img {
+  width: 100px;
+  height: 100px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+}
+/*# sourceMappingURL=sidebar.component.css.map */

@@ -1,0 +1,17 @@
+<button mat-icon-button [matMenuTriggerFor]=notifications title="Notifications">
+    <mat-icon matBadge={{notificationList.length}} matBadgeColor="warn">notifications</mat-icon>
+</button>
+
+    <mat-menu #notifications="matMenu">
+        <div class="notificationPopUp" *ngFor="let item of notificationList">
+
+            <button mat-menu-item>
+                <span>
+                    <mat-icon class="iconBox" >{{ item.icon }}</mat-icon>
+                    {{ item.text }}
+                </span>
+                <span class="box">{{ item.time }}</span>
+            </button>
+
+        </div>
+    </mat-menu>

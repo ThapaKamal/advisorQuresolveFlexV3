@@ -1,0 +1,58 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <button mat-icon-button (click)="toggleSideBar()">
+            <mat-icon>menu</mat-icon>
+        </button>
+
+        <span>QuResolve Advisor</span>
+
+        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+            <ul fxLayout="row" fxLayoutGap="10px">
+                <li>
+                    <button mat-icon-button title="Search">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </li>
+                <!-- <li>
+                    <button mat-icon-button>
+                        <mat-icon matBadge="5" matBadgeColor="warn">mail_outline</mat-icon>
+                    </button>
+                </li> -->
+                <li>
+                    <app-notification ></app-notification>
+                    
+                </li>
+
+                <li>
+                    <button mat-button [matMenuTriggerFor]="settings" title="Settings">
+                        <mat-icon>settings</mat-icon>
+                    </button>
+                    <mat-menu #settings="matMenu">
+                        <button mat-menu-item>
+                            <mat-icon>person</mat-icon>
+                            Profile
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>account_balance_wallet</mat-icon>
+                            Account
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>help_outline</mat-icon>
+                            Contact Support
+                        </button>
+                    </mat-menu>
+                </li>
+                <li>
+                    <button mat-button title="Sign Out" (click)="openDialog()" >
+                        <mat-icon>exit_to_app</mat-icon>
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+
+
+    </mat-toolbar-row>
+
+
+</mat-toolbar>

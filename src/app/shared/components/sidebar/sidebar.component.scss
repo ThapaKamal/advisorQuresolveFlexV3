@@ -1,0 +1,30 @@
+:host{
+    .mat-icon{
+        vertical-align: middle;
+        margin-right: 20px;
+    }
+
+    .profile-card{
+        text-align: center;
+        padding:0 20px 20px 20px;
+
+        img{
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+    }
+
+    ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+        background-color: #22db22 ;
+    }
+
+    ::ng-deep  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+        background-color: #6df85a ;
+    }
+    .mat-slide-toggle.mat-checked .mat-slide-toggle-ripple .mat-ripple-element {
+        background-color: #fff;
+    }
+}
+

@@ -1,0 +1,82 @@
+<header id="header" class="header-transparent" style="background: #1e4356;">
+    <div class="container">
+        <!--Header Logo-->
+        <div class="logo float-left">
+            <a href="index.html"><img src="../../assets/images/Logo/logo.png" height="70px" alt=""
+                    class="img-fluid"></a>
+        </div>
+    </div>
+</header>
+
+<mat-card class=" card mat-elevation-z0 outline">
+    <mat-card-content>
+        <form #signupForm="ngForm">
+            <mat-icon>person_add</mat-icon>
+            <h1>Become an Advisor</h1>
+            <mat-error *ngIf="!signupValid">
+                The username and password were not recognized
+            </mat-error>
+            <h3>Sign up now</h3>
+
+            <!-- Name -->
+            <mat-form-field>
+                <input matInput placeholder="Name" [(ngModel)]="name" name="name" required>
+                <mat-error>
+                    Please provide a valid name
+                </mat-error>
+            </mat-form-field>
+
+            <!-- Select Profession -->
+            <mat-form-field>
+                <mat-label>Select Profession</mat-label>
+                <mat-select [(ngModel)]="profession" name="profession" required>
+                    <mat-option value="legalAdvisor">Legal Advisor</mat-option>
+                    <mat-option value="taxAdvisor">Tax Advisor</mat-option>
+                    <mat-option value="contentWriter">Content Writer</mat-option>
+                    <mat-option value="other">Other</mat-option>
+                </mat-select>
+                <mat-error>Please choose an profession</mat-error>
+            </mat-form-field>
+
+            <!-- Email -->
+            <mat-form-field>
+                <input matInput placeholder="Email" [(ngModel)]="email" name="email" required>
+                <mat-error>
+                    Please provide a valid email address
+                </mat-error>
+            </mat-form-field>
+
+            <!-- password -->
+            <mat-form-field>
+                <input matInput type="password" placeholder="Password" [(ngModel)]="password" name="password" required>
+                <mat-error>
+                    Please provide a valid password
+                </mat-error>
+            </mat-form-field>
+
+            <!-- Confirm Password -->
+            <mat-form-field>
+                <input matInput type="password" placeholder="Confirm Password" [(ngModel)]="confirmPassword"
+                    name="confirmPassword" required>
+                <mat-error>
+                    Please provide a valid password
+                </mat-error>
+            </mat-form-field>
+
+            <br>
+            <button mat-raised-button color="primary" [disabled]="!signupForm.form.valid"  routerLink="/legalAvisor/registration">Sign Up</button>
+        </form>
+
+
+        <br />
+        <p>Already have an account?
+            <br>
+            <a routerLink="/login">Log In</a>
+        </p>
+    </mat-card-content>
+</mat-card>
+
+
+
+<br><br>
+<app-footer></app-footer>

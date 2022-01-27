@@ -1,0 +1,54 @@
+<header id="header" class="header-transparent" style="background: #1e4356;">
+  <div class="container">
+
+    <!--Header Logo-->
+    <div class="logo float-left">
+      <a href="index.html"><img src="../../assets/images/Logo/logo.png" height="70px" alt="" class="img-fluid"></a>
+    </div>
+
+  </div>
+</header>
+
+<mat-card class="mat-elevation-z0 outline">
+  <mat-card-content>
+    <form #loginForm="ngForm">
+      <mat-icon>person</mat-icon>
+      <h1>Advisor Login</h1>
+      <mat-error *ngIf="!loginValid">
+        The username and password were not recognized
+      </mat-error>
+
+      <mat-form-field>
+        <input matInput placeholder="Email" [(ngModel)]="username" name="username" required>
+        <mat-error>
+          Please provide a valid email address
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="password" placeholder="Password" [(ngModel)]="password" name="password" required>
+        <mat-error>
+          Please provide a valid password
+        </mat-error>
+      </mat-form-field>
+      <br>
+
+      <mat-checkbox color="primary">Remember me</mat-checkbox>
+      <br>
+      <br>
+      <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid" routerLink="/">Login</button>
+
+    </form>
+
+    <br />
+    <a routerLink="/forgetPassword">Forgot Password ?</a>
+    <br />
+    <br />
+
+    <p>Don't have an account?
+      <a routerLink="/signup">Sign Up</a>
+    </p>
+  </mat-card-content>
+</mat-card>
+<br><br>
+<app-footer></app-footer>

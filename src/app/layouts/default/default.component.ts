@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class DefaultComponent implements OnInit {
 
   sideBarOpen=true;
+  events = [];
+  
 
   constructor() { }
 
@@ -15,5 +17,8 @@ export class DefaultComponent implements OnInit {
 
   sideBarToggler(event: Event){
     this.sideBarOpen=!this.sideBarOpen;
+    
   }
+
+
 }

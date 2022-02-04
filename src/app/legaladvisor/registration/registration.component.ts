@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators,Form } from '@angular/forms';
-import Swal from 'sweetalert2';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
 import { AreaOfPraticeListService } from '../legalService/area-of-pratice-list.service';
 import { BankNameListService } from '../legalService/bank-name-list.service';
 import { BarMembershipListService } from '../legalService/bar-membership-list.service';
@@ -8,7 +9,10 @@ import { CourtOfPracticeService } from '../legalService/court-of-practice.servic
 import { TypeOfAddressListService } from '../legalService/type-of-address-list.service';
 import { TypeOfDegreeListService } from '../legalService/type-of-degree-list.service';
 import { YearOfExpListService } from '../legalService/year-of-exp-list.service';
-import { Router } from '@angular/router';
+
+import { HttpClient, HttpEventType } from '@angular/common/http';
+
+
 
 
 @Component({
@@ -27,6 +31,8 @@ export class RegistrationComponent implements OnInit {
   seventhFormGroup!: FormGroup;
 
   customErrors = { required: 'Please accept the terms' }
+
+
 
   username=''
   password=''
@@ -97,38 +103,57 @@ export class RegistrationComponent implements OnInit {
     private bankNameListService: BankNameListService,
     private typeOfAddressListService: TypeOfAddressListService,
     private typeOfDegreeListService: TypeOfDegreeListService,
+    private httpClient: HttpClient
   ) {
 
   }
 
-  //  pdfSrc="src\assets\termsAndConditions\letterOfUnderstandingNKSA.pdf"
-  // seedData = [
-  //   { qty: '', price: '' },
-  // ];  
-  // seedFiltersFormArray() {
-  //   this.seedData.forEach(seedDatum => {
-  //     const formGroup = this.newQuantity();
+  selectedFile!: File;
+  retrievedImage: any;
+  base64Data: any;
+  retrieveResonse: any;
+  message!: string;
+  imageName: any;
 
-  //     formGroup.patchValue(seedDatum);
-  //     this.FormArray.push(formGroup);
-  //   });
-  // }
+//Gets called when the user selects an image
+public onFileChanged(event:any) {
+  //Select File
+  this.selectedFile = event.target.files[0];
+}
+//Gets called when the user clicks on submit to upload the image
+onUpload() {
+  console.log(this.selectedFile);
+  
+  //FormData API provides methods and properties to allow us easily prepare form data to be sent with POST HTTP requests.
+  const uploadImageData = new FormData();
+  uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
 
-  // quantities(): FormArray {
-  //   return this.seventhFormGroup.get("quantities") as FormArray;
-  // }
-  // newQuantity(): FormGroup {
-  //   return this._formBuilder.group({
-  //     qty: '',
-  //     price: '',
-  //   })
-  // }
-  // addQuantity() {
-  //   this.quantities().push(this.newQuantity());
-  // }
-  // removeQuantity(i: number) {
-  //   this.quantities().removeAt(i);
-  // }
+  //Make a call to the Spring Boot Application to save the image
+  this.httpClient.post('http://localhost:8080/image/upload', uploadImageData, { observe: 'response' })
+    .subscribe((response) => {
+      if (response.status === 200) {
+        this.message = 'Image uploaded successfully';
+      } else {
+        this.message = 'Image not uploaded successfully';
+      }
+    }
+    );
+}
+// retieve image
+
+   //Gets called when the user clicks on retieve image button to get the image from back end
+   getImage() {
+    //Make a call to Sprinf Boot to get the Image Bytes.
+    this.httpClient.get('http://localhost:8080/image/get/' + this.imageName)
+      .subscribe(
+        res => {
+          this.retrieveResonse = res;
+          this.base64Data = this.retrieveResonse.picByte;
+          this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
+        }
+      );
+  }
+
 
   // Education
   educations(): FormArray {
@@ -203,7 +228,7 @@ export class RegistrationComponent implements OnInit {
 
 
   ngOnInit() {
-
+    
     this.firstFormGroup = this._formBuilder.group({
       enteredName: ['', Validators.required],
       enteredEmail: new FormControl('', [Validators.required, Validators.email]),
@@ -213,7 +238,7 @@ export class RegistrationComponent implements OnInit {
       enteredDoB: new FormControl('', Validators.required),
       gender: new FormControl('', Validators.required),
       selectedlanguage: new FormControl('', Validators.required),
-      // uploadedPhoto: new FormControl('', Validators.required),
+      uploadedPhoto: new FormControl('', Validators.required),
     });
 
     this.secondFormGroup = this._formBuilder.group({
@@ -301,9 +326,9 @@ export class RegistrationComponent implements OnInit {
 
     this.addEducation();
 
-    // this.addClients();
+    this.addClients();
 
-    // this.addAccomplishments();
+    this.addAccomplishments();
   }
 
   // openDialog(){

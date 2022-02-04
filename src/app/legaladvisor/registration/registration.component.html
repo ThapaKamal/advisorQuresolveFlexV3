@@ -70,6 +70,19 @@
                         </mat-select>
                     </mat-form-field>
 
+                    <div class="row">
+                        <mat-form-field class="fields col-sm-8 col-md-5 col-lg-4" appearance="fill">
+                            <mat-label>Photo</mat-label>
+                            <!-- Display files names -->
+                            <input formControlName="uploadedPhoto" matInput readonly name="name" />
+                            <input type="file" formControlName="uploadedPhoto" (change)="onFileChanged($event)">
+                            <input type="button" mat-button (click)="onUpload()" value="Upload">
+                            <!-- <input type="text" formControlName="imageName" name="imageName" matInput /> -->
+                            <!-- <div *ngIf=message>{{message}}</div> -->
+                            <!-- <input type="button" (click)="getImage()" value="Get Image"> -->
+                        </mat-form-field>
+                    </div>
+
                     <!-- <div class="row">
                     <mat-form-field class="fields">
                         <mat-label>Photo</mat-label> -->
@@ -183,34 +196,60 @@
 
                 </div>
 
-                <!-- Major Client/Empanelment -->
 
-                <button mat-stroked-button color="primary" (click)="addClients()">Add Major Client/Empanelment</button>
 
-                <table class="fields col-sm-8 col-md-5 col-lg-7" formArrayName="clients">
-                    <tr *ngFor="let client of clients().controls; let i=index" [formGroupName]="i">
-                        <td>
-                            <mat-form-field class="field col-sm-8 col-md-5 col-lg-8" appearance="fill">
-                                <mat-label>Major Client/Empanelment</mat-label>
-                                <input matInput placeholder="" type="text" formControlName="majorClient">
-                                <mat-icon matSuffix>perm_identity</mat-icon>
-                            </mat-form-field>
-                        </td>
-                        <td>
-                            <button mat-stroked-button color="primary" (click)="removeClients(i)">Remove</button>
-                        </td>
-                    </tr>
-                </table>
+                <div class="row">
+                    <!-- Major Client/Empanelment -->
+                    <div class="column">
+                        <button mat-stroked-button color="primary" (click)="addClients()">Add Major
+                            Client/Empanelment
+                        </button>
 
-                <br>
+                        <div formArrayName="clients">
+                            <div *ngFor="let client of clients().controls; let i=index" [formGroupName]="i">
+                                <mat-form-field class="fields col-sm-8 col-md-5 col-lg-2" appearance="fill">
+                                    <mat-label>Major Client/Empanelment</mat-label>
+                                    <input matInput placeholder="" type="text" formControlName="majorClient">
+                                    <mat-icon matSuffix>perm_identity</mat-icon>
+                                </mat-form-field>
+                                <button mat-stroked-button color="primary" (click)="removeClients(i)">Remove</button>
+                            </div>
+                        </div>
+                    </div>
 
-                <!-- Accomplishments  -->
+                    <br>
+                    <!-- Accomplishments  -->
+                    <div class="column">
 
-                <button mat-stroked-button color="primary" (click)="addAccomplishments()">Add Accomplishments</button>
-                <table formArrayName="accomplishments">
+                        <button mat-stroked-button color="primary" (click)="addAccomplishments()">Add
+                            Accomplishments</button>
+                        <div formArrayName="accomplishments">
+                            <div *ngFor="let accomplishment of accomplishments().controls; let i=index"
+                                [formGroupName]="i">
+
+                                <mat-form-field class="fields col-sm-6 col-md-5 col-lg-2" appearance="fill">
+                                    <mat-label>Heading</mat-label>
+                                    <input matInput placeholder="" type="text" formControlName="heading">
+                                    <mat-icon matSuffix>perm_identity</mat-icon>
+                                </mat-form-field>
+
+                                <mat-form-field class="fields col-sm-6 col-md-5 col-lg-2" appearance="fill">
+                                    <mat-label>Descripition</mat-label>
+                                    <textarea matInput placeholder="" type="text" formControlName="desc"></textarea>
+                                    <mat-icon matSuffix>perm_identity</mat-icon>
+                                </mat-form-field>
+
+                                <button mat-stroked-button color="primary"
+                                    (click)="removeAccomplishments(i)">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <table formArrayName="accomplishments">
                     <tr *ngFor="let accomplishment of accomplishments().controls; let i=index" [formGroupName]="i">
                         <td>
-                            <mat-form-field class="fields col-sm-6 col-md-5 col-lg-6" appearance="fill">
+                            <mat-form-field class="fields col-sm-6 col-md-5 col-lg-4" appearance="fill">
                                 <mat-label>Heading</mat-label>
                                 <input matInput placeholder="" type="text" formControlName="heading">
                                 <mat-icon matSuffix>perm_identity</mat-icon>
@@ -227,7 +266,7 @@
                                 (click)="removeAccomplishments(i)">Remove</button>
                         </td>
                     </tr>
-                </table>
+                </table> -->
                 <br>
             </mat-card>
             <br>
@@ -1315,13 +1354,13 @@
                     </mat-dialog-content>
                     <!-- <mat-dialog-actions>
                         <label class="tncbox"><input type="checkbox" formControlName="terms"> Accept Terms and Conditions</label> -->
-                        <!-- <button mat-button [mat-dialog-close]="true" tabindex="1">Accept</button>
+                    <!-- <button mat-button [mat-dialog-close]="true" tabindex="1">Accept</button>
                         <button mat-button mat-dialog-close tabindex="-1">Cancel</button> -->
-                        <!-- <mat-error *ngIf="!seventhFormGroupValid">
+                    <!-- <mat-error *ngIf="!seventhFormGroupValid">
                             The username and password were not recognized
                           </mat-error>
                     </mat-dialog-actions> -->
-                    
+
 
                 </div>
                 <br>
@@ -1334,7 +1373,7 @@
                 <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
                 <button mat-stroked-button color="primary" (click)="stepper.reset()">Reset</button>
                 <button mat-stroked-button color="primary" matStepperSubmit type="submit"
-                [disabled]="seventhFormGroup.invalid"   (click)=handleLogin() >Submit</button>
+                    [disabled]="seventhFormGroup.invalid" (click)=handleLogin()>Submit</button>
             </div>
         </form>
     </mat-step>

@@ -8,6 +8,8 @@ import { MaterialModule } from '../material/material.module';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import { RegisterConfirmationComponent } from './register-confirmation/register-confirmation.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 
 
@@ -25,7 +27,9 @@ import { RegisterConfirmationComponent } from './register-confirmation/register-
   imports: [
     CommonModule,
     MaterialModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [
     FooterComponent,

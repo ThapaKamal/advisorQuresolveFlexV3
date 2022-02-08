@@ -9,6 +9,9 @@ import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import { RegisterConfirmationComponent } from './register-confirmation/register-confirmation.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgxWebstorageModule} from 'ngx-webstorage';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+
 
 
 
@@ -30,10 +33,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    NgxWebstorageModule.forRoot(),
   ],
   exports: [
     FooterComponent,
-
-  ]
+  ],
 })
+  
 export class LoginModule { }

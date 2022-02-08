@@ -12,7 +12,7 @@ export class PieComponent implements OnInit {
   Highcharts = Highcharts;
   chartOptions = {};
 
-  @Input() data = [];
+  @Input() data: any = [];
 
   constructor() { }
 

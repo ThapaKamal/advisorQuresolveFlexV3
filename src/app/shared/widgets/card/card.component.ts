@@ -12,7 +12,7 @@ export class CardComponent implements OnInit {
   @Input() label!: string;
   @Input() total!: string;
   @Input() percentage!: string;
-  @Input() data = [];
+  @Input() data: any = [];
 
   Highcharts = Highcharts;
   chartOptions = {};

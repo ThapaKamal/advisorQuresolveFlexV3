@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../sign-in/authService/auth.service';
+import { SignupPayload } from './signupPayload';
 
 @Component({
   selector: 'app-sign-up',
@@ -8,22 +11,45 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class SignUpComponent implements OnInit {
 
-  // signupForm!: FormGroup;
-  // profession = new FormControl('', [Validators.required]);
+  signupForm!: FormGroup;
+  signupPayload!: SignupPayload;
 
   signupValid = true;
+
+  name = '';
+  profession = '';
   email = '';
   password = '';
   confirmPassword = '';
-  name = '';
-  profession = '';
 
-  constructor() { }
+
+  constructor(private _formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router) 
+     { }
 
   ngOnInit() {
-    // this.signupForm = new FormGroup({
-    //   profession: new FormControl('', [Validators.required])
-    // })
+    this.signupForm = new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      profession: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required]),
+      confirmPassword: new FormControl('', [Validators.required])
+    })
   }
 
+  
+  onSubmit(){
+    this.signupPayload = this.signupForm.value;
+    console.log(this.signupPayload);
+    
+  
+    this.authService.signup(this.signupPayload).subscribe((data) => {
+      console.log('signup success');
+      this.router.navigateByUrl('/registrationConfirmation');
+    }, (error) => {
+      console.log('signup failed');
+      this.router.navigateByUrl('/signupFailed');
+    });
+  }
 }

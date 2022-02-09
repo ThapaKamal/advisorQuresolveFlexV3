@@ -10,7 +10,7 @@
 
 <mat-card class=" card mat-elevation-z0 outline">
     <mat-card-content>
-        <form #signupForm="ngForm">
+        <form class="form-signup" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
             <mat-icon>person_add</mat-icon>
             <h1>Become an Advisor</h1>
             <mat-error *ngIf="!signupValid">
@@ -20,7 +20,7 @@
 
             <!-- Name -->
             <mat-form-field>
-                <input matInput placeholder="Name" [(ngModel)]="name" name="name" required>
+                <input matInput placeholder="Name" formControlName="name" class="form-control" required autocomplete>
                 <mat-error>
                     Please provide a valid name
                 </mat-error>
@@ -29,7 +29,7 @@
             <!-- Select Profession -->
             <mat-form-field>
                 <mat-label>Select Profession</mat-label>
-                <mat-select [(ngModel)]="profession" name="profession" required>
+                <mat-select formControlName="profession" class="form-control" name="profession" required autocomplete>
                     <mat-option value="legalAdvisor">Legal Advisor</mat-option>
                     <mat-option value="taxAdvisor">Tax Advisor</mat-option>
                     <mat-option value="contentWriter">Content Writer</mat-option>
@@ -40,7 +40,7 @@
 
             <!-- Email -->
             <mat-form-field>
-                <input matInput placeholder="Email" [(ngModel)]="email" name="email" required>
+                <input matInput placeholder="Email" formControlName="email" class="form-control" name="email" required autocomplete>
                 <mat-error>
                     Please provide a valid email address
                 </mat-error>
@@ -48,7 +48,8 @@
 
             <!-- password -->
             <mat-form-field>
-                <input matInput type="password" placeholder="Password" [(ngModel)]="password" name="password" required>
+                <input matInput type="password" placeholder="Password" formControlName="password" class="form-control"
+                    name="password" required autocomplete>
                 <mat-error>
                     Please provide a valid password
                 </mat-error>
@@ -56,16 +57,17 @@
 
             <!-- Confirm Password -->
             <mat-form-field>
-                <input matInput type="password" placeholder="Confirm Password" [(ngModel)]="confirmPassword"
-                    name="confirmPassword" required>
+                <input matInput type="password" placeholder="Confirm Password" formControlName="confirmPassword"
+                    class="form-control" name="confirmPassword" required autocomplete>
                 <mat-error>
                     Please provide a valid password
                 </mat-error>
             </mat-form-field>
 
             <br>
-            <button mat-raised-button color="primary" [disabled]="!signupForm.form.valid"  routerLink="/legalAvisor/registration">Sign Up</button>
-        </form> 
+            <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.valid"
+               >Sign Up</button>
+        </form>
 
 
         <br />

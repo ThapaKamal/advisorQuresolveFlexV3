@@ -5,6 +5,7 @@ import { LoginPayload } from '../login-Payload';
 import {map} from 'rxjs/operators';
 import { JwtAutResponse } from '../jwtAutResponse';
 import {LocalStorageService} from 'ngx-webstorage';
+import { SignupPayload } from '../../sign-up/signupPayload';
 
 
 
@@ -15,14 +16,15 @@ import {LocalStorageService} from 'ngx-webstorage';
 export class AuthService {
 
   private url = 'http://localhost:8080/api/auth/';
+  // signup: any;
 
   constructor(private httpClient: HttpClient, 
     private localStorageService: LocalStorageService
     ) {
   }
 
-  register(loginPayload: LoginPayload): Observable<any> {
-    return this.httpClient.post(this.url + 'signup', loginPayload);
+  signup(signupPayload: SignupPayload): Observable<any> {
+    return this.httpClient.post(this.url + 'signup', signupPayload);
   }
 
   login(loginPayload: LoginPayload): Observable<boolean> {

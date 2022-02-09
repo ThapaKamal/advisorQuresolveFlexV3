@@ -7,6 +7,7 @@ import { ForgetPasswordComponent } from './login/forget-password/forget-password
 import { RegisterConfirmationComponent } from './login/register-confirmation/register-confirmation.component';
 import { SignInComponent } from './login/sign-in/sign-in.component';
 import { SignUpComponent } from './login/sign-up/sign-up.component';
+import { SignupFailedComponent } from './login/sign-up/signup-failed/signup-failed.component';
 import { AppointmentsComponent } from './modules/appointments/appointments.component';
 import { ArticlesAndPublicationsComponent } from './modules/articles-and-publications/articles-and-publications.component';
 import { CalenderComponent } from './modules/calender/calender.component';
@@ -63,6 +64,10 @@ const routes: Routes = [{
 {
   path:'signup',
   component: SignUpComponent
+},
+{
+  path:'signupFailed',
+  component: SignupFailedComponent
 },
 
 {

@@ -21,15 +21,17 @@
       <mat-form-field>
         <input matInput placeholder="Email" formControlName="username" class="form-control" name="username" required
           autocomplete>
-        <mat-error>
+        <mat-error >
           Please provide a valid email address
         </mat-error>
       </mat-form-field>
 
       <mat-form-field>
         <input matInput type="password" placeholder="Password" formControlName="password" class="form-control"
-          name="password" required autocomplete>
-        <mat-error>
+          name="password" required autocomplete [type]="hide ?'password' : 'text'">
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' :
+            'visibility_off'}}</mat-icon>
+        <mat-error >
           Please provide a valid password
         </mat-error>
       </mat-form-field>

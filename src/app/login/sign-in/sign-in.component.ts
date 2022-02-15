@@ -13,6 +13,9 @@ export class SignInComponent implements OnInit {
   loginForm!: FormGroup;
   loginPayload!: LoginPayload;
 
+  hide =true;
+  type! :string;
+
    loginValid = true;
    username = '';
    password = '';

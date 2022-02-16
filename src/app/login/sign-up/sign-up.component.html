@@ -40,7 +40,8 @@
 
             <!-- Email -->
             <mat-form-field>
-                <input matInput placeholder="Email" formControlName="email" class="form-control" name="email" required autocomplete>
+                <input matInput placeholder="Email" formControlName="email" class="form-control" name="email" required
+                    autocomplete>
                 <mat-error>
                     Please provide a valid email address
                 </mat-error>
@@ -49,7 +50,9 @@
             <!-- password -->
             <mat-form-field>
                 <input matInput type="password" placeholder="Password" formControlName="password" class="form-control"
-                    name="password" required autocomplete>
+                    name="password" required autocomplete [type]="hide ?'password' : 'text'">
+                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' :
+                    'visibility_off'}}</mat-icon>
                 <mat-error>
                     Please provide a valid password
                 </mat-error>
@@ -58,15 +61,17 @@
             <!-- Confirm Password -->
             <mat-form-field>
                 <input matInput type="password" placeholder="Confirm Password" formControlName="confirmPassword"
-                    class="form-control" name="confirmPassword" required autocomplete>
+                    class="form-control" name="confirmPassword" required autocomplete
+                    [type]="hide ?'confirmPassword' : 'text'">
+                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' :
+                        'visibility_off'}}</mat-icon>
                 <mat-error>
                     Please provide a valid password
                 </mat-error>
             </mat-form-field>
 
             <br>
-            <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.valid"
-               >Sign Up</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.valid">Sign Up</button>
         </form>
 
 

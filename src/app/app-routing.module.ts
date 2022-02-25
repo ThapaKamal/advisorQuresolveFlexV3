@@ -78,10 +78,8 @@ const routes: Routes = [{
   path:'registrationConfirmation',
   component: RegisterConfirmationComponent
 },
-
-
 {
-  path:'legalAvisor/registration',
+  path:'lawyerRegistration',
   component: RegistrationComponent
 },
 {

@@ -16,7 +16,6 @@ import { SignupPayload } from '../../sign-up/signupPayload';
 export class AuthService {
 
   private url = 'http://localhost:8080/api/auth/';
-  // signup: any;
 
   constructor(private httpClient: HttpClient, 
     private localStorageService: LocalStorageService

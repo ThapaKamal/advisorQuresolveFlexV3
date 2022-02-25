@@ -1,7 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpClient} from '@angular/common/http';
 
+// SERVICES
 import { AreaOfPraticeListService } from '../legalService/area-of-pratice-list.service';
 import { BankNameListService } from '../legalService/bank-name-list.service';
 import { BarMembershipListService } from '../legalService/bar-membership-list.service';
@@ -9,11 +11,10 @@ import { CourtOfPracticeService } from '../legalService/court-of-practice.servic
 import { TypeOfAddressListService } from '../legalService/type-of-address-list.service';
 import { TypeOfDegreeListService } from '../legalService/type-of-degree-list.service';
 import { YearOfExpListService } from '../legalService/year-of-exp-list.service';
+import { RegistrationServiceService } from './service/registration-service.service';
 
-import { HttpClient, HttpEventType } from '@angular/common/http';
-
-
-
+// PAYLOAD
+import { RegistrationPayload } from './Payload/registrationPayload';
 
 @Component({
   selector: 'app-registration',
@@ -32,18 +33,18 @@ export class RegistrationComponent implements OnInit {
 
   customErrors = { required: 'Please accept the terms' }
 
+  registrationPayload!: RegistrationPayload;
 
-
-  username=''
-  password=''
+  // username=''
+  // password=''
   // advisorName=''
   // advisorEmail=''
   // profession=''
   // location=''
-  errorMessage='Invalid Credentials'
-  invalidLogin=false
+  // errorMessage='Invalid Credentials'
+  // invalidLogin=false
 
-  public seventhFormGroupValid = true;
+  // public seventhFormGroupValid = true;
 
 
   // ServiceVariables
@@ -54,6 +55,9 @@ export class RegistrationComponent implements OnInit {
   typeOfAddressList: any = [];
   courtOfPraticeList: any = [];
   areaOfPraticeList: any = [];
+
+  // JSON FORMAT
+  stringifiedData: any;  
 
 
   languageList: string[] = ['English', 'Hindi'];
@@ -103,7 +107,8 @@ export class RegistrationComponent implements OnInit {
     private bankNameListService: BankNameListService,
     private typeOfAddressListService: TypeOfAddressListService,
     private typeOfDegreeListService: TypeOfDegreeListService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private registrationService: RegistrationServiceService,
   ) {
 
   }
@@ -227,8 +232,12 @@ onUpload() {
 
 
 
+
+
+
   ngOnInit() {
     
+
     this.firstFormGroup = this._formBuilder.group({
       enteredName: ['', Validators.required],
       enteredEmail: new FormControl('', [Validators.required, Validators.email]),
@@ -292,9 +301,7 @@ onUpload() {
 
     this.seventhFormGroup = this._formBuilder.group({
       terms: ['', Validators.requiredTrue],
-      // quantities: this._formBuilder.array([]),
-      // enteredFee: ['', Validators.required],
-      //   price: ['', Validators.required],
+      
     });
 
 
@@ -307,10 +314,8 @@ onUpload() {
     // BankNameListServiceService
     this.bankNameList = this.bankNameListService.bankNameList();
 
-
     // typeOfAddressListService
     this.typeOfAddressList = this.typeOfAddressListService.typeOfAddressList();
-
 
     // TypeOfDegreeListService
     this.typeOfDegreeList = this.typeOfDegreeListService.typeOfDegreeList();
@@ -321,6 +326,8 @@ onUpload() {
     // AREA OF PRATICE Service
     this.areaOfPraticeList = this.areaOfPraticeListService.areaOfPraticeList();
 
+
+
     //Add Certs
     this.addcerts();
 
@@ -329,61 +336,105 @@ onUpload() {
     this.addClients();
 
     this.addAccomplishments();
+
+    this.registrationPayload= new RegistrationPayload;
+
   }
 
-  // openDialog(){
 
+  // submit() {
+  //     const validated=this.validateData();
+  //   if(validated){
+  //     console.log(this.registrationPayload)
+
+  //     //Redirect to Welcome Registration Confirmation
+  //     this.router.navigate(['/registrationConfirmation'])
+  //   }else{
+  //     //show error msg on registration screen
+  //   }   
   // }
+  // validateData():boolean {
+  //   return true; //TODO: validate all fields
+  // }
+
+  submit()
+  {
+
+    console.log("Without Stringify :" ,this.registrationPayload);
+
+    this.stringifiedData = JSON.stringify(this.registrationPayload);  
+    console.log("With Stringify :" , this.stringifiedData); 
+    
   
-
-  handleLogin() {
-      const validated=this.validateData();
-    if(validated){
-      //Redirect to Welcome Registration Confirmation
-      this.router.navigate(['/registrationConfirmation'])
-    }else{
-      //show error msg on registration screen
-    }
-             
+    this.registrationService.registration(this.registrationPayload).subscribe((data) => {
+      console.log('registration success');
+      this.router.navigateByUrl('/registrationConfirmation');
+    }, (error) => {
+      console.log('registration failed');
+      this.router.navigateByUrl('/signupFailed');
+    });
   }
 
-  validateData():boolean {
-    return true; //TODO: validate all fields
+
+  firstFormToRegistrationPayload() {
+    this.registrationPayload.enteredName = this.firstFormGroup.value.enteredName;
+    this.registrationPayload.enteredEmail = this.firstFormGroup.value.enteredEmail;
+    this.registrationPayload.enteredPhone = this.firstFormGroup.value.enteredPhone;
+    this.registrationPayload.enteredDoB = this.firstFormGroup.value.enteredDoB;
+    this.registrationPayload.gender = this.firstFormGroup.value.gender;
+    this.registrationPayload.selectedlanguage = this.firstFormGroup.value.selectedlanguage;
+    this.registrationPayload.uploadedPhoto = this.firstFormGroup.value.uploadedPhoto;
+    
   }
 
-  // opensweetalert() {
-  //   Swal.fire(
-  //     'Forget Password',
-  //     'A mail has been send to your email',
-  //     'success'
-  //   )
-  // }
+  secondFormToRegistrationPayload() {
+    this.registrationPayload.accomplishments = this.secondFormGroup.value.accomplishments;
+    this.registrationPayload.clients = this.secondFormGroup.value.clients;
+    this.registrationPayload.selectedBaseCity = this.secondFormGroup.value.selectedBaseCity;
+    this.registrationPayload.enteredenrollment = this.secondFormGroup.value.enteredenrollment;
+    this.registrationPayload.linkedinUrl = this.secondFormGroup.value.linkedinUrl;
+    this.registrationPayload.selectedAreaofpractice = this.secondFormGroup.value.selectedAreaofpractice;
+    this.registrationPayload.selectedCourtOfPractice = this.secondFormGroup.value.selectedCourtOfPractice;
+    this.registrationPayload.selectedYearsOfExp = this.secondFormGroup.value.selectedYearsOfExp;
+    this.registrationPayload.selectedBarMembership = this.secondFormGroup.value.selectedBarMembership;
+    this.registrationPayload.barCouncilId = this.secondFormGroup.value.barCouncilId;
 
-  submitForm() {
-    console.log(this.firstFormGroup.value)
-  }
-
-  submitForm1() {
-    console.log(this.secondFormGroup.value)
   }
 
-  submitForm2() {
-    console.log(this.thirdFormGroup.value)
+  thirdFormToRegistrationPayload() {
+    this.registrationPayload.educations = this.thirdFormGroup.value.educations;
+   
   }
-  submitForm3() {
-    console.log(this.forthFormGroup.value)
+  forthFormToRegistrationPayload() {
+    this.registrationPayload.certs = this.forthFormGroup.value.certs;
+    
   }
-  submitForm4() {
-    console.log(this.fifthFormGroup.value)
+  fifthFormToRegistrationPayload() {
+    this.registrationPayload.enteredBeneficiaryName = this.fifthFormGroup.value.enteredBeneficiaryName;
+    this.registrationPayload.enteredAccountNumber = this.fifthFormGroup.value.enteredAccountNumber;
+    this.registrationPayload.enteredIfscCode = this.fifthFormGroup.value.enteredIfscCode;
+    this.registrationPayload.confirmAccountnumber = this.fifthFormGroup.value.confirmAccountnumber;
+    this.registrationPayload.selectedBankName = this.fifthFormGroup.value.selectedBankName;
+    console.log(this.registrationPayload);
+  
   }
-  submitForm5() {
-    console.log(this.sixthFormGroup.value)
+  sixthFormToRegistrationPayload() {
+    this.registrationPayload.enteredAddressline1 = this.sixthFormGroup.value.enteredAddressline1;
+    this.registrationPayload.enteredAddressline2 = this.sixthFormGroup.value.enteredAddressline2;
+    this.registrationPayload.enteredPinCode = this.sixthFormGroup.value.enteredPinCode;
+    this.registrationPayload.enteredCity = this.sixthFormGroup.value.enteredCity;
+    this.registrationPayload.enteredPinCodeArea = this.sixthFormGroup.value.enteredPinCodeArea;
+    this.registrationPayload.enteredState = this.sixthFormGroup.value.enteredState;
+    this.registrationPayload.selectedTypeofAddress = this.sixthFormGroup.value.selectedTypeofAddress;
+
   }
-  submitForm6() {
-    console.log(this.seventhFormGroup.value)
+  seventhFormToRegistrationPayload() {
+    this.registrationPayload.terms = this.seventhFormGroup.value.terms;
   }
 
 }
+
+
 
 
 

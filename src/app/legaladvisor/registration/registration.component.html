@@ -15,7 +15,7 @@
 <mat-stepper #stepper>
     <!-- Personal Information -->
     <mat-step [stepControl]="firstFormGroup">
-        <form [formGroup]="firstFormGroup" (ngSubmit)="submitForm()">
+        <form [formGroup]="firstFormGroup" (ngSubmit)="firstFormToRegistrationPayload()" #formone="ngForm">
             <ng-template matStepLabel>Personal</ng-template>
             <br>
             <h2 class="tittle">Fill Personal Details</h2>
@@ -105,7 +105,7 @@
 
     <!-- Professional Information -->
     <mat-step [stepControl]="secondFormGroup" label="Professional">
-        <form [formGroup]="secondFormGroup" (ngSubmit)="submitForm1()">
+        <form [formGroup]="secondFormGroup" (ngSubmit)="secondFormToRegistrationPayload()" #formtwo="ngForm">
             <h2 class="tittle">Fill Professional Details</h2>
 
             <mat-card class="mat-card">
@@ -279,7 +279,7 @@
 
     <!-- Education -->
     <mat-step [stepControl]="thirdFormGroup" label="Education">
-        <form [formGroup]="thirdFormGroup" (ngSubmit)="submitForm2()">
+        <form [formGroup]="thirdFormGroup" (ngSubmit)="thirdFormToRegistrationPayload()">
             <h2 class="tittle">Fill Education Details</h2>
             <div class="container " formArrayName="educations">
                 <div class="row ">
@@ -348,7 +348,7 @@
 
     <!-- Certification -->
     <mat-step [stepControl]="forthFormGroup" label="Certification">
-        <form [formGroup]="forthFormGroup" (ngSubmit)="submitForm3()">
+        <form [formGroup]="forthFormGroup" (ngSubmit)="forthFormToRegistrationPayload()">
             <h2 class="tittle">Fill Certification Details</h2>
             <div class="container " formArrayName="certs">
                 <div class="row ">
@@ -404,7 +404,7 @@
 
     <!-- Banking -->
     <mat-step [stepControl]="fifthFormGroup" label="Banking">
-        <form [formGroup]="fifthFormGroup" (ngSubmit)="submitForm4()">
+        <form [formGroup]="fifthFormGroup" (ngSubmit)="fifthFormToRegistrationPayload()">
             <h2 class="tittle">Fill Banking Details</h2>
             <mat-card class="mat-card">
                 <div class="row">
@@ -429,7 +429,7 @@
                     <!-- IFSC Code -->
                     <mat-form-field class="fields col-sm-3 col-md-5 col-lg-4" appearance="fill">
                         <mat-label>IFSC Code</mat-label>
-                        <input matInput placeholder="First name,Last name" type="number"
+                        <input matInput placeholder="First name,Last name" type="text"
                             formControlName="enteredIfscCode" required>
                         <mat-icon matSuffix>account_balance</mat-icon>
                     </mat-form-field>
@@ -465,7 +465,7 @@
 
     <!-- Address -->
     <mat-step [stepControl]="sixthFormGroup" label="Address">
-        <form [formGroup]="sixthFormGroup" (ngSubmit)="submitForm5()">
+        <form [formGroup]="sixthFormGroup" (ngSubmit)="sixthFormToRegistrationPayload()">
             <h2 class="tittle">Fill Address Details</h2>
             <mat-card class="mat-card">
                 <div class="row">
@@ -541,7 +541,7 @@
 
     <!-- Consultation Fee -->
     <mat-step [stepControl]="seventhFormGroup" label="Terms and Conditions">
-        <form [formGroup]="seventhFormGroup" (ngSubmit)="submitForm6()">
+        <form [formGroup]="seventhFormGroup" (ngSubmit)="seventhFormToRegistrationPayload()">
             <h2 class="tittle">Accept and Submit</h2>
 
             <mat-card class="mat-card">
@@ -613,513 +613,6 @@
                             the changes made on the Platform. Your continued usage of the Services after any change is
                             posted constitutes your acceptance of the amended Merchant Terms and other Swiggy policies.
 
-                            Use of Platform and Services
-
-                            All commercial/contractual terms are offered by you and agreed to by the Buyers alone. The
-                            commercial/contractual terms include without limitation price, applicable taxes, shipping
-                            costs, payment methods, payment terms, date, period and mode of delivery, warranties related
-                            to products and services and after sales services related to products and services. Swiggy
-                            does not have any control or does not determine or advise or in any way involve itself in
-                            the offering or acceptance of such commercial/contractual terms between the Buyers and
-                            Merchants.
-
-                            Swiggy does not make any representation or warranty as to the item-specifics (such as legal
-                            title, creditworthiness, identity, etc.) of any of its users.
-
-                            Swiggy is not responsible for any non-performance or breach of any contract entered into
-                            between Buyers and Merchants on the Platform. Swiggy cannot and does not guarantee that the
-                            concerned Buyers and/or Merchant will perform any transaction concluded on the Platform.
-                            Swiggy is not responsible for unsatisfactory or non-performance of services or damages or
-                            delays as a result of Products which are out of stock, unavailable or back ordered.
-
-                            Swiggy is operating an online marketplace and assumes the role of facilitator, and does not
-                            at any point of time during any transaction between Buyer and Merchant on the Platform come
-                            into or take possession of any of the products or services offered by Merchant. At no time
-                            shall Swiggy hold any right, title or interest over the products nor shall Swiggy have any
-                            obligations or liabilities in respect of such contract entered into between Merchant and
-                            Buyer.
-
-                            Swiggy is only providing a platform for communication and it is agreed that the contract for
-                            sale of any of the products or services shall be a strictly bipartite contract between the
-                            Merchant and the Buyer. In case of complaints from the Buyer pertaining to food efficacy,
-                            quality, or any other such issues, Swiggy shall notify the same to Merchant and shall also
-                            redirect the Buyer to the customer call centre of the Merchant, if available. Merchant shall
-                            alone be liable for redress and bound to take action on the complaints by the Buyer. Swiggy
-                            shall in the interest of satisfactory resolution of the Complaint, share with the Buyer,
-                            relevant information pertaining to the Order along with Merchant contact details.
-
-                            Please note that there could be risks in dealing with underage persons or people acting
-                            under false pretence.
-
-                            You agree, undertake and confirm that your use of Platform shall be strictly governed by the
-                            binding principles morefully detailed in the Merchant Terms
-
-
-                            Terms and Conditions of Service
-
-                            Swiggy shall perform Platform Services on best effort basis at all time and as agreed with
-                            no liability.
-
-                            Swiggy provides no assurance that any Buyer will place Orders against the respective
-                            Merchant/s. The Merchant shall be solely responsible for display of the name of the
-                            restaurants and images of the items/products, which shall be listed for the Buyers to choose
-                            from.
-
-                            Swiggy shall merely facilitate the pick-up and delivery of the Orders on the Platform
-                            through the PDP and is at liberty to provide the means for the pick-up and delivery of the
-                            Orders placed by Buyers on the Platform at its sole discretion to the PDP who will be
-                            responsible for the pick-up and delivery services. Swiggy is merely facilitating Delivery
-                            Services between the PDP and the Buyer or Merchant, as the case may be. At no point in time
-                            Swiggy is providing Delivery Services either to the Merchant or the Buyer. Notwithstanding
-                            anything mentioned elsewhere, neither Party shall be liable for any unauthorized act of the
-                            PDPs and the liability shall solely rest with the PDPs. With respect to the Merchants
-                            providing their own delivery services, the liability arising out of such deliveries shall be
-                            that of respective Merchants, neither Swiggy nor PDPs are liable for the same.
-
-                            Swiggy shall determine to facilitate the aforesaid services within the areas as it deem fit.
-                            Swiggy reserves the right to add or remove areas to improve Delivery Services. Swiggy shall
-                            facilitate the Delivery Services within 4 Kilometre radius (approximately) or within such
-                            area as may be decided by Swiggy in its sole discretion, from the location of Merchant in
-                            the territory, subsequent to which other areas may be added subject to revised terms, if
-                            any. Merchant shall be solely responsible to reimburse and/or absolve the cost of Orders for
-                            which Buyers have either refused to pay for or have claimed a refund for reasons that are
-                            solely attributed to Merchant (“Disputed Orders”), including but not limited to:
-
-                            Buyer’s expectations not being met or Buyer dissatisfaction with regard to the quality of
-                            items/products supplied by the Merchant;
-                            Wrong items put in the package;
-
-                            Poor packaging;
-
-                            Missing items in the Order; and
-
-                            Foreign object in the Order.
-
-                            Swiggy shall also provide such other services to the Merchant which shall include but not
-                            limited to, Services provided by Swiggy’s ‘Order Management Team’ by placing Orders on
-                            behalf of Buyer/s with the Merchant through phone calls (the “Call Center Service”) more
-                            fully defined under clause VI (9)(xiii)(a) hereinbelow and marketing services.
-
-                            The Merchant shall be solely responsible for reviewing information on the Platform and shall
-                            ensure that all information manifested / advertised are up to date and in accordance with
-                            applicable law. The Merchant shall update all such information and inform Swiggy about the
-                            same in accordance with these Merchant Terms. Swiggy shall not be liable or responsible in
-                            any way for any change in menu provided by the Merchant.
-
-                            The Merchant shall be solely responsible for any warranty/guarantee of the food products
-                            sold to the Buyers and in no event, shall it be the responsibility of Swiggy.
-
-                            In the event any Merchant wants to display and offer any pre-packaged product for sale to
-                            Buyers through the Platform, the Merchant shall be liable to comply with Legal Metrology
-                            (Packaged Commodities) Rules, 2011, as amended time to time, for displaying such
-                            pre-packaged product and share with Swiggy a legible and clear image of the ‘principal
-                            display panel’ (excluding month and year in which the product is manufactured or packed) of
-                            such pre-packaged product, which shall be displayed on the Platform for the Buyers. It is
-                            clarified that Swiggy shall facilitate but do not and shall not verify the content shared by
-                            the Merchant for displaying.
-
-                            The Merchant represents, warrants and covenants that:
-
-                            it shall at all times offer, sell prepared food and beverages that are best quality and fit
-                            for human consumption;
-
-                            it holds, at all times during the availing of Services, all licenses and/or consents
-                            necessary under all applicable statutes and regulations, including but not limited to the
-                            license/registration obtained (“FSSAI License”) under the Food Safety and Standards Act,
-                            2006 (“FSS Act”) for it to carry out its business. The Merchant shall provide the details of
-                            its FSSAI License and a clear and legible image of the same shall be displayed on the
-                            Platform;
-
-                            it shall at all times, ensure that the food and beverages, provided by the Merchant to the
-                            Buyers through Swiggy’s Platform, satisfy the requirement laid down under the FSS Act and
-                            all other statutory amendments or re-enactments, rules and regulations made thereunder that
-                            maybe for the time being in force;
-
-                            it shall at all times comply with hygiene and sanitary practices, and such other practices
-                            as may be applicable to its business, as prescribed under Schedule 4 of the Food Safety and
-                            Standard (Licensing and Registration of Food Businesses) Regulations, 2011;
-
-                            it has full power and capacity to enter into and perform its obligations under this Merchant
-                            Terms and has taken all necessary corporate and other actions to authorise the execution and
-                            performance thereof, mere use of the Platform and Services will constitute valid and binding
-                            obligations on and against it, in accordance with its terms;
-
-                            it is the sole author of, owns or otherwise controls all content provided to Swiggy, or has
-                            been granted the right to use such content / information (including menus) from the rights
-                            holder and does not violate or infringe the rights of any third party or applicable laws;
-
-                            all information provided by the Merchant to Swiggy, including all information contained in
-                            the Merchant’s menu, service offerings, inclusions and exclusions is and shall at all times
-                            be true, accurate and correct and not misleading in any respect;
-
-                            it shall be solely liable for the quality of all its products, including all food and
-                            beverages and the packaging of the same, and shall at all times be in compliance with
-                            applicable laws;
-
-                            it will comply with all applicable laws, statutes, regulations and codes relating to
-                            anti-bribery and anti-corruption including but not limited to the Prevention of Corruption,
-                            Act 1988;
-
-                            it shall adhere to and comply with delivery schedules and timelines that has been
-                            represented for products on the Platform;
-
-                            it shall not use alternate means (including but not limited to phone/emails/SMS) to connect
-                            with the Buyer using the Platform, to take Orders and thereby circumventing the Platform
-                            transaction;
-
-                            it shall ensure, at all time, its personnel, its employees and representatives (Merchant
-                            Personnel) behave in a respectable and courteous manner with PDPs, Swiggy representatives
-                            and as well as with the Buyers. Merchant Personnel shall not be rude, behave discourteously,
-                            or use foul or abusive language at any interaction. It shall at all time promptly report to
-                            Swiggy immediately, any behavioural issue by the PDPs or Swiggy representatives or Buyers
-                            for suitable action;
-
-                            it shall process and execute the Orders promptly, correctly and within the stipulated
-                            service level timelines, as follows;
-
-                            must confirm the Order within 6 minutes from the time the same having been relayed to it on
-                            the Swiggy Partner Application. Swiggy may send a reminder after 2 minutes and shall
-                            allocate a call to the Merchant after 6 minutes from the time Order having been replayed to
-                            it and if not confirmed by the Merchant by then. In the event that the Merchant does not
-                            confirm the Order after Swiggy has made attempt/s to call the Merchant, the Order will be
-                            deemed as cancelled by the Merchant. An intimation of such cancellation shall be sent to
-                            Merchant and such cancellation shall be treated as Merchant Cancellation and Swiggy shall
-                            reserve the right to recover Service Fee for such cancelled Order.
-
-                            items must be securely packed and kept ready in packaged condition, marked as ‘Food Ready’,
-                            for a minimum of 80% of the Merchant's total delivered Orders and handed over to the pick-up
-                            and delivery personnel, upon his/her arrival. Merchants shall ensure, at all times, the
-                            pick-up and delivery personnel shall not be required to wait beyond 3 minutes to collect
-                            such packaged items.
-
-                            issue valid tax invoice against each Order fulfilled and a copy of such invoice shall be
-                            included in the package.
-
-                            it must always ensure it shall prepare the Ordered items as per the Order placed by the
-                            Buyer and shall be solely responsible for all the cost and consequences, if in case of
-                            supply of wrong items. The delivery personnel shall only deliver the packaged items handed
-                            over to him/her by the Merchant and shall not be liable to verify the correctness of the
-                            item(s) in an Order. It shall be the responsibility of the Merchant to verify whether all
-                            items packed are correct and as per the Order received.
-
-                            it shall be solely liable for delays in the delivery of Orders and/or repeat deliveries
-                            undertaken for reasons attributable to the Merchant, and the Merchant undertakes to keep
-                            Swiggy fully and effectively indemnified against the same.
-
-                            it shall use / display, in accordance with Swiggy’s instructions, all the collaterals and
-                            other materials supplied by Swiggy in relation to all Orders delivered through Swiggy;
-
-                            it shall not use the labels, trademarks, branding or collaterals of any third-party,
-                            including but not limited to Swiggy’s direct competitors, for deliveries made using Swiggy
-                            Services;
-
-                            it shall share with Swiggy legible and clear images of products offered for sale to Buyers
-                            through the Platform in compliance of image guidelines as may be issued by Swiggy from time
-                            to time. The Merchant shall provide images for a minimum of 20 products, or for 40% of total
-                            products of the menu, whichever is higher, for display on the Platform. Swiggy shall
-                            facilitate photography services upon request, on chargeable basis;
-
-                            to ensure competitive price for the Buyers on the Platform, it shall ensure that it will at
-                            all times maintain competitive prices for its products offered for sale on the Platform as
-                            against its other sales channels, including but not limited to other online aggregators and
-                            its self-operated retail locations whether on online platform or physical stores. It is
-                            clarified that, for the purposes of the present clause, product(s) shall mean and include
-                            but not limited to the food or beverage items offered for sale, its quality, quantity and
-                            the packaging utilised; Swiggy shall forward to Merchant for corrective actions, any Buyer
-                            escalation or notice received from any third party (including regulatory bodies) alleging
-                            differential pricing against the Merchant and the Merchant understands and agrees that it
-                            shall alone be responsible to address the same and shall report to Swiggy resolution of the
-                            same within 3 business days.
-
-                            it shall list pre-packaged food products at a ceiling price equal to or less than the
-                            Maximum Retail Price as indicated on such product;
-
-                            it agrees that in the event of a Merchant’s failure to comply with clauses VI.9. (xvii) and
-                            VI.9.(xviii), and on receipt of any communication/complaint from Buyers to this effect,
-                            Swiggy shall be at liberty to, on verifying the same, refund such Buyer for excess amounts
-                            charged against a product(s) and deduct the same from the Merchant from future settlements;
-                            and
-
-                            it shall be alert to the advisories issued by Swiggy on ancillary charges that may be
-                            chargeable by Merchants to Buyers on the Platform. The Merchant shall, in view of such
-                            advisories being issued to adopt best industry practices and in the interest of Merchants
-                            and Buyers, endeavour to adhere to such advisories swiftly.
-
-                            Each Party hereby grants to the other Party a non-exclusive, non-transferable, worldwide,
-                            royalty free right to use, copy, publish and display the other Party’s trademarks, logos,
-                            name, menu and related information solely in connection with the promotion and marketing of
-                            the collaboration between Swiggy and the Merchants and related purposes, including for
-                            publishing on the Platform.
-
-                            Notwithstanding these terms and conditions of Service, Swiggy reserves the right to
-                            temporarily discontinue Services or permanently terminate with immediate effect for material
-                            breach or non-compliance by the Merchant which includes, but is not limited to, the
-                            following instances;
-
-                            Buyer complaints received by Swiggy which are directly or indirectly attributable to the
-                            quality of food provided by the Merchant either through poor ratings, as defined by Swiggy,
-                            through calls placed with Swiggy or through any other means;
-
-                            Breach of the provisions of the Food Safety and Standards Act, 2006 and the rules and
-                            regulations, made thereunder, by Merchant;
-
-                            Non-adherence to Swiggy’s delivery schedules and timelines that has been represented for
-                            products on the Swiggy Platform;
-
-                            Misbehavior with Swiggy’s representatives/personnel;
-
-                            Inclusion of marketing or promotional material belonging to competitors in Orders delivered
-                            by Swiggy’s Personnel;
-
-                            Breach of the representations and warranties of the Merchant; or
-
-                            Any other material breach of the terms.
-
-                            Swiggy shall resume provision of Services to the Merchant at its own discretion.
-
-
-                            Notwithstanding anything contained under clause VI (11) hereinabove, Swiggy has the right to
-                            immediately delist any of the food products from the Platform, which is not in compliance
-                            with the Food Safety and Standards Act, 2006 or the rules or regulations made thereunder.
-
-                            The Merchant acknowledges that all Services offered by Swiggy on the Swiggy Platform are
-                            non-exclusive in nature.
-
-                            Either Party can terminate this contract providing 15 days’ prior written notice to the
-                            other Party. Swiggy shall reserve the right to delist the Merchant at the end of 15th Day.
-                            Upon termination in accordance with the terms hereof, Merchant shall only be required to
-                            service Orders already placed through Swiggy prior to such expiry or earlier termination of
-                            this MoU, and Swiggy shall be entitled to receive Service Fee for such Orders. Swiggy may at
-                            its option elect not to terminate this Agreement, however, shall have right to suspend the
-                            services during the notice period.
-
-                            Swiggy may also manage an email ID on your behalf, which shall be hosted on the swiggy.in
-                            domain, in order to manage customer communications and correspondence.
-
-                            Swiggy reserves the right to introduce, withdraw or modify any category and attach necessary
-                            conditions thereto on its Platform as it may deem fit from time to time.
-
-                            Terms for Health Hub category
-
-                            A Merchant can be listed under the ‘Health Hub’ category on the Platform and Swiggy shall
-                            decide at its sole discretion whether a Merchant can be listed on such ‘Health Hub’ category
-                            basis due satisfaction of below criteria:
-
-
-                            The Merchant claims there are certain nutritional/health attributes of food products and
-                            beverages offered on the Platform and provides necessary information including but not
-                            limited to nutritional information, contents, etc. in relation to their claims;
-
-                            The aforesaid claims made by the Merchant should be truthful, unambiguous, and accurate;
-
-                            The necessary information in relation to aforementioned claims as shall be provided by the
-                            Merchant on the Platform should be easily understood by the Buyers; and
-
-                            The aforementioned claims must be scientifically substantiated based on generally accepted
-                            principles and in accordance with applicable laws.
-
-                            Notwithstanding anything contained herein, the responsibility and liability in relation to
-                            aforementioned claims or declarations shall solely rest with the Merchants and Swiggy shall
-                            in no way be liable or responsible for the claims or declarations made by the Merchant on
-                            the Platform and it shall be duly indemnified where any claims arise out of such
-                            declarations.
-
-
-                            Your Account and Registration Obligations
-
-                            If you use the Platform, you shall be responsible for maintaining confidentiality of your
-                            login and password details and all activities that occur with the use of your login and
-                            password details. You agree that if you provide any information or content, required under
-                            these terms and conditions to be put up on the Platform, which is untrue, inaccurate, not
-                            current, or incomplete or we have reasonable grounds to suspect that such information is
-                            untrue, inaccurate, not current, incomplete, or not in accordance with the Merchant Terms,
-                            we shall have the right to indefinitely suspend, terminate or block you from accessing the
-                            Platform. Your registration with Swiggy as a Merchant is exclusively for your use to gain
-                            access to the Platform and is strictly not transferable.
-
-
-                            Communications
-
-                            When you use the Platform or send emails, other data, information, or communication to us,
-                            you agree and understand that you are communicating with us through electronic records and
-                            you consent to receive communications via electronic records from us periodically or as and
-                            when required. We may communicate with you by email or any other mode of communication,
-                            electronic or otherwise.
-
-
-                            Swiggy Partner App & Use
-
-                            Merchant shall be granted access to Swiggy partner App for handheld devices and at its sole
-                            discretion Swiggy shall issue hand held device to the Merchant (with embedded partner App)
-                            and the Merchant shall:
-
-
-                            ensure it has a functional tablet / mobile with the Swiggy partner App at all times in Order
-                            to (a) receive and confirm Buyer Orders and provide estimates of delivery times or; (b)
-                            reject the Order through the Partner Application;
-
-                            in case it declines Orders through the tablet / mobile provided however, then it shall not
-                            use alternate means (phone/ emails) to connect with the Buyer in parallel to take Orders and
-                            thereby circumventing the process;
-
-                            execute the Orders promptly and indicate the estimated time of preparation of food to
-                            process the Order delivery including updating the Order status (e.g. food prepared etc.)
-                            through the partner App;
-
-                            Communicate with a Swiggy service operator through the phone call and/or SMS.
-
-                            Manage real time status of item stock/inventories and restaurant operations
-
-                            Disclaimer
-
-                            To the fullest extent permitted by law, Swiggy and its affiliates, and each of their
-                            respective officers, directors, members, employees, and agents disclaim all warranties,
-                            express or implied, in connection with these Merchant Terms, the Swiggy Services and any use
-                            thereof, including, without limitation, the implied warranties of Merchantability, fitness
-                            for a particular purpose and non-infringement. Swiggy makes no warranties or representations
-                            about the accuracy or completeness of the Platform’s or the Swiggy services’ content or the
-                            content of any other websites linked to the Platform, and assumes no liability or
-                            responsibility for any (a) errors, mistakes, or inaccuracies of content and materials, (b)
-                            personal injury or property damage, of any nature whatsoever, resulting from the Merchant’s
-                            access to and use of the Platform and the Swiggy services, (c) any unauthorized access to or
-                            use of Swiggy servers and/or any and all personal information and/or financial information
-                            stored therein, (d) any interruption or cessation of transmission to or from the Platform or
-                            otherwise with respect to the Swiggy Services, (e) any bugs, viruses, trojan horses, or the
-                            like which may be transmitted to or through the Platform or the Swiggy services by any third
-                            party, and/or (f) any errors or omissions in any content and materials or for any loss or
-                            damage of any kind incurred as a result of the use of any content posted, transmitted, or
-                            otherwise made available via the Platform or the Swiggy services. Swiggy disclaims any and
-                            all liability for direct, indirect, incidental, special, consequential, punitive or other
-                            similar damages that may arise due to any deficiency in the Orders attributable to the
-                            Merchant, any malfunction or error on Swiggy by the Merchant including but not limited to,
-                            technical errors, delays, omissions, inaccuracies in the content provided. Swiggy disclaims
-                            and all liability that may arise due to any violation of the Food Safety and Standards Act,
-                            2006 and applicable rules and regulations made thereunder and such liability shall be
-                            attributable to the Merchant.
-
-
-                            Confidentiality
-
-                            Each Party agrees that the information provided while availing the Services is confidential
-                            and of substantial value to the other Party may be disclosed to the other Party. Such
-                            information may include, but is not limited to, unpublished software code, technical
-                            processes, product designs, financial information, business plans, or material related to
-                            advertising or marketing. All such information shall be confidential and shall be kept
-                            confidential by both Parties throughout the Term and for a period of 2 years thereafter.
-
-
-                            Intellectual Property
-
-                            Each Party owns all rights, title and interest in their respective trade names, service
-                            marks, inventions, copyrights, trade secrets, patents, and other intellectual property
-                            (“Intellectual Property”). These Merchant Terms does not constitute a license or a right to
-                            use any Party’s Intellectual Property other than as expressly set out in these Merchant
-                            Terms. You and we agree that, in the event of any third-party claims infringement of its
-                            intellectual property rights on the Platform, and such content which is alleged to have
-                            infringed such third party intellectual property rights has been shared on the Platform by
-                            you, it shall be your responsibility to investigate, defend, settle and discharge any such
-                            intellectual property infringement claim in relation to such content on the Platform.
-
-                            You recognise that Swiggy is the registered owner of the word mark ‘Swiggy’ and the logo
-                            including but not limited to its variants (‘Licensed Marks’) and further agree not to
-                            directly or indirectly, attack or assist another in attacking the validity of Swiggy’s or
-                            its affiliates proprietary rights in, the Licensed Marks or any registrations thereof, or
-                            file any applications for the registration of the Licensed Marks or any names or logos
-                            derived from or confusingly similar to the Licensed Marks, any variation thereof, or any
-                            translation or transliteration thereof in another language, in respect of any
-                            products/services and in any territory throughout the world. In the event you notice any
-                            infringements of Licensed Marks, please write to us at brand-protection@swiggy.in.
-
-                            Swiggy respects third party intellectual property rights and has put in place a ‘IP Notice
-                            and Take Down Policy’ so that intellectual property owners can easily report listings that
-                            infringe their right to ensure that infringing products are removed from the site, as such
-                            intellectual property violations erode Buyer and good Merchant trust.
-
-                            Only the intellectual property rights owner can report potentially infringing products or
-                            listings through ‘Take Down Policy’ by way of Notice of infringement in the specified
-                            format. If you are not the intellectual property rights owner, you can still help by getting
-                            in touch with the rights owner and encouraging them to contact us.
-
-                            (Note: Swiggy does not and cannot verify that Merchants have the right or ability to sell or
-                            distribute their listed products. However, Swiggy is committed to ensure that item listings
-                            do not infringe upon intellectual property rights of third parties once an authorized
-                            representative of the rights owner properly reports them to Swiggy.)
-
-                            ·
-
-                            Indemnity
-
-                            You agree to defend, indemnify and hold harmless Swiggy, its affiliates and its and their
-                            respective officers, directors, employees and agents from and against all actions, third
-                            party civil and criminal claims, liabilities, losses, damages and expenses, including but
-                            not limited to reasonable attorney’s fees, arising out of or relating to the breach of these
-                            terms, the Orders, services or offers supplied by the you, or arising out of or relating to
-                            your content listed on the Platform.
-
-                            Swiggy agrees to defend, indemnify and hold harmless Merchant and its officers, directors,
-                            employees and agents from and against all actions, third party civil and criminal claims,
-                            liabilities, losses, damages and expenses, including but not limited to reasonable
-                            attorney’s fees, arising out of or relating to any claim arising solely due to a breach by
-                            Swiggy of its obligations under this Agreement
-
-
-                            Limitation of Liability
-
-                            For the purposes of this clause, “Liability” means liability in or for breach of contract,
-                            negligence, misrepresentation, tortious claim, restitution or any other cause of action
-                            whatsoever relating to or arising under or in connection with this Agreement, including
-                            liability expressly provided for under this Agreement or arising by reason of the invalidity
-                            or unenforceability of any term of this Agreement. Swiggy does not exclude or limit
-                            Liability for any Liability that cannot be excluded by law. Subject to the preceding
-                            sentence, neither Party shall be under any Liability for loss of actual or anticipated
-                            profits, loss of goodwill, loss of business, loss of revenue or of the use of money, loss of
-                            contracts, loss of anticipated savings, loss of data and/or undertaking the restoration of
-                            data, fraudulent Orders, any special, indirect or consequential loss, and such liability is
-                            excluded whether it is foreseeable, known, foreseen or otherwise. However, Swiggy will use
-                            its best endeavours to ensure that the unintentional operational errors do not occur, Swiggy
-                            cannot provide any warranty or guarantee in this regard. Notwithstanding anything to the
-                            contrary herein set out, Swiggy’s aggregate liability under this Agreement and respective
-                            Merchant Terms shall not exceed the total value of a Disputed Order.
-
-                            No Waiver
-
-                            No failure or delay by any Party in exercising any right, power or remedy under these
-                            Merchant Terms or provided by law shall operate as a waiver thereof or affect that right,
-                            power or remedy. No waiver by any Party of any breach by any other Party of any provision
-                            hereof shall be deemed to be a waiver of any subsequent breach of that or any other
-                            provision hereof.
-
-
-                            Relationship
-
-                            The Parties agree that nothing in this Merchant Terms shall be construed as creating the
-                            relationship of employer and employee, master and servant, or principal and agent, or a
-                            partnership, or a joint venture of any kind whatsoever between the Parties or between the
-                            parties and its respective contractors / employees. Swiggy is, and shall remain an
-                            independent contractor with respect to their performance hereunder and shall have no right
-                            or authority to assume or create any obligation, express or implied on behalf of the
-                            Merchant and vice versa.
-
-
-                            Governing Law
-
-                            This Merchant Terms shall be governed by and construed in accordance with the laws of India.
-                            Any dispute arising out of or in connection with Services, which the Parties are unable to
-                            settle within 30 days, shall be referred to arbitration by a sole arbitrator appointed
-                            mutually by both Parties. The Arbitration shall be conducted in accordance with Arbitration
-                            and Conciliation Act, 1996 or any statutory re-enactment or modification thereof for the
-                            time being in force. The venue of the arbitration shall be Bangalore and the arbitration
-                            shall be conducted in English language. Subject to the foregoing, the courts at Bangalore
-                            shall have exclusive jurisdiction.
-
-
-                            Severability
-
-                            If any provision of these Merchant Terms is held by a court of competent jurisdiction to be
-                            invalid or unenforceable, the remainder of the Merchant Terms which can be given effect
-                            without the invalid provision shall continue in full force and effect and shall in no way be
-                            impaired or invalidated.
-
 
                             Notice
 
@@ -1152,196 +645,7 @@
                             Force Majeure Conditions, the obligation of the party giving notice shall stand suspended
                             without any liability towards the other party so long as such Force Majeure Conditions
                             continues except such obligations as may have accrued till the date of commencement of the
-                            Force Majeure.
-
-
-                            Anti-Bribery
-
-                            In case the Parties become aware of any benefit in cash or in kind being provided to any
-                            officer or employee, or any relative / associate of any officer or employee, of the other
-                            Party or of any of its associate companies, in order to secure this transaction, it shall
-                            notify the other Party of the same and the Parties will determine the way forward. In case
-                            of notification to Swiggy, it shall be sent to Swiggy's ethics hotline portal, whose contact
-                            details are captured below:
-
-
-                            (i) Toll-free: By dialling a toll-free number – 000 800 100 4382 or 0008001008277 or
-                            +91-11-71279005 (Available in English language at all times and in Hindi between 11.30 am to
-                            6.30pm). Outside of this window, other reporting channels can be used for providing
-                            information.
-
-                            The term “Gross Value” shall mean with respect to each Order, the aggregate of the following
-                            (i) price of the items included in each Order as per the menu displayed on the Platform
-                            menu; (ii) the packaging charges or any other charges payable by the Buyer to the Merchant,
-                            if any and (iii) GST and other such taxes as applicable.
-
-                            The term “Net Value” shall mean the System Value excluding GST and such other taxes that may
-                            be applicable.
-
-                            The term “Service Fee” shall mean and include:
-
-                            “Platform Service Fee”, means the fee for Platform Services provided by Swiggy to the
-                            Merchant and shall include listing fee and lead generation fee;
-
-                            “Delivery Service Fee”, means the fee for Delivery Services facilitated through Swiggy
-                            through PDP.
-
-                            The term “Successfully Delivered Order” shall mean Orders for which Collections have been
-                            made.
-
-                            The term “Disputed Order/s” shall mean those Orders for which Buyers have either refused to
-                            pay for or have claimed partial or full refund, as applicable, for reasons that are
-                            attributable to Merchant, including but not limited to, Buyer’s expectations not being met
-                            or Buyer dissatisfaction in relation to, inter alia, the quality of the products,
-                            undelivered Orders, discrepancy in the product delivered which is not in accordance with the
-                            Order placed and/or those Orders for which Buyer requests for a replacement. Such event
-                            Swiggy shall be entitled to recover from Merchant the Service Fee form the Collections. It
-                            is clarified that Swiggy shall not be liable to make any payment for a Disputed Order.
-                            Swiggy shall reserve the right to recover from the Merchant, the amount paid to Buyers as
-                            refund upto the Order value. (Note: In case the Buyer requests for a replacement, the
-                            Merchant shall be liable to provide the replacement of the Order free of cost and in such
-                            case Swiggy shall not charge Service Fee for the replacement Order additionally. Swiggy
-                            undertakes, on a best effort basis, to employ strong controls to prevent any misuse by the
-                            Buyer under this clause.).
-
-                            The term “GST” shall mean goods and service tax.
-
-                            The term “Other Services” shall mean the other services that are provided by Swiggy to
-                            Merchants morefully defined under Schedule of Charges.
-
-                            The term “Other Charges” shall mean the charges that are applicable to Merchant for Other
-                            Services specified under Schedule of Charges, which can be accessed Here.
-
-                            Swiggy shall charge Merchant/s Service Fee for the Services provided. The Merchant shall pay
-                            Service Fees to Swiggy as agreed between the Parties under the duly executed memorandum of
-                            understanding or letter of understanding by and between Swiggy and the Merchant/s (“MoU”),
-                            which term shall include references to any amendments made thereto. The Service Fees are
-                            subject to GST and other taxes applicable thereon at the prevailing rates.
-
-                            Swiggy shall collect the payments against undisputed Orders from the Buyers (the
-                            “Collections”) and shall remit to the bank account of the Merchant as specified hereinabove.
-                            Swiggy shall be entitled to make the following deductions (“Deductions”) from the
-                            Collections: (i) Service Fees for the applicable Settlement Period, including Service Fees
-                            for Disputed Orders (ii) Other Charges as mentioned under Schedule of Charges and (iii) GST
-                            & other taxes applicable thereon at the prevailing rates, from weekly settlement remittance
-                            for the applicable Settlement Period (defined hereinafter) and (iv) amounts due and payable
-                            to Swiggy under any other agreements or arrangements between Swiggy and Merchant.
-
-                            Upon the expiry or earlier termination of the MoU in accordance with the terms thereof,
-                            Swiggy and the Merchant shall only be required to service Orders already placed through
-                            Platform prior to such expiry or earlier termination, and Swiggy shall be entitled to deduct
-                            payments for such Orders in accordance with this Payment Terms.
-
-                            In the event of any change to the System Value, the Merchant shall inform Swiggy of such
-                            change at least 4 working days prior to effecting such changes. The System Value will be
-                            deemed to be updated with the changes as communicated by the Merchant on the 5th working day
-                            from the date of receipt of such written communication by Swiggy. It is however clarified
-                            that for the purpose of determining the value of an Order, only the System Value, as updated
-                            in accordance with this clause, shall be considered as the final value. Swiggy shall not be
-                            liable or responsible in any way for any change in menus by the Merchant, except to the
-                            extent already informed by the Merchant to Swiggy in accordance with this clause.
-
-                            Mode of Payment
-
-                            Settlement of the Collections shall occur on a weekly basis (and in accordance with the
-                            payment systems and nodal account guidelines prescribed by the Reserve Bank of India) to
-                            allow for adjustments towards Disputed Orders (the “Settlement Period”) subject to
-                            deductions specified hereinabove. The Settlement Period for Orders Serviced from Sunday to
-                            Saturday shall be on or before Wednesday of the following week. If the Settlement Period
-                            falls on a bank holiday, it shall be deemed to be the following working day.
-                            Swiggy shall raise invoices for the Service Fees for the applicable Settlement Period, and
-                            the applicable Service Fees shall be deducted from the Collections. The balance Collections
-                            shall be remitted by Swiggy to the Merchant at the end of the Settlement Period.
-
-                            Schedule of Charges
-
-                            Swiggy shall be entitled to charge and the Merchant shall pay to Swiggy, the charges
-                            detailed hereunder in addition to the Service Fee. These charges are subject to GST or any
-                            other taxes, applicable thereon at the prevailing rates. Swiggy reserves the right to revise
-                            these charges with prior intimation to the Merchant
-
-
-                            “Call Center Service Fee” shall mean a fee towards Call Centre Services provided by Swiggy
-                            to get an Order confirmation by Merchant more fully defined under clause VI (9)(xiii)(a) of
-                            the Merchant Terms. Swiggy shall waive off Call Center Services Fee (a) as one-time
-                            convenience to the new Merchants for an initial period of two (2) weeks from the date of MoU
-                            and (b) Call Centre Services up to 5% of Orders out of the total Orders (rounding decimals
-                            to the next whole number) in a Settlement Period [Illustration: 1.4 rounded to the next
-                            whole number will be 2 and 1.6 rounded to the next whole number will be 2];
-
-                            “Penalty for Merchant Cancellation” shall mean penalty with respect to Order that are
-                            cancelled by the Merchant due to failure to fulfil as a result of unavailability of the
-                            product/s in an Order or closure of the Merchant’s outlet or any other reason attributable
-                            to the Merchant. Merchant Cancellations (without any charge) will be permitted up to 0.5% of
-                            Orders out of the total Orders (rounding decimals to the next whole number) in a Settlement
-                            Period [Illustration: 1.4 rounded to the next whole number will be 2 and 1.6 rounded to the
-                            next whole number will be 2];
-
-                            “Refund for Disputed Order/s” shall mean refund paid to the Buyer, where the Buyer claimed
-                            partial or full refund, as applicable, for the reasons that are attributable to Merchant,
-                            including but not limited to, Buyer’s expectations not being met or Buyer dissatisfaction in
-                            relation to, inter alia, the quality of the products, undelivered Orders, discrepancy in the
-                            product delivered which is not in accordance with the Order placed and/or those Orders for
-                            which Buyer requests for a refund or replacement. Instant Gratification will be effective
-                            only after Swiggy provides the feature on the Swiggy Partner App/Website that will provide
-                            to the Merchant the information with respect to the Order and reason for deduction of
-                            compensation;
-
-                            “Marketing fees and such other charges” shall mean the charges towards digital marketing
-                            services including but not limited to carousel connection with the Merchant’s listings and
-                            other related services availed by the Merchant on the Platform and shall be decided by
-                            Swiggy;
-
-
-                            "Merchant Protection for Cancellation” an amount paid to Merchant in case of cancellation of
-                            Orders either through the Platform, or through calling customer care, by a Buyer or by
-                            Swiggy (a) for no reason attributable to Merchant, or (b) for no reason attributable to or
-                            beyond control of Swiggy, provided that the said Order has been accepted and confirmed for
-                            preparation by the Merchant and exclude the restaurant driven cancellation. The same shall
-                            be calculated and remitted in the following manner:
-
-                            When a Buyer cancels any Order within 1 (One) minute of placing such Order, the Buyer is not
-                            required to pay for such cancelled Orders and hence, the Merchant will not be paid at all
-                            for such Orders.
-
-                            When a Buyer cancels any Order after 1 (One) minute of placing such Order whether or not the
-                            cancellation has been initiated by Swiggy or the Buyer, the Merchant shall be paid:
-
-                            (a) In case of a prepaid Order: 100% (Hundred percent) of the Gross Value, subject to
-                            adjusting the Service Fee, Other Charges and deductible arising out of applicable schemes,
-                            if any;
-
-
-                            (b) In case of a cash on delivery Order: 40% (Forty per cent) of the Gross Value pertaining
-                            to the bills of such cancelled Order.
-
-
-                            It should be noted that in cases of cash on delivery Order, Swiggy does not receive any
-                            payments from the Buyer with respect to such cancelled Orders on the time of cancellation
-                            and the amounts mentioned above is being paid by Swiggy as a goodwill gesture to Merchants.
-
-
-                            It is understood and agreed by the Merchant, that it shall discharge Swiggy from all claims
-                            it may have in such cancelled Order once Merchants receives the payment in the aforesaid
-                            manner. Further, Swiggy alone shall have the right to recover Gross Value from Buyers
-                            involved in such cancelled Orders, on behalf of the Merchants, as may be decided by Swiggy,
-                            at its sole discretion.
-
-
-                            Notwithstanding anything stated above, Merchant Protection for cancellation payment to the
-                            Merchant will be against demonstration of good faith by the Merchants to the satisfaction of
-                            Swiggy and Swiggy reserves the right to (i) refuse to pay to Merchant any amount upon
-                            reasonable belief of mala fide or fraud on part of the Merchant (ii) recover any such
-                            payment from the payouts upon acquiring knowledge of malafide or fraud on the part of
-                            Merchant. However, if Swiggy determines to proceed with the payment as detailed above, the
-                            same shall be accounted in the applicable Settlement Period.
-
-
-                            Each Party in order to derive the benefits under the present Terms and Conditions shall
-                            exercise act only in good faith in its dealings with the other Party hereto and in
-                            performance of its obligations under these Terms and Conditions.
-
-                            Swiggy Select Program
+                      
 
                             Swiggy SELECT Program is a Privilege Partner Program on the Platform. Under this program,
                             eligible Partner restaurants can voluntarily reach out to the platform seeking a plan to
@@ -1373,8 +677,10 @@
                 <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
                 <button mat-stroked-button color="primary" (click)="stepper.reset()">Reset</button>
                 <button mat-stroked-button color="primary" matStepperSubmit type="submit"
-                    [disabled]="seventhFormGroup.invalid" (click)=handleLogin()>Submit</button>
-            </div>
+                  [disabled]="seventhFormGroup.invalid"(click)="submit()" >Submit</button>
+                  <!-- formone.ngSubmit.emit();formtwo.ngSubmit.emit(); -->
+                  <!-- (click)=handleLogin() -->
+                </div>
         </form>
     </mat-step>
 

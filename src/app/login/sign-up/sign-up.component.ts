@@ -67,7 +67,7 @@ export class SignUpComponent implements OnInit {
   
     this.authService.signup(this.signupPayload).subscribe((data) => {
       console.log('signup success');
-      this.router.navigateByUrl('/registrationConfirmation');
+      this.router.navigateByUrl('/lawyerRegistration');
     }, (error) => {
       console.log('signup failed');
       this.router.navigateByUrl('/signupFailed');

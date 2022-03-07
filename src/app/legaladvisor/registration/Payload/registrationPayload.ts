@@ -1,4 +1,5 @@
 export class RegistrationPayload {
+
     enteredName: String='';
     enteredEmail: String='';
     enteredPhone: String='';

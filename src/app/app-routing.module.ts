@@ -14,8 +14,6 @@ import { CalenderComponent } from './modules/calender/calender.component';
 import { ConsulationhistoryComponent } from './modules/consulationhistory/consulationhistory.component';
 import { CustomerReviewsComponent } from './modules/customer-reviews/customer-reviews.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
-import { InconsultationComponent } from './modules/inconsultation/inconsultation.component';
-import { MynetworkComponent } from './modules/mynetwork/mynetwork.component';
 import { PaymentsComponent } from './modules/payments/payments.component';
 import { VisitorsComponent } from './modules/visitors/visitors.component';
 

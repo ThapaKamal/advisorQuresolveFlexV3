@@ -15,6 +15,7 @@ import { ConsulationhistoryComponent } from './modules/consulationhistory/consul
 import { CustomerReviewsComponent } from './modules/customer-reviews/customer-reviews.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { PaymentsComponent } from './modules/payments/payments.component';
+import { ProfileComponent } from './modules/profile/profile.component';
 import { VisitorsComponent } from './modules/visitors/visitors.component';
 
 const routes: Routes = [{
@@ -47,6 +48,10 @@ const routes: Routes = [{
   {
     path:'visitors',
     component: VisitorsComponent
+  },
+  {
+    path:'profile',
+    component: ProfileComponent
   },
   {
     path:'articlesAndPublications',

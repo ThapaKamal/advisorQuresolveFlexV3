@@ -170,8 +170,8 @@
 
                     <!-- Enrollment Number -->
                     <mat-form-field class="fields col-sm-8 col-md-5 col-lg-4" appearance="fill">
-                        <mat-label>Enrollment Number</mat-label>
-                        <input matInput placeholder="Bar Association Number" type="text"
+                        <mat-label>Bar Enrollment Number</mat-label>
+                        <input matInput placeholder="Bar Council Enrollment Number" type="text"
                             formControlName="enteredenrollment" required>
                         <mat-icon matSuffix>perm_identity</mat-icon>
                         <mat-error *ngIf="errorHandling1('enteredenrollment', 'required')">
@@ -577,7 +577,7 @@
                         <input matInput placeholder="Street address, P.O. box, company name, c/o" type="text"
                             formControlName="enteredAddressline1" required>
                         <mat-icon matSuffix>home</mat-icon>
-                        <mat-error *ngIf="errorHandling5('selectedTypeofAddress', 'required')">
+                        <mat-error *ngIf="errorHandling5('enteredAddressline1', 'required')">
                             This field is required
                         </mat-error>
                     </mat-form-field>

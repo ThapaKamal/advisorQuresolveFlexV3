@@ -6,8 +6,10 @@ import { Injectable } from '@angular/core';
 export class TypeOfAddressListService {
 
   constructor() { }
-  typeOfAddressList() {
-    return [
+  typeOfAddressList()
+   {
+    // return 
+    [
       {
         id: 1,
         name: 'Office'

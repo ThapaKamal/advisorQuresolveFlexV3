@@ -9,16 +9,17 @@ import { MaterialModule } from './material/material.module';
 import { LoginModule } from './login/login.module';
 import { LegaladvisorModule } from './legaladvisor/legaladvisor.module';
 
-import { CalendarModule } from 'angular-calendar';
 
-import { DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; // a plugin!
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ProfileComponent } from './modules/profile/profile.component'; // a plug
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    ProfileComponent
     
    
    
@@ -32,6 +33,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'; // a plugin!
     LoginModule,
     LegaladvisorModule,
     NgbModule,
+    ReactiveFormsModule,
+    FormsModule
    
   ],
   providers: [],

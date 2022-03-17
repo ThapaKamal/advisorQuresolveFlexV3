@@ -276,7 +276,7 @@ export class RegistrationComponent implements OnInit {
     //Gets called when the user clicks on retieve image button to get the image from back end
     getImage1() {
       //Make a call to Sprinf Boot to get the Image Bytes.
-      this.httpClient.get('http://localhost:8080/image/get/' + this.imageName)
+      this.httpClient.get('http://localhost:8080/image/get/' + this.imageName1)
         .subscribe(
           res => {
             this.retrieveResonse1 = res;

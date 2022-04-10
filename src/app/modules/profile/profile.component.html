@@ -79,9 +79,9 @@
                     </mat-form-field>
 
                     <!-- Gender -->
-                    <mat-form-field appearance="outline">
+                    <mat-form-field appearance="outline"> 
                         <mat-label>Gender</mat-label>
-                        <mat-select matInput formControlName="receivedgender" [(ngModel)]="genderSelected"
+                        <mat-select matInput formControlName="receivedGender" [(ngModel)]="genderSelected"
                             [disabled]="notEditMode" required>
                             <mat-option *ngFor="let gender of genders" [value]="gender.id">{{gender.value}}</mat-option>
                             <!-- <mat-option value="1">Male</mat-option>
@@ -89,7 +89,7 @@
                             <mat-option value="3">Other</mat-option> -->
                         </mat-select>
                         <mat-icon matSuffix>people</mat-icon>
-                        <mat-error *ngIf="errorHandling('receivedgender', 'required')">
+                        <mat-error *ngIf="errorHandling('receivedGender', 'required')">
                             This field is required
                         </mat-error>
                     </mat-form-field>
@@ -97,17 +97,16 @@
                     <!-- Language -->
                     <mat-form-field appearance="outline">
                         <mat-label>Language</mat-label>
-                        <mat-select formControlName="receivedlanguage" [(ngModel)]="advisorProfile.selectedlanguage"
+                        <mat-select formControlName="receivedLanguage" [(ngModel)]="advisorProfile.selectedlanguage"
                             [disabled]="notEditMode" multiple>
                             <mat-option *ngFor="let language of languageList" [value]="language">{{language}}
                             </mat-option>
                         </mat-select>
                         <mat-icon matSuffix>language</mat-icon>
-                        <mat-error *ngIf="errorHandling('receivedlanguage', 'required')">
+                        <mat-error *ngIf="errorHandling('receivedLanguage', 'required')">
                             This field is required
                         </mat-error>
                     </mat-form-field>
-
                 </div>
             </mat-card>
 
@@ -180,10 +179,10 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Bar Enrollment Number</mat-label>
                         <input matInput placeholder="Bar council Enrollment Number" type="text"
-                            formControlName="receivedenrollment" [(ngModel)]="advisorProfile.enteredenrollment"
+                            formControlName="receivedEnrollment" [(ngModel)]="advisorProfile.enteredenrollment"
                             [disabled]="notEditMode1" required>
                         <mat-icon matSuffix>perm_identity</mat-icon>
-                        <mat-error *ngIf="errorHandling1('receivedenrollment', 'required')">
+                        <mat-error *ngIf="errorHandling1('receivedEnrollment', 'required')">
                             This field is required
                         </mat-error>
                     </mat-form-field>
@@ -192,9 +191,9 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Linkedin URL</mat-label>
                         <input matInput placeholder="Ex. https://www.linkedin.com/in/username" type="url"
-                            formControlName="receivedlinkedinUrl" [(ngModel)]="advisorProfile.linkedinUrl">
+                            formControlName="receivedLinkedinUrl" [(ngModel)]="advisorProfile.linkedinUrl">
                         <mat-icon matSuffix> public </mat-icon>
-                        <mat-error *ngIf="errorHandling1('receivedlinkedinUrl', 'pattern')">
+                        <mat-error *ngIf="errorHandling1('receivedLinkedinUrl', 'pattern')">
                             Please enter a valid Linkedin URL </mat-error>
                     </mat-form-field>
 
@@ -202,13 +201,13 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Bar Council ID card</mat-label>
                         <!-- Display files names -->
-                        <input formControlName="receivedbarCouncilId" matInput readonly name="name" />
-                        <input type="file" formControlName="receivedbarCouncilId" (change)="onFileChanged1($event)">
+                        <input formControlName="receivedBarCouncilId" matInput readonly name="name" />
+                        <input type="file" formControlName="receivedBarCouncilId" (change)="onFileChanged1($event)">
                         <!-- <input type="button" mat-button (click)="onUpload1()" value="Upload"> -->
                         <!-- <input type="text" formControlName="imageName" name="imageName" matInput /> -->
                         <!-- <div *ngIf=message>{{message}}</div> -->
                         <!-- <input type="button" (click)="getImage()" value="Get Image"> -->
-                        <mat-error *ngIf="errorHandling1('receivedbarCouncilId', 'required')">
+                        <mat-error *ngIf="errorHandling1('receivedBarCouncilId', 'required')">
                             This field is required
                         </mat-error>
                     </mat-form-field>
@@ -264,7 +263,7 @@
                                     <mat-form-field appearance="outline">
                                         <mat-label>Major Client/Empanelment</mat-label>
                                         <input matInput placeholder="" type="text"
-                                            formControlName="receviedmajorClient">
+                                            formControlName="receivedMajorClient">
                                         <mat-icon matSuffix>perm_identity</mat-icon>
                                     </mat-form-field>
                                     <button mat-stroked-button color="primary"
@@ -286,13 +285,14 @@
 
                                     <mat-form-field appearance="outline">
                                         <mat-label>Heading</mat-label>
-                                        <input matInput placeholder="" type="text" formControlName="heading">
+                                        <input matInput placeholder="" type="text" formControlName="receivedHeading">
                                         <mat-icon matSuffix>perm_identity</mat-icon>
                                     </mat-form-field>
 
                                     <mat-form-field appearance="outline">
                                         <mat-label>Descripition</mat-label>
-                                        <textarea matInput placeholder="" type="text" formControlName="desc"></textarea>
+                                        <textarea matInput placeholder="" type="text"
+                                            formControlName="receivedDesc"></textarea>
                                         <mat-icon matSuffix>perm_identity</mat-icon>
                                     </mat-form-field>
 
@@ -350,8 +350,7 @@
                                 <mat-form-field appearance="outline">
                                     <mat-label>Degree/Diploma Name</mat-label>
                                     <input matInput placeholder="Degree with Specialisation in" type="text"
-                                        formControlName="receivedDegreeName"
-                                        [(ngModel)]="advisorProfile.enteredDegreeName" required>
+                                        formControlName="receivedDegreeName" required>
                                     <mat-icon matSuffix>school </mat-icon>
                                     <mat-error *ngIf="errorHandling2('receivedDegreeName', 'required')">
                                         This field is required
@@ -362,7 +361,7 @@
                                 <mat-form-field appearance="outline">
                                     <mat-label>Institute / College Name</mat-label>
                                     <input matInput placeholder="" type="text" formControlName="receivedCollegeName"
-                                        [(ngModel)]="advisorProfile.enteredCollegeName" required>
+                                        required>
                                     <mat-icon matSuffix>school </mat-icon>
                                     <mat-error *ngIf="errorHandling2('receivedCollegeName', 'required')">
                                         This field is required
@@ -374,11 +373,11 @@
                                 <!-- Year of Passing -->
                                 <mat-form-field appearance="outline">
                                     <mat-label>Year of Passing</mat-label>
-                                    <input matInput formControlName="receivedyearOfPassing" [matDatepicker]="picker1"
+                                    <input matInput formControlName="receivedYearOfPassing" [matDatepicker]="picker1"
                                         required>
                                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                     <mat-datepicker #picker1></mat-datepicker>
-                                    <mat-error *ngIf="errorHandling2('receivedyearOfPassing', 'required')">
+                                    <mat-error *ngIf="errorHandling2('receivedYearOfPassing', 'required')">
                                         This field is required
                                     </mat-error>
                                 </mat-form-field>
@@ -437,7 +436,7 @@
                                     <mat-form-field appearance="outline">
                                         <mat-label>Certificate Name</mat-label>
                                         <input matInput placeholder="" type="text"
-                                            formControlName="enteredCertificateName">
+                                            formControlName="receivedCertificateName">
                                         <mat-icon matSuffix>perm_identity</mat-icon>
                                     </mat-form-field>
 
@@ -445,14 +444,15 @@
                                     <mat-form-field appearance="outline">
                                         <mat-label>Issuing Authority</mat-label>
                                         <input matInput placeholder="" type="text"
-                                            formControlName="enteredIssuingAuthority">
+                                            formControlName="receivedIssuingAuthority">
                                         <mat-icon matSuffix>perm_identity</mat-icon>
                                     </mat-form-field>
 
                                     <!-- Date of Issuance -->
                                     <mat-form-field appearance="outline">
                                         <mat-label>Date of Issuance</mat-label>
-                                        <input matInput formControlName="dateofIssuance" [matDatepicker]="picker2">
+                                        <input matInput formControlName="receivedDateofIssuance"
+                                            [matDatepicker]="picker2">
                                         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                         <mat-datepicker #picker2></mat-datepicker>
                                     </mat-form-field>
@@ -493,10 +493,9 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Beneficiary Name</mat-label>
                         <input matInput placeholder="First and last name" type="text"
-                            formControlName="enteredBeneficiaryName"
-                            required>
+                            formControlName="receivedBeneficiaryName" required>
                         <mat-icon matSuffix>account_balance</mat-icon>
-                        <mat-error *ngIf="errorHandling4('enteredBeneficiaryName', 'required')">
+                        <mat-error *ngIf="errorHandling4('receivedBeneficiaryName', 'required')">
                             This field is required
                         </mat-error>
                     </mat-form-field>
@@ -504,11 +503,11 @@
                     <!-- Bank Name -->
                     <mat-form-field appearance="outline">
                         <mat-label> Bank Name</mat-label>
-                        <mat-select formControlName="selectedBankName" >
+                        <mat-select formControlName="receivedSelectedBankName">
                             <mat-option *ngFor="let item of bankNameList" [value]="item.id">
                                 {{ item.name}}
                             </mat-option>
-                            <mat-error *ngIf="errorHandling4('selectedBankName', 'required')">
+                            <mat-error *ngIf="errorHandling4('receivedSelectedBankName', 'required')">
                                 This field is required
                             </mat-error>
                         </mat-select>
@@ -517,13 +516,13 @@
                     <!-- IFSC Code -->
                     <mat-form-field appearance="outline">
                         <mat-label>IFSC Code</mat-label>
-                        <input matInput placeholder="Ex. SBINXXXXXXX" type="text" formControlName="enteredIfscCode"
+                        <input matInput placeholder="Ex. SBINXXXXXXX" type="text" formControlName="receivedIfscCode"
                             required>
                         <mat-icon matSuffix>account_balance</mat-icon>
-                        <mat-error *ngIf="errorHandling4('enteredIfscCode', 'required')">
+                        <mat-error *ngIf="errorHandling4('receivedIfscCode', 'required')">
                             This field is required
                         </mat-error>
-                        <mat-error *ngIf="errorHandling4('enteredIfscCode', 'pattern')">
+                        <mat-error *ngIf="errorHandling4('receivedIfscCode', 'pattern')">
                             Please enter a valid IFSC Code
                         </mat-error>
                     </mat-form-field>
@@ -533,19 +532,18 @@
                     <!-- Account number -->
                     <mat-form-field hintLabel="Max 10 characters" appearance="outline">
                         <mat-label>Account number</mat-label>
-                        <input matInput #enteredAccountNumber placeholder="Ex. XXXXXXXXXX" minlength="10" type="number"
-                            formControlName="enteredAccountNumber" 
-                            required>
+                        <input matInput #receivedAccountNumber placeholder="Ex. XXXXXXXXXX" minlength="10" type="number"
+                            formControlName="receivedAccountNumber" required>
                         <mat-icon matSuffix>account_balance</mat-icon>
-                        <mat-hint align="end">{{enteredAccountNumber.value?.length || 0}}/10</mat-hint>
+                        <mat-hint align="end">{{receivedAccountNumber.value?.length || 0}}/10</mat-hint>
                         <!-- <mat-hint >Max 10 characters</mat-hint>
                         <mat-hint align="end">{{fifthFormGroup.get('receivedAccountNumber').value?.length || 0}}/10</mat-hint> -->
-                        <mat-error *ngIf="errorHandling4('enteredAccountNumber', 'required')">
+                        <mat-error *ngIf="errorHandling4('receivedAccountNumber', 'required')">
                             This field is required
-                        </mat-error>
-                        <!-- <mat-error *ngIf="errorHandling4('receivedAccountNumber', 'minLength')">
+                        </mat-error> 
+                       <mat-error *ngIf="errorHandling4('receivedAccountNumber', 'minLength')">
                             Mininum number can be 10
-                        </mat-error>  -->
+                        </mat-error>  
 
                     </mat-form-field>
 
@@ -553,12 +551,11 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Confirm Account number</mat-label>
                         <input matInput placeholder="Ex. XXXXXXXXXX" type="number"
-                            formControlName="confirmAccountnumber"
-                           required>
+                            formControlName="receivedConfirmAccountnumber" required>
                         <mat-icon matSuffix>account_balance</mat-icon>
-                        <mat-error *ngIf="errorHandling4('confirmAccountnumber', 'required')">
+                        <!-- <mat-error *ngIf="errorHandling4('receivedConfirmAccountnumber', 'required')">
                             This field should match Account number
-                        </mat-error>
+                        </mat-error> -->
 
                     </mat-form-field>
                 </div>
@@ -589,13 +586,12 @@
                     <!-- Type of Address -->
                     <mat-form-field appearance="outline">
                         <mat-label> Type of Address </mat-label>
-                        <mat-select formControlName="selectedTypeofAddress">
-
-                            <mat-option  *ngFor="let item of typeOfAddressList" [value]="item.id">
+                        <mat-select formControlName="receivedTypeofAddress">    
+                            <mat-option *ngFor="let item of typeOfAddressList" [value]="item.id">
                                 {{item.name}}
                             </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="errorHandling5('selectedTypeofAddress', 'required')">
+                        <mat-error *ngIf="errorHandling5('receivedTypeofAddress', 'required')">
                             This field is required
                         </mat-error>
                     </mat-form-field>
@@ -606,9 +602,9 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Line 1</mat-label>
                         <input matInput placeholder="Street address, P.O. box, company name, c/o" type="text"
-                            formControlName="enteredAddressline1" required>
+                            formControlName="receivedAddressline1" required>
                         <mat-icon matSuffix>home</mat-icon>
-                        <mat-error *ngIf="errorHandling5('enteredAddressline1', 'required')">
+                        <mat-error *ngIf="errorHandling5('receivedAddressline1', 'required')">
                             This field is required
                         </mat-error>
                     </mat-form-field>
@@ -617,16 +613,16 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Line 2</mat-label>
                         <input matInput placeholder="Apartment, suite, unit, building, floor, etc." type="text"
-                            formControlName="enteredAddressline2">
+                            formControlName="receivedAddressline2">
                         <mat-icon matSuffix>home</mat-icon>
                     </mat-form-field>
 
                     <!-- Pin Code-->
                     <mat-form-field appearance="outline">
                         <mat-label>Pin Code</mat-label>
-                        <input matInput placeholder="######" type="number" formControlName="enteredPinCode" required>
+                        <input matInput placeholder="######" type="number" formControlName="receivedPinCode" required>
                         <mat-icon matSuffix>domain </mat-icon>
-                        <mat-error *ngIf="errorHandling5('enteredPinCode', 'required')">
+                        <mat-error *ngIf="errorHandling5('receivedPinCode', 'required')">
                             This field is required
                         </mat-error>
                     </mat-form-field>
@@ -637,9 +633,9 @@
                     <!-- Pin Code Area -->
                     <mat-form-field appearance="outline">
                         <mat-label>Pin Code Area</mat-label>
-                        <input matInput placeholder="" type="text" formControlName="enteredPinCodeArea" required>
+                        <input matInput placeholder="" type="text" formControlName="receivedPinCodeArea" required>
                         <mat-icon matSuffix>domain </mat-icon>
-                        <mat-error *ngIf="errorHandling5('enteredPinCodeArea', 'required')">
+                        <mat-error *ngIf="errorHandling5('receivedPinCodeArea', 'required')">
                             This field is required
                         </mat-error>
                     </mat-form-field>
@@ -647,9 +643,9 @@
                     <!-- City-->
                     <mat-form-field appearance="outline">
                         <mat-label>City</mat-label>
-                        <input matInput placeholder="Ex. Delhi" type="text" formControlName="enteredCity" required>
+                        <input matInput placeholder="Ex. Delhi" type="text" formControlName="receivedCity" required>
                         <mat-icon matSuffix>location_city </mat-icon>
-                        <mat-error *ngIf="errorHandling5('enteredCity', 'required')">
+                        <mat-error *ngIf="errorHandling5('receivedCity', 'required')">
                             This field is required
                         </mat-error>
                     </mat-form-field>
@@ -657,10 +653,10 @@
                     <!-- State -->
                     <mat-form-field appearance="outline">
                         <mat-label>State</mat-label>
-                        <input matInput placeholder="Ex. New Delhi" type="text" formControlName="enteredState"
+                        <input matInput placeholder="Ex. New Delhi" type="text" formControlName="receivedState"
                             required>
                         <mat-icon matSuffix>location_city </mat-icon>
-                        <mat-error *ngIf="errorHandling5('enteredState', 'required')">
+                        <mat-error *ngIf="errorHandling5('receivedState', 'required')">
                             This field is required
                         </mat-error>
                     </mat-form-field>

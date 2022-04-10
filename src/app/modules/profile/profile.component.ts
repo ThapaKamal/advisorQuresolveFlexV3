@@ -65,7 +65,7 @@ export class ProfileComponent implements OnInit {
   }
   newClients(): FormGroup {
     return this._formBuilder.group({
-      receviedmajorClient: '',
+      receivedMajorClient: '',
     })
   }
   addClients() {
@@ -81,8 +81,8 @@ export class ProfileComponent implements OnInit {
   }
   newAccomplishments(): FormGroup {
     return this._formBuilder.group({
-      heading: '',
-      desc: '',
+      receivedHeading: '',
+      receivedDesc: '',
     })
   }
   addAccomplishments() {
@@ -101,9 +101,8 @@ export class ProfileComponent implements OnInit {
       receivedTypeofDegree: '',
       receivedDegreeName: '',
       receivedCollegeName: '',
-      receivedyearOfPassing: '',
+      receivedYearOfPassing: '',
       receivedprimary: '',
-
     })
   }
   addEducation() {
@@ -119,9 +118,9 @@ export class ProfileComponent implements OnInit {
   }
   newcerts(): FormGroup {
     return this._formBuilder.group({
-      enteredCertificateName: '',
-     enteredIssuingAuthority: '',
-     edateofIssuance: '',
+      receivedCertificateName: '',
+      receivedIssuingAuthority: '',
+      receivedDateofIssuance: '',
     })
   }
   addcerts() {
@@ -130,10 +129,10 @@ export class ProfileComponent implements OnInit {
   removecerts(i: number) {
     this.certs().removeAt(i);
   }
-//  notEditMode(i: number) {
-//     // this.certs().onTogglenotEditMode6(i);
-//     this.notEditMode6= !this.notEditMode6(i);
-//   }
+  //  notEditMode(i: number) {
+  //     // this.certs().onTogglenotEditMode6(i);
+  //     this.notEditMode6= !this.notEditMode6(i);
+  //   }
 
 
 
@@ -218,7 +217,6 @@ export class ProfileComponent implements OnInit {
 
   onTogglenotEditMode() {
     this.notEditMode = !this.notEditMode;
-
   }
   onTogglenotEditMode1() {
     this.notEditMode1 = !this.notEditMode1;
@@ -254,7 +252,6 @@ export class ProfileComponent implements OnInit {
 
   ) {
 
-  
     this.Form1Group = this._formBuilder.group({
       receivedName: ['', Validators.required],
       receivedEmail: new FormControl('', [Validators.required, Validators.email]),
@@ -262,17 +259,16 @@ export class ProfileComponent implements OnInit {
         Validators.required,
         Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
       receivedDoB: new FormControl('', Validators.required),
-      receivedgender: new FormControl('', Validators.required),
-      receivedlanguage: new FormControl('', Validators.required),
-      //  receivedPhoto: new FormControl('', Validators.required),
+      receivedGender: new FormControl('', Validators.required),
+      receivedLanguage: new FormControl('', Validators.required),
     });
 
     this.Form2Group = this._formBuilder.group({
       accomplishments: this._formBuilder.array([]),
       clients: this._formBuilder.array([]),
       receivedBaseCity: ['', Validators.required],
-      receivedenrollment: new FormControl('', Validators.required),
-      receivedlinkedinUrl: new FormControl('', [
+      receivedEnrollment: new FormControl('', Validators.required),
+      receivedLinkedinUrl: new FormControl('', [
         Validators.pattern("^https?://((www|\w\w)\.)?linkedin.com/((in/[^/]+/?)|(pub/[^/]+/((\w|\d)+/?){3}))$")]),
       receivedAreaofpractice: new FormControl('', [
         Validators.required,
@@ -284,86 +280,75 @@ export class ProfileComponent implements OnInit {
       ]),
       receivedYearsOfExp: new FormControl('', Validators.required),
       receivedBarMembership: new FormControl('', Validators.required),
-      receivedbarCouncilId: new FormControl('', Validators.required),
-
+      receivedBarCouncilId: new FormControl('', Validators.required),
     });
 
     this.Form3Group = this._formBuilder.group({
       educations: this._formBuilder.array([]),
       receivedDegreeName: ['', Validators.required],
       receivedCollegeName: new FormControl('', Validators.required),
-     receivedyearOfPassing: new FormControl('', Validators.required),
+      receivedYearOfPassing: new FormControl('', Validators.required),
       receivedTypeofDegree: new FormControl('', Validators.required),
-      receivedprimary: new FormControl('', Validators.required),
+      receivedPrimary: new FormControl('', Validators.required),
     });
 
     this.Form4Group = this._formBuilder.group({
       certs: this._formBuilder.array([]),
-      enteredCertificateName: [''],
-      enteredIssuingAuthority: new FormControl(''),
-      dateofIssuance: new FormControl('')
+      receivedCertificateName: [''],
+      receivedIssuingAuthority: new FormControl(''),
+      receivedDateofIssuance: new FormControl('')
     });
 
     // this.Form4Group.setValue(this.advisorProfile);
 
     this.Form5Group = this._formBuilder.group({
-      enteredBeneficiaryName: ['', Validators.required],
-
-      enteredIfscCode: new FormControl('', [
+      receivedBeneficiaryName: ['', Validators.required],
+      receivedIfscCode: new FormControl('', [
         Validators.required,
         Validators.pattern("^[A-Z]{4}0[A-Z0-9]{6}$")]),
-        enteredAccountNumber: new FormControl('', [
+        receivedAccountNumber: new FormControl('', [
         Validators.required,
         Validators.minLength(10)
       ]),
-      confirmAccountnumber: new FormControl('', Validators.required),
-      selectedBankName: new FormControl('', Validators.required),
+      receivedConfirmAccountnumber: new FormControl('', Validators.required),
+      receivedSelectedBankName: new FormControl('', Validators.required),
     },
       {
         validator: this.customValidator.accountMatchValidator(
           "receivedAccountNumber",
-          "receivedconfirmAccountnumber"
+          "receivedConfirmAccountnumber"
         )
       });
 
-      this.Form5Group.setValue(this.advisorProfileService.education);
+    // this.Form5Group.setValue(this.advisorProfileService.education);
 
-    // this.Form6Group = this._formBuilder.group({
-    //  receivedAddressline1: ['', Validators.required],
-    //   receivedAddressline2: new FormControl(''),
-    //  receivedPinCode: new FormControl('', Validators.required),
-    //  receivedCity: new FormControl('', Validators.required),
-    //   receivedPinCodeArea: new FormControl('', Validators.required),
-    //   receivedState: new FormControl('', Validators.required),
-    //   receivedTypeofAddress: new FormControl('', Validators.required),
-    // });
-     this.Form6Group = this._formBuilder.group({
-      selectedTypeofAddress: new FormControl('', Validators.required),
-     enteredAddressline1: ['', Validators.required],
-     enteredAddressline2: new FormControl(''),
-     enteredPinCode: new FormControl('', Validators.required),
-    enteredCity: new FormControl('', Validators.required),
-     enteredPinCodeArea: new FormControl('', Validators.required),
-     enteredState: new FormControl('', Validators.required),
-  
+    this.Form6Group = this._formBuilder.group({
+      receivedAddressline1: ['', Validators.required],
+      receivedAddressline2: new FormControl(''),
+      receivedPinCode: new FormControl('', Validators.required),
+      receivedCity: new FormControl('', Validators.required),
+      receivedPinCodeArea: new FormControl('', Validators.required),
+      receivedState: new FormControl('', Validators.required),
+      receivedTypeofAddress: new FormControl('', Validators.required),
     });
-     this.Form6Group.setValue(this.advisorProfileService.advisorProfile);
+
+    //  this.Form6Group.setValue(this.advisorProfileService.advisorProfile);
 
     // this.Form7Group = this._formBuilder.group({
     //   terms: ['', Validators.requiredTrue],
 
     // });
   }
- 
+
 
   ngOnInit() {
 
-    this.genders =[
-      {id:'1',value:"Male"},
-      {id:'2',value:"Female"},
-      {id:'3',value:"Other"},
+    this.genders = [
+      { id: '1', value: "Male" },
+      { id: '2', value: "Female" },
+      { id: '3', value: "Other" },
     ]
-    this.genderSelected=1;
+    this.genderSelected = 1;
 
     // YearOfExpListService
     this.yearsOfExpList = this.yearOfExpListService.yearsOfExpList();
@@ -395,8 +380,14 @@ export class ProfileComponent implements OnInit {
 
     this.addAccomplishments();
 
+    // advisorProfile Service
+    // this.advisorProfile = this.advisorProfileService.advisorProfile;
 
-    this.advisorProfile = this.advisorProfileService.advisorProfile;
+    setTimeout(() => {
+      window.dispatchEvent(
+        new Event('resize')
+      );
+    }, 300);
   }
 
 }

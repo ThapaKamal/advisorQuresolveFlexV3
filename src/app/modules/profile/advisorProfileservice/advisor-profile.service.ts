@@ -7,12 +7,11 @@ import { TypeOfAddressListService } from 'src/app/legaladvisor/legalService/type
 export class AdvisorProfileService {
 
   constructor(
-    private typeOfAddressListService: TypeOfAddressListService,
+    // private typeOfAddressListService: TypeOfAddressListService,
   )
   {
 
   }
-
 
   // enteredName:'Ankit Kumar',
   // enteredEmail: 'ankitkumar6220@gmail.com',
@@ -41,24 +40,24 @@ export class AdvisorProfileService {
   // enteredCertificateName: 'xyz',
   // enteredIssuingAuthority: 'xyz',
   // dateofIssuance: '06/02/2021',
-  education =
-    {
-      enteredBeneficiaryName: 'Ankit kumar',
-      enteredAccountNumber: '1234567891',
-      enteredIfscCode: 'SBIN0122222',
-      confirmAccountnumber: '1234567891',
-      selectedBankName: 'STATE BANK OF INDIA',
-    }
+  // education =
+  //   {
+  //     enteredBeneficiaryName: 'Ankit kumar',
+  //     enteredAccountNumber: '1234567891',
+  //     enteredIfscCode: 'SBIN0122222',
+  //     confirmAccountnumber: '1234567891',
+  //     selectedBankName: 'STATE BANK OF INDIA',
+  //   }
 
-  advisorProfile =
-    {
-      enteredAddressline1: '3015,Sector A, Pocket B&C',
-      enteredAddressline2: 'Vasant Kunj',
-      enteredPinCode: '110070',
-      enteredCity: 'New Delhi',
-      enteredPinCodeArea: 'Vasant Kunj',
-      enteredState: 'Delhi',
-      selectedTypeofAddress: this.typeOfAddressListService.typeOfAddressList,
-    }
+  // advisorProfile =
+  //   {
+  //     enteredAddressline1: '3015,Sector A, Pocket B&C',
+  //     enteredAddressline2: 'Vasant Kunj',
+  //     enteredPinCode: '110070',
+  //     enteredCity: 'New Delhi',
+  //     enteredPinCodeArea: 'Vasant Kunj',
+  //     enteredState: 'Delhi',
+  //     selectedTypeofAddress: this.typeOfAddressListService.typeOfAddressList,
+  //   }
 
 }

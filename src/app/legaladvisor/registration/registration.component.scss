@@ -37,19 +37,15 @@ padding-left: 10px;
   height: 10px;
 }
 .tnc {
-  height: 400px;
-  width: 950px;
+  height: 500px;
+  width: 90%;
   border: 1px solid black;
   overflow: scroll;
   margin: auto;
   
 }
 
-.tncbox{
-  justify-content: center;
-  margin-left:550px ;
 
-}
 
 column {
   float: left;
@@ -61,4 +57,9 @@ column {
   content: "";
   display: table;
   clear: both;
+}
+
+.h1center
+{
+  text-align: center;
 }

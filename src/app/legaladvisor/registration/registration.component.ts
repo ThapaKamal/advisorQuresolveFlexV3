@@ -16,6 +16,9 @@ import { RegistrationServiceService } from './service/registration-service.servi
 // PAYLOAD
 import { RegistrationPayload } from './Payload/registrationPayload';
 import { CustomValidationService } from './service/custom-validation.service';
+import { MediaChange, MediaObserver } from '@angular/flex-layout';
+import { Subscriber, Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-registration',
@@ -35,6 +38,8 @@ export class RegistrationComponent implements OnInit {
   customErrors = { required: 'Please accept the terms' }
 
   registrationPayload!: RegistrationPayload;
+
+  hide =true;
 
 
   // ServiceVariables
@@ -87,7 +92,13 @@ export class RegistrationComponent implements OnInit {
     } else {
       this.fileAttr = 'Choose File';
     }
+
+    function isPrimarySelected(this: any) {
+      this.thirdFormGroup.value.educations;
+    
+    }    
   }
+  private mediaSub!:Subscription;  
 
   constructor(
     private router: Router,
@@ -102,6 +113,7 @@ export class RegistrationComponent implements OnInit {
     private httpClient: HttpClient,
     private registrationService: RegistrationServiceService,
     private customValidator: CustomValidationService,
+    private mediaObserver:MediaObserver,
 
   ) {
 
@@ -154,9 +166,10 @@ export class RegistrationComponent implements OnInit {
       dateofIssuance: new FormControl('')
     });
 
-    this.fifthFormGroup = this._formBuilder.group({
+    this.fifthFormGroup = this._formBuilder.group(
+      {
       enteredBeneficiaryName: ['', Validators.required],
-
+      selectedBankName: new FormControl('', Validators.required),
       enteredIfscCode: new FormControl('', [
         Validators.required,
         Validators.pattern("^[A-Z]{4}0[A-Z0-9]{6}$")]),
@@ -165,14 +178,14 @@ export class RegistrationComponent implements OnInit {
         Validators.minLength(10)
       ]),
       confirmAccountnumber: new FormControl('', Validators.required),
-      selectedBankName: new FormControl('', Validators.required),
     },
       {
         validator: this.customValidator.accountMatchValidator(
           "enteredAccountNumber",
           "confirmAccountnumber"
         )
-      });
+      }
+      );
 
     this.sixthFormGroup = this._formBuilder.group({
       enteredAddressline1: ['', Validators.required],
@@ -360,6 +373,7 @@ export class RegistrationComponent implements OnInit {
     this.accomplishments().removeAt(i);
   }
 
+  
 
 
 
@@ -368,72 +382,12 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
 
 
-    // this.firstFormGroup = this._formBuilder.group({
-    //   enteredName: ['', Validators.required],
-    //   enteredEmail: new FormControl('', [Validators.required, Validators.email]),
-    //   enteredPhone: new FormControl('+91-', [
-    //     Validators.required,
-    //     Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
-    //   enteredDoB: new FormControl('', Validators.required),
-    //   gender: new FormControl('', Validators.required),
-    //   selectedlanguage: new FormControl('', Validators.required),
-    //   uploadedPhoto: new FormControl('', Validators.required),
-    // });
-
-    // this.secondFormGroup = this._formBuilder.group({
-    //   accomplishments: this._formBuilder.array([]),
-    //   clients: this._formBuilder.array([]),
-    //   selectedBaseCity: ['', Validators.required],
-    //   enteredenrollment: new FormControl('', Validators.required),
-    //   linkedinUrl: new FormControl('', [
-    //     Validators.required,
-    //     Validators.pattern("")]),
-    //   selectedAreaofpractice: new FormControl('', Validators.required),
-    //   selectedCourtOfPractice: new FormControl('', Validators.required),
-    //   selectedYearsOfExp: new FormControl('', Validators.required),
-    //   selectedBarMembership: new FormControl('', Validators.required),
-    //   barCouncilId: new FormControl('', Validators.required),
-
-    // });
-
-    // this.thirdFormGroup = this._formBuilder.group({
-    //   educations: this._formBuilder.array([]),
-    //   enteredDegreeName: ['', Validators.required],
-    //   enteredCollegeName: new FormControl('', Validators.required),
-    //   yearOfPassing: new FormControl('', Validators.required),
-    //   selectedTypeofDegree: new FormControl('', Validators.required),
-    //   primary: new FormControl('', Validators.required),
-    // });
-
-    // this.forthFormGroup = this._formBuilder.group({
-    //   certs: this._formBuilder.array([]),
-    //   enteredCertificateName: ['', Validators.required],
-    //   enteredIssuingAuthority: new FormControl('', Validators.required),
-    //   dateofIssuance: new FormControl('', Validators.required),
-    // });
-
-    // this.fifthFormGroup = this._formBuilder.group({
-    //   enteredBeneficiaryName: ['', Validators.required],
-    //   enteredAccountNumber: new FormControl('', Validators.required),
-    //   enteredIfscCode: new FormControl('', Validators.required),
-    //   confirmAccountnumber: new FormControl('', Validators.required),
-    //   selectedBankName: new FormControl('', Validators.required),
-    // });
-
-    // this.sixthFormGroup = this._formBuilder.group({
-    //   enteredAddressline1: ['', Validators.required],
-    //   enteredAddressline2: new FormControl('', Validators.required),
-    //   enteredPinCode: new FormControl('', Validators.required),
-    //   enteredCity: new FormControl('', Validators.required),
-    //   enteredPinCodeArea: new FormControl('', Validators.required),
-    //   enteredState: new FormControl('', Validators.required),
-    //   selectedTypeofAddress: new FormControl('', Validators.required),
-    // });
-
-    // this.seventhFormGroup = this._formBuilder.group({
-    //   terms: ['', Validators.requiredTrue],
-
-    // });
+// tells page size in console
+    // this.mediaSub = this.mediaObserver.media$.subscribe(
+    //   (change:MediaChange)=>{
+    //     console.log(change.mqAlias);
+    //   }
+    // )  
 
 
     // YearOfExpListService
@@ -567,8 +521,7 @@ export class RegistrationComponent implements OnInit {
     this.registrationPayload.enteredIfscCode = this.fifthFormGroup.value.enteredIfscCode;
     this.registrationPayload.confirmAccountnumber = this.fifthFormGroup.value.confirmAccountnumber;
     this.registrationPayload.selectedBankName = this.fifthFormGroup.value.selectedBankName;
-    console.log(this.registrationPayload);
-
+   
   }
   sixthFormToRegistrationPayload() {
     this.registrationPayload.enteredAddressline1 = this.sixthFormGroup.value.enteredAddressline1;
@@ -588,11 +541,4 @@ export class RegistrationComponent implements OnInit {
 
 
 
-function isPrimarySelected(this: any) {
-  this.thirdFormGroup.value.educations;
-
-  // isPrimary=false;
-
-
-}
 

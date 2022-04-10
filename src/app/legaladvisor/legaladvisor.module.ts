@@ -6,8 +6,8 @@ import { RouterModule } from '@angular/router';
 import { LoginModule } from '../login/login.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { FlexModule } from '@angular/flex-layout';
 
-// import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
 @NgModule({
@@ -22,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FlexModule
     
     
     // PdfViewerModule

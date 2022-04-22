@@ -27,7 +27,6 @@ import { CalendarModule } from 'angular-calendar';
 import { DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns'; // a plugin!
 // import { ProfileComponent } from 'src/app/modules/profile/profile.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 

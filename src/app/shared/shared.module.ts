@@ -3,16 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import {MatDividerModule} from '@angular/material/divider'
-import {MatToolbarModule} from '@angular/material/toolbar'
-import {MatIconModule} from '@angular/material/icon'
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {MatMenuModule} from '@angular/material/menu'
-import {MatButtonModule} from '@angular/material/button'
-import {MatListModule} from '@angular/material/list'
 import { RouterModule } from '@angular/router';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatBadgeModule} from '@angular/material/badge';
 import { NotificationComponent } from './components/notification/notification.component';
 import { AreaComponent } from './widgets/area/area.component';
 import { HighchartsChartModule } from 'highcharts-angular';
@@ -23,6 +15,7 @@ import { ExitDialogComponent } from './components/header/exit-dialog/exit-dialog
 
 import { FormsModule } from '@angular/forms'; 
 import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 
@@ -47,7 +40,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     HighchartsChartModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+  
   ],
   exports:[
     HeaderComponent,

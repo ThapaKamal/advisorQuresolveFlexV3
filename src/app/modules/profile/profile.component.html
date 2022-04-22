@@ -27,19 +27,19 @@
                     <!-- Name -->
                     <mat-form-field appearance="outline">
                         <mat-label>Name</mat-label>
-                        <input matInput [(ngModel)]="advisorProfile.enteredName" placeholder="First & Last name"
-                            type="text" formControlName="receivedName" required>
+                        <input matInput [disabled]=true placeholder="First & Last name" type="text"
+                            formControlName="receivedName" required>
                         <mat-icon matSuffix>perm_identity</mat-icon>
                         <mat-error *ngIf="errorHandling('receivedName', 'required')">
-                            This field is required
+                            This field is require
                         </mat-error>
                     </mat-form-field>
 
                     <!-- Email -->
                     <mat-form-field appearance="outline">
                         <mat-label>Email</mat-label>
-                        <input matInput [(ngModel)]="advisorProfile.enteredEmail" placeholder="Ex. mail@gmail.com"
-                            type="email" formControlName="receivedEmail" required>
+                        <input matInput placeholder="Ex. mail@gmail.com" type="email" formControlName="receivedEmail"
+                            required>
                         <mat-icon matSuffix>email</mat-icon>
                         <mat-error *ngIf="errorHandling('receivedEmail', 'required')">
                             This field is required
@@ -52,8 +52,7 @@
                     <!-- Phone number -->
                     <mat-form-field appearance="outline">
                         <mat-label>Phone number</mat-label>
-                        <input matInput [disabled]="notEditMode" [(ngModel)]="advisorProfile.enteredPhone"
-                            placeholder="+91-" type="tel" formControlName="receivedPhone" required>
+                        <input matInput placeholder="+91-" type="tel" formControlName="receivedPhone" required>
                         <mat-icon matSuffix>phone</mat-icon>
                         <mat-error *ngIf="errorHandling('receivedPhone', 'required')">
                             This field is required
@@ -68,8 +67,7 @@
                     <!-- Date Of Birth -->
                     <mat-form-field appearance="outline">
                         <mat-label>Date Of Birth</mat-label>
-                        <input [disabled]="notEditMode" placeholder="DD-MM-YYYY" matInput
-                            [(ngModel)]="advisorProfile.enteredDoB" formControlName="receivedDoB"
+                        <input placeholder="DD-MM-YYYY" matInput formControlName="receivedDoB"
                             [matDatepicker]="picker5">
                         <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
                         <mat-datepicker #picker5></mat-datepicker>
@@ -77,12 +75,12 @@
                             This field is required
                         </mat-error>
                     </mat-form-field>
+                    <!-- [(ngModel)]="advisorProfile.enteredDoB" -->
 
                     <!-- Gender -->
-                    <mat-form-field appearance="outline"> 
+                    <mat-form-field appearance="outline">
                         <mat-label>Gender</mat-label>
-                        <mat-select matInput formControlName="receivedGender" [(ngModel)]="genderSelected"
-                            [disabled]="notEditMode" required>
+                        <mat-select matInput formControlName="receivedGender" required>
                             <mat-option *ngFor="let gender of genders" [value]="gender.id">{{gender.value}}</mat-option>
                             <!-- <mat-option value="1">Male</mat-option>
                             <mat-option value="2">Female</mat-option>
@@ -97,9 +95,8 @@
                     <!-- Language -->
                     <mat-form-field appearance="outline">
                         <mat-label>Language</mat-label>
-                        <mat-select formControlName="receivedLanguage" [(ngModel)]="advisorProfile.selectedlanguage"
-                            [disabled]="notEditMode" multiple>
-                            <mat-option *ngFor="let language of languageList" [value]="language">{{language}}
+                        <mat-select formControlName="receivedLanguage" multiple>
+                            <mat-option *ngFor="let language of languageList" [value]="language.id">{{language.value}}
                             </mat-option>
                         </mat-select>
                         <mat-icon matSuffix>language</mat-icon>
@@ -109,12 +106,10 @@
                     </mat-form-field>
                 </div>
             </mat-card>
-
-
-
             <mat-action-row>
-                <button mat-stroked-button color="warn" (click)="onTogglenotEditMode()">Edit</button>
-                <button mat-stroked-button>Save</button>
+                <button mat-stroked-button color="warn"
+                    (click)="onEdit(Form1Group);enableSave()">{{enableMode?'Edit':'Cancel'}}</button>
+                <button mat-stroked-button [disabled]='this.enableMode' (click)="submit()" #submitButton>Save</button>
             </mat-action-row>
 
         </mat-expansion-panel>
@@ -150,7 +145,9 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Base City</mat-label>
                         <mat-select matInput formControlName="receivedBaseCity" required>
-                            <mat-option value="1">Delhi NCR</mat-option>
+                            <mat-option *ngFor="let item of baseCitylist" [value]="item.id">
+                                {{ item.name}}
+                            </mat-option>
                         </mat-select>
                         <mat-icon matSuffix>email</mat-icon>
                         <mat-error *ngIf="errorHandling1('receivedBaseCity', 'required')">
@@ -179,8 +176,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Bar Enrollment Number</mat-label>
                         <input matInput placeholder="Bar council Enrollment Number" type="text"
-                            formControlName="receivedEnrollment" [(ngModel)]="advisorProfile.enteredenrollment"
-                            [disabled]="notEditMode1" required>
+                            formControlName="receivedEnrollment" required>
                         <mat-icon matSuffix>perm_identity</mat-icon>
                         <mat-error *ngIf="errorHandling1('receivedEnrollment', 'required')">
                             This field is required
@@ -191,7 +187,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Linkedin URL</mat-label>
                         <input matInput placeholder="Ex. https://www.linkedin.com/in/username" type="url"
-                            formControlName="receivedLinkedinUrl" [(ngModel)]="advisorProfile.linkedinUrl">
+                            formControlName="receivedLinkedinUrl">
                         <mat-icon matSuffix> public </mat-icon>
                         <mat-error *ngIf="errorHandling1('receivedLinkedinUrl', 'pattern')">
                             Please enter a valid Linkedin URL </mat-error>
@@ -292,7 +288,7 @@
                                     <mat-form-field appearance="outline">
                                         <mat-label>Descripition</mat-label>
                                         <textarea matInput placeholder="" type="text"
-                                            formControlName="receivedDesc"></textarea>
+                                            formControlName="receivedHeading"></textarea>
                                         <mat-icon matSuffix>perm_identity</mat-icon>
                                     </mat-form-field>
 
@@ -306,11 +302,12 @@
                 </div>
                 <br>
             </mat-card>
-
             <mat-action-row>
-                <button mat-stroked-button color="warn" (click)="onTogglenotEditMode1()">Edit</button>
-                <button mat-stroked-button>Save</button>
+                <button mat-stroked-button color="warn"
+                    (click)="onEdit(Form2Group);enableSave2()">{{enableMode2?'Edit':'Cancel'}}</button>
+                <button mat-stroked-button [disabled]='this.enableMode2' (click)="submit()">Save</button>
             </mat-action-row>
+            <!-- (click)="onTogglenotEditMode1()" -->
 
 
         </mat-expansion-panel>
@@ -391,6 +388,7 @@
                                     </mat-error> -->
                                 </div>
                                 <br>
+
                                 <div class="col-3">
                                     <button class="btn btn-primary" (click)="removeEducation(i)" mat-stroked-button
                                         color="primary">Remove</button>
@@ -405,9 +403,11 @@
 
 
             <mat-action-row>
-                <button mat-stroked-button color="warn" (click)="onTogglenotEditMode2()">Edit</button>
-                <button mat-stroked-button>Save</button>
+                <button mat-stroked-button color="warn"
+                    (click)="onEdit(Form3Group);enableSave3()">{{enableMode3?'Edit':'Cancel'}}</button>
+                <button mat-stroked-button [disabled]='this.enableMode3' (click)="submit()">Save</button>
             </mat-action-row>
+            <!-- (click)="onTogglenotEditMode2()" -->
 
         </mat-expansion-panel>
     </form>
@@ -471,9 +471,11 @@
 
 
             <mat-action-row>
-                <button mat-stroked-button color="warn" (click)="onTogglenotEditMode3()">Edit</button>
-                <button mat-stroked-button>Save</button>
+                <button mat-stroked-button color="warn"
+                    (click)="onEdit(Form4Group);enableSave4()">{{enableMode4?'Edit':'Cancel'}}</button>
+                <button mat-stroked-button [disabled]='this.enableMode4' (click)="submit()">Save</button>
             </mat-action-row>
+            <!-- (click)="onTogglenotEditMode3()" -->
 
         </mat-expansion-panel>
     </form>
@@ -540,10 +542,10 @@
                         <mat-hint align="end">{{fifthFormGroup.get('receivedAccountNumber').value?.length || 0}}/10</mat-hint> -->
                         <mat-error *ngIf="errorHandling4('receivedAccountNumber', 'required')">
                             This field is required
-                        </mat-error> 
-                       <mat-error *ngIf="errorHandling4('receivedAccountNumber', 'minLength')">
+                        </mat-error>
+                        <mat-error *ngIf="errorHandling4('receivedAccountNumber', 'maxLength')">
                             Mininum number can be 10
-                        </mat-error>  
+                        </mat-error>
 
                     </mat-form-field>
 
@@ -564,9 +566,11 @@
 
 
             <mat-action-row>
-                <button mat-stroked-button color="warn" (click)="onTogglenotEditMode4()">Edit</button>
-                <button mat-stroked-button>Save</button>
+                <button mat-stroked-button color="warn"
+                    (click)="onEdit(Form5Group);enableSave5()">{{enableMode5?'Edit':'Cancel'}}</button>
+                <button mat-stroked-button [disabled]='this.enableMode5' (click)="submit()">Save</button>
             </mat-action-row>
+            <!-- (click)="onTogglenotEditMode4()" -->
 
 
         </mat-expansion-panel>
@@ -586,7 +590,7 @@
                     <!-- Type of Address -->
                     <mat-form-field appearance="outline">
                         <mat-label> Type of Address </mat-label>
-                        <mat-select formControlName="receivedTypeofAddress">    
+                        <mat-select formControlName="receivedTypeofAddress">
                             <mat-option *ngFor="let item of typeOfAddressList" [value]="item.id">
                                 {{item.name}}
                             </mat-option>
@@ -667,11 +671,14 @@
 
 
             <mat-action-row>
-                <button mat-stroked-button color="warn" (click)="onTogglenotEditMode5()">Edit</button>
-                <button mat-stroked-button>Save</button>
+                <button mat-stroked-button color="warn"
+                    (click)="onEdit(Form6Group);enableSave6()">{{enableMode6?'Edit':'Cancel'}}</button>
+                <button mat-stroked-button [disabled]='this.enableMode6' (click)="submit()">Save</button>
             </mat-action-row>
+            <!-- (click)="onTogglenotEditMode5()" -->
 
         </mat-expansion-panel>
+        <br><br><br><br>
     </form>
 
     <!-- <mat-expansion-panel [expanded]="step === 6" (opened)="setStep(6)" hideToggle>
@@ -684,3 +691,7 @@
     
     </mat-expansion-panel> -->
 </mat-accordion>
+
+<br><br><br><br>
+
+<app-footer></app-footer>

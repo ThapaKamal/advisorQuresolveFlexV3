@@ -1,17 +1,34 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatAccordion } from '@angular/material/expansion';
 import { AreaOfPraticeListService } from 'src/app/legaladvisor/legalService/area-of-pratice-list.service';
 import { BankNameListService } from 'src/app/legaladvisor/legalService/bank-name-list.service';
 import { BarMembershipListService } from 'src/app/legaladvisor/legalService/bar-membership-list.service';
 import { CourtOfPracticeService } from 'src/app/legaladvisor/legalService/court-of-practice.service';
 import { TypeOfAddressListService } from 'src/app/legaladvisor/legalService/type-of-address-list.service';
+import { BaseCitylistService } from 'src/app/legaladvisor/legalService/base-citylist.service';
 import { TypeOfDegreeListService } from 'src/app/legaladvisor/legalService/type-of-degree-list.service';
 import { YearOfExpListService } from 'src/app/legaladvisor/legalService/year-of-exp-list.service';
 import { CustomValidationService } from 'src/app/legaladvisor/registration/service/custom-validation.service';
 import { AdvisorProfileService } from './advisorProfileservice/advisor-profile.service';
 import { Gender } from './gender';
+import { Accomplishment } from './interfaces/accomplishment';
+import { Language } from './language';
+import { AreaOfPratice } from './Models/areaOfPratice';
+import { BankName } from './Models/bankName';
+import { BarMembership } from './Models/barMembership';
+import { CourtOfPratice } from './Models/courtOfPratice';
+import { TypeOfAddress } from './Models/typeOfAddress';
+import { TypeOfDegree } from './Models/typeOfDegree';
+import { yearsOfExp } from './Models/yearsOfExp';
+import { BaseCity } from './Models/baseCity';
+import { IProfile } from './interfaces/IProfile';
+import { Clients } from './interfaces/clients';
+import { Educations } from './interfaces/educations';
+import { Certification } from './interfaces/certification';
+
+
 
 
 
@@ -27,7 +44,16 @@ export class ProfileComponent implements OnInit {
   step = 0;
 
   genders!: Gender[];
-  genderSelected!: Number;
+  languageList!: Language[];
+
+
+
+  // ProfileDetails!: Profile;
+  accomplishment!: Accomplishment
+  createForm: any;
+
+
+
 
   setStep(index: number) {
     this.step = index;
@@ -43,21 +69,27 @@ export class ProfileComponent implements OnInit {
   Form7Group!: FormGroup;
 
 
-  // ServiceVariables
-  yearsOfExpList: any = [];
-  typeOfDegreeList: any = [];
-  bankNameList: any = [];
-  barMembershipsList: any = [];
-  typeOfAddressList: any = [];
-  courtOfPraticeList: any = [];
-  areaOfPraticeList: any = [];
 
+
+  // ServiceVariables
+  yearsOfExpList!: yearsOfExp[];
+  typeOfDegreeList!: TypeOfDegree[];
+  bankNameList!: BankName[];
+  barMembershipsList!: BarMembership[];
+  typeOfAddressList!: TypeOfAddress[];
+  courtOfPraticeList!: CourtOfPratice[];
+  advisorProfileList!: IProfile[];
+  baseCitylist!: BaseCity[];
+  areaOfPraticeList!: AreaOfPratice[];
   advisorProfile: any = [];
+  loadAccom: any = [];
 
   // checkBoxIsselected
   selected = -1;
 
-  languageList: string[] = ['English', 'Hindi'];
+
+
+
 
   // Major Client
   clients(): FormArray {
@@ -129,12 +161,6 @@ export class ProfileComponent implements OnInit {
   removecerts(i: number) {
     this.certs().removeAt(i);
   }
-  //  notEditMode(i: number) {
-  //     // this.certs().onTogglenotEditMode6(i);
-  //     this.notEditMode6= !this.notEditMode6(i);
-  //   }
-
-
 
 
   // BAR COUNCIL
@@ -207,35 +233,47 @@ export class ProfileComponent implements OnInit {
     return this.Form6Group.controls[control].hasError(error);
   }
 
-  notEditMode = true;
-  notEditMode1 = true;
-  notEditMode2 = true;
-  notEditMode3 = true;
-  notEditMode4 = true;
-  notEditMode5 = true;
-  notEditMode6 = true;
 
-  onTogglenotEditMode() {
-    this.notEditMode = !this.notEditMode;
+
+
+  onEdit(control: AbstractControl) {
+    control.status === 'DISABLED' ? control.enable() : control.disable();
   }
-  onTogglenotEditMode1() {
-    this.notEditMode1 = !this.notEditMode1;
+
+  submit() {
+    alert('Updated Values Submitted succesfully!!!.');
+    console.log();
+    window.location.reload();
   }
-  onTogglenotEditMode2() {
-    this.notEditMode2 = !this.notEditMode2;
+
+  enableMode: boolean = true;
+  enableMode2: boolean = true;
+  enableMode3: boolean = true;
+  enableMode4: boolean = true;
+  enableMode5: boolean = true;
+  enableMode6: boolean = true;
+
+  enableSave() {
+    this.enableMode = !this.enableMode;
   }
-  onTogglenotEditMode3() {
-    this.notEditMode3 = !this.notEditMode3;
+  enableSave2() {
+    this.enableMode2 = !this.enableMode2;
   }
-  onTogglenotEditMode4() {
-    this.notEditMode4 = !this.notEditMode4;
+  enableSave3() {
+    this.enableMode3 = !this.enableMode3;
   }
-  onTogglenotEditMode5() {
-    this.notEditMode5 = !this.notEditMode5;
+  enableSave4() {
+    this.enableMode4 = !this.enableMode4;
   }
-  onTogglenotEditMode6() {
-    this.notEditMode6 = !this.notEditMode6;
+  enableSave5() {
+    this.enableMode5 = !this.enableMode5;
   }
+  enableSave6() {
+    this.enableMode6 = !this.enableMode6;
+  }
+
+
+
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -247,40 +285,45 @@ export class ProfileComponent implements OnInit {
     private typeOfAddressListService: TypeOfAddressListService,
     private typeOfDegreeListService: TypeOfDegreeListService,
     private advisorProfileService: AdvisorProfileService,
+    private baseCitylistService: BaseCitylistService,
     private httpClient: HttpClient,
     private customValidator: CustomValidationService,
 
   ) {
 
     this.Form1Group = this._formBuilder.group({
-      receivedName: ['', Validators.required],
-      receivedEmail: new FormControl('', [Validators.required, Validators.email]),
-      receivedPhone: new FormControl('', [
+      receivedName: [{ value: "Ankit Kumar", disabled: true }, Validators.required],
+      receivedEmail: new FormControl({ value: 'ankitkumar6220@gmail.com', disabled: true }, [Validators.required, Validators.email]),
+      receivedPhone: new FormControl({ value: '+91-8851421261', disabled: true }, [
         Validators.required,
         Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
-      receivedDoB: new FormControl('', Validators.required),
-      receivedGender: new FormControl('', Validators.required),
-      receivedLanguage: new FormControl('', Validators.required),
+      receivedDoB: new FormControl({ value: ('2020-09-28'), disabled: true }, Validators.required),
+      receivedGender: new FormControl({ value: '1', disabled: true }, Validators.required),
+      receivedLanguage: new FormControl({ value: ['1', '2'], disabled: true }, Validators.required),
     });
 
     this.Form2Group = this._formBuilder.group({
       accomplishments: this._formBuilder.array([]),
+      // { value:this.advisorProfileService.accomplishments(), disabled: true }
+      receivedHeading: ({ value: '', disabled: true }),
+      receivedDesc: [{ value: '', disabled: true }],
       clients: this._formBuilder.array([]),
-      receivedBaseCity: ['', Validators.required],
-      receivedEnrollment: new FormControl('', Validators.required),
-      receivedLinkedinUrl: new FormControl('', [
+      receivedMajorClient: [{ value: '', disabled: true }],
+      receivedBaseCity: [{ value: '', disabled: true }, Validators.required],
+      receivedEnrollment: new FormControl({ value: 'test123', disabled: true }, Validators.required),
+      receivedLinkedinUrl: new FormControl({ value: 'https://www.linkedin.com/in/ankit-kumar-2a6a501b3/', disabled: true }, [
         Validators.pattern("^https?://((www|\w\w)\.)?linkedin.com/((in/[^/]+/?)|(pub/[^/]+/((\w|\d)+/?){3}))$")]),
-      receivedAreaofpractice: new FormControl('', [
+      receivedAreaofpractice: new FormControl({ value: '', disabled: true }, [
         Validators.required,
         Validators.maxLength(5)
       ]),
-      receivedCourtOfPractice: new FormControl('', [
+      receivedCourtOfPractice: new FormControl({ value: '', disabled: true }, [
         Validators.required,
         Validators.max(5)
       ]),
-      receivedYearsOfExp: new FormControl('', Validators.required),
-      receivedBarMembership: new FormControl('', Validators.required),
-      receivedBarCouncilId: new FormControl('', Validators.required),
+      receivedYearsOfExp: new FormControl({ value: '', disabled: true }, Validators.required),
+      receivedBarMembership: new FormControl({ value: '', disabled: true }, Validators.required),
+      receivedBarCouncilId: new FormControl({ value: '', disabled: true }, Validators.required),
     });
 
     this.Form3Group = this._formBuilder.group({
@@ -302,16 +345,16 @@ export class ProfileComponent implements OnInit {
     // this.Form4Group.setValue(this.advisorProfile);
 
     this.Form5Group = this._formBuilder.group({
-      receivedBeneficiaryName: ['', Validators.required],
-      receivedIfscCode: new FormControl('', [
+      receivedBeneficiaryName: [{ value: 'Ankit Kumar', disabled: true }, Validators.required],
+      receivedIfscCode: new FormControl({ value: 'ICIC0000225', disabled: true }, [
         Validators.required,
         Validators.pattern("^[A-Z]{4}0[A-Z0-9]{6}$")]),
-        receivedAccountNumber: new FormControl('', [
+      receivedAccountNumber: new FormControl({ value: '1234567890', disabled: true }, [
         Validators.required,
-        Validators.minLength(10)
+        Validators.maxLength(10)
       ]),
-      receivedConfirmAccountnumber: new FormControl('', Validators.required),
-      receivedSelectedBankName: new FormControl('', Validators.required),
+      receivedConfirmAccountnumber: new FormControl({ value: '1234567890', disabled: true }, Validators.required),
+      receivedSelectedBankName: new FormControl({ value: '', disabled: true }, Validators.required),
     },
       {
         validator: this.customValidator.accountMatchValidator(
@@ -323,13 +366,13 @@ export class ProfileComponent implements OnInit {
     // this.Form5Group.setValue(this.advisorProfileService.education);
 
     this.Form6Group = this._formBuilder.group({
-      receivedAddressline1: ['', Validators.required],
-      receivedAddressline2: new FormControl(''),
-      receivedPinCode: new FormControl('', Validators.required),
-      receivedCity: new FormControl('', Validators.required),
-      receivedPinCodeArea: new FormControl('', Validators.required),
-      receivedState: new FormControl('', Validators.required),
-      receivedTypeofAddress: new FormControl('', Validators.required),
+      receivedAddressline1: new FormControl({ value: 'E-7/300', disabled: true }, Validators.required),
+      receivedAddressline2: new FormControl({ value: 'Sangam Vihar,New Delhi', disabled: true }),
+      receivedPinCode: new FormControl({ value: '110080', disabled: true }, Validators.required),
+      receivedCity: new FormControl({ value: 'Delhi', disabled: true }, Validators.required),
+      receivedPinCodeArea: new FormControl({ value: 'Sangam vihar', disabled: true }, Validators.required),
+      receivedState: new FormControl({ value: 'New Delhi', disabled: true }, Validators.required),
+      receivedTypeofAddress: new FormControl({ value: '', disabled: true }, Validators.required),
     });
 
     //  this.Form6Group.setValue(this.advisorProfileService.advisorProfile);
@@ -341,14 +384,142 @@ export class ProfileComponent implements OnInit {
   }
 
 
-  ngOnInit() {
 
+  loadGender() {
     this.genders = [
       { id: '1', value: "Male" },
       { id: '2', value: "Female" },
       { id: '3', value: "Other" },
     ]
-    this.genderSelected = 1;
+  }
+  loadLanguage() {
+    this.languageList = [
+      { id: '1', value: "English" },
+      { id: '2', value: "Hindi" }
+    ]
+  }
+
+  // public loadItems(){
+  //   this.Form2Group.patchValue({
+  //     heading: this.accomplishments.heading,
+  //     desc: this.accomplishments.desc
+  //   });
+
+  //   this.accomplishments.forEach((item) => {
+  //     (<FormArray>this.Form2Group.get('items')).push(this.createItem(item));
+  //   });
+
+  // }
+
+
+  //TODO PRE POPULATE DATA FROM BACKEND
+
+  editProfile(advisorProfileList: IProfile) {
+    this.Form1Group.patchValue({
+      receivedName: advisorProfileList.receivedName,
+      receivedEmail: advisorProfileList.receivedEmail,
+      receivedPhone: advisorProfileList.receivedPhone,
+      receivedDoB: advisorProfileList.receivedDoB,
+      receivedGender: advisorProfileList.receivedGender,
+      receivedLanguage: advisorProfileList.receivedLanguage
+    })
+    this.Form2Group.patchValue({
+      receivedBaseCity: advisorProfileList.receivedBaseCity,
+      receivedEnrollment: advisorProfileList.receivedEnrollment,
+      receivedLinkedinUrl: advisorProfileList.receivedLinkedinUrl,
+      // receivedAreaofpractice: advisorProfileList.receivedAreaofpractice,
+      // receivedCourtOfPractice: advisorProfileList.receivedCourtOfPractice,
+      receivedYearsOfExp: advisorProfileList.receivedYearsOfExp,
+      receivedBarMembership: advisorProfileList.receivedBarMembership,
+      receivedBarCouncilId: advisorProfileList.receivedBarCouncilId
+    })
+    this.Form2Group.setControl('accomplishments', this.setAccomplishment(advisorProfileList.accomplishments));
+    this.Form2Group.setControl('clients', this.setClients(advisorProfileList.clients));
+
+
+    this.Form3Group.setControl('educations', this.setEducations(advisorProfileList.educations));
+
+    this.Form4Group.setControl('certs', this.setCertification(advisorProfileList.certs));
+
+    this.Form5Group.patchValue({
+      receivedBeneficiaryName: advisorProfileList.receivedBeneficiaryName,
+      receivedIfscCode: advisorProfileList.receivedIfscCode,
+      receivedAccountNumber: advisorProfileList.receivedAccountNumber,
+      receivedConfirmAccountnumber: advisorProfileList.receivedConfirmAccountnumber,
+      receivedSelectedBankName: advisorProfileList.receivedSelectedBankName
+    })
+
+    this.Form6Group.patchValue({
+      receivedAddressline1: advisorProfileList.receivedAddressline1,
+      receivedAddressline2: advisorProfileList.receivedAddressline2,
+      receivedPinCode: advisorProfileList.receivedPinCode,
+      receivedCity: advisorProfileList.receivedCity,
+      receivedPinCodeArea: advisorProfileList.receivedPinCodeArea,
+      receivedState: advisorProfileList.receivedState,
+      receivedTypeofAddress: advisorProfileList.receivedTypeofAddress,
+    })
+  }
+  setAccomplishment(accomplishments: Accomplishment[]): FormArray {
+    const formArray = new FormArray([]);
+    accomplishments.forEach(s => {
+      formArray.push(this._formBuilder.group({
+        receivedHeading: s.receivedHeading,
+        receivedDesc: s.receivedDesc,
+      }));
+    });
+    return formArray;
+  }
+  setClients(clients: Clients[]): FormArray {
+    const formArray = new FormArray([]);
+    clients.forEach(s => {
+      formArray.push(this._formBuilder.group({
+        receivedMajorClient: s.receivedMajorClient,
+      }));
+    });
+    return formArray;
+  }
+
+  setEducations(educations: Educations[]): FormArray {
+    const formArray = new FormArray([]);
+    educations.forEach(s => {
+      formArray.push(this._formBuilder.group({
+        receivedTypeofDegree: s.receivedTypeofDegree,
+        receivedYearOfPassing: s.receivedYearOfPassing,
+        receivedDegreeName: s.receivedDegreeName,
+        receivedCollegeName: s.receivedCollegeName,
+        receivedPrimary: s.receivedPrimary,
+      }));
+    });
+    return formArray;
+  }
+
+  setCertification(certs: Certification[]): FormArray {
+    const formArray = new FormArray([]);
+    certs.forEach(s => {
+      formArray.push(this._formBuilder.group({
+        receivedCertificateName: s.receivedCertificateName,
+        receivedIssuingAuthority: s.receivedIssuingAuthority,
+        receivedDateofIssuance: s.receivedDateofIssuance,
+
+      }));
+    });
+    return formArray;
+  }
+
+
+
+
+
+  ngOnInit() {
+
+    this.loadGender();
+    this.loadLanguage();
+
+    // for (var item of this.advisorProfileList) {
+    //   console.log(item);
+    // }
+
+    // console.log(this.Form1Group.get('receivedName'));
 
     // YearOfExpListService
     this.yearsOfExpList = this.yearOfExpListService.yearsOfExpList();
@@ -371,6 +542,17 @@ export class ProfileComponent implements OnInit {
     // AREA OF PRATICE Service
     this.areaOfPraticeList = this.areaOfPraticeListService.areaOfPraticeList();
 
+
+    // BASE CITY Service
+    this.baseCitylist = this.baseCitylistService.baseCityList();
+
+    // Advisor Profile Service
+    this.advisorProfileList = this.advisorProfileService.advisorProfileList();
+
+
+    // AccomplishmentsService
+    // this.accomplishments = this.AccomplishmentsService.accomplishments();
+
     //Add Certs
     this.addcerts();
 
@@ -380,8 +562,17 @@ export class ProfileComponent implements OnInit {
 
     this.addAccomplishments();
 
+    // this.editProfile();
+
+    // this.createAllFormGroup();
+
     // advisorProfile Service
-    // this.advisorProfile = this.advisorProfileService.advisorProfile;
+    // this.loadAccom = this.advisorProfileService.getAccomplishments;
+
+    // this.loadUserProfile();
+    // console.log("hello world");
+    // console.log(this.ProfileDetails.receivedName);
+
 
     setTimeout(() => {
       window.dispatchEvent(
@@ -391,3 +582,4 @@ export class ProfileComponent implements OnInit {
   }
 
 }
+

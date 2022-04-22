@@ -9,7 +9,7 @@ export class RegistrationPayload {
     uploadedPhoto: String='';
 
     // accomplishments!: string[];AccomplishmentPayload
-    accomplishments: String='';
+    accomplishments!:{ heading: string; desc: string; }[];
     clients: String='';
     selectedBaseCity: String='';
     enteredenrollment: String='';

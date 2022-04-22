@@ -114,7 +114,7 @@ export class CourtOfPracticeService {
       },
       {
         id: 27,
-        item_text: "National Green Tribunal NGT"
+        name: "National Green Tribunal NGT"
       },
       {
         id: 28,

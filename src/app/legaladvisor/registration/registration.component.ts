@@ -51,6 +51,8 @@ export class RegistrationComponent implements OnInit {
   courtOfPraticeList: any = [];
   areaOfPraticeList: any = [];
 
+  // clients! :{ heading: string; desc: string; }[];
+
   // JSON FORMAT
   stringifiedData: any;
 

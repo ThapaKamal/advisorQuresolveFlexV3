@@ -1,5 +1,5 @@
 export class Gender
 {
-    id : String='';
-    value : String='';
+    id: String='';
+    value:String='';
 }

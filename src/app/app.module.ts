@@ -14,6 +14,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileComponent } from './modules/profile/profile.component'; // a plug
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TaxAdvisorModule } from './tax-advisor/tax-advisor.module';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LegaladvisorModule,
     NgbModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    TaxAdvisorModule
    
   ],
   providers: [],

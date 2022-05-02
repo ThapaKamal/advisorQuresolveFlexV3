@@ -17,6 +17,7 @@ import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { PaymentsComponent } from './modules/payments/payments.component';
 import { ProfileComponent } from './modules/profile/profile.component';
 import { VisitorsComponent } from './modules/visitors/visitors.component';
+import { TaxRegistrationComponent } from './tax-advisor/tax-registration/tax-registration.component';
 
 const routes: Routes = [{
 
@@ -84,6 +85,10 @@ const routes: Routes = [{
 {
   path:'lawyerRegistration',
   component: RegistrationComponent
+},
+{
+  path:'taxAdvisorRegistration',
+  component: TaxRegistrationComponent
 },
 {
   path:'**',

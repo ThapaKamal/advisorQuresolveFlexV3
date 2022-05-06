@@ -85,11 +85,17 @@
                     <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
                         <mat-form-field appearance="fill">
                             <mat-label>Gender</mat-label>
-                            <mat-select matInput formControlName="gender" required>
+                            <mat-select formControlName="gender">
+                                <mat-option *ngFor="let gender of gender$ | async" [value]="gender.id">
+                                    {{ gender.value}}
+                                </mat-option>
+                            </mat-select>
+
+                            <!-- <mat-select matInput formControlName="gender" required>
                                 <mat-option value="1">Male</mat-option>
                                 <mat-option value="2">Female</mat-option>
                                 <mat-option value="3">Other</mat-option>
-                            </mat-select>
+                            </mat-select> -->
                             <mat-icon matSuffix>people</mat-icon>
                             <mat-error *ngIf="errorHandling('gender', 'required')">
                                 This field is required
@@ -102,7 +108,8 @@
                         <mat-form-field appearance="fill">
                             <mat-label>Language</mat-label>
                             <mat-select formControlName="selectedlanguage" multiple>
-                                <mat-option *ngFor="let language of languageList" [value]="language">{{language}}
+                                <mat-option *ngFor="let language of language$| async" [value]="language.id">
+                                    {{language.value}}
                                 </mat-option>
                             </mat-select>
                             <mat-icon matSuffix>language</mat-icon>
@@ -600,7 +607,7 @@
                         <mat-form-field appearance="fill">
                             <mat-label>Confirm Account number</mat-label>
                             <input matInput placeholder="Ex. XXXXXXXXXX" type="number"
-                                formControlName="confirmAccountnumber" required >
+                                formControlName="confirmAccountnumber" required>
                             <mat-icon matSuffix>account_balance</mat-icon>
                             <mat-error *ngIf="errorHandling4('confirmAccountnumber', 'required')">
                                 This field should match Account number
@@ -860,18 +867,18 @@
                         </mat-dialog-content>
                         <!-- </div> -->
                         <br>
-                
+
                     </div>
                     <div fxLayout="row" fxLayoutAlign="center ">
                         <input type="checkbox" formControlName="terms"> Accept Terms and Conditions
                     </div>
-                      
+
                 </mat-card>
             </div>
             <br>
             <div>
                 <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
-      
+
                 <button mat-stroked-button color="primary" matStepperSubmit type="submit"
                     [disabled]="seventhFormGroup.invalid" (click)="submit()">Submit</button>
             </div>

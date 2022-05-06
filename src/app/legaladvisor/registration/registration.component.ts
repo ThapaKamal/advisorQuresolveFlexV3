@@ -18,6 +18,8 @@ import { RegistrationPayload } from './Payload/registrationPayload';
 import { CustomValidationService } from './service/custom-validation.service';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Subscriber, Subscription } from 'rxjs';
+import { GenderListService } from '../legalService/gender-list.service';
+import { LanguageListService } from '../legalService/language-list.service';
 
 
 @Component({
@@ -26,6 +28,7 @@ import { Subscriber, Subscription } from 'rxjs';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
+
 
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
@@ -39,7 +42,7 @@ export class RegistrationComponent implements OnInit {
 
   registrationPayload!: RegistrationPayload;
 
-  hide =true;
+  hide = true;
 
 
   // ServiceVariables
@@ -50,6 +53,8 @@ export class RegistrationComponent implements OnInit {
   typeOfAddressList: any = [];
   courtOfPraticeList: any = [];
   areaOfPraticeList: any = [];
+  getGenderList: any = [];
+  getlanguage: any = [];
 
   // clients! :{ heading: string; desc: string; }[];
 
@@ -59,7 +64,7 @@ export class RegistrationComponent implements OnInit {
   // checkBoxIsselected
   selected = -1;
 
-  languageList: string[] = ['English', 'Hindi'];
+  // languageList: string[] = ['English', 'Hindi'];
 
   // Image
   dataimage: any;
@@ -68,6 +73,13 @@ export class RegistrationComponent implements OnInit {
   fileInput!: ElementRef;
   fileAttr = '';
   file!: File;
+
+
+  genderModel: any;
+
+  gender$: any;
+  language$: any;
+
 
   uploadFileEvt(imgFile: any) {
     if (imgFile.target.files && imgFile.target.files[0]) {
@@ -97,10 +109,10 @@ export class RegistrationComponent implements OnInit {
 
     function isPrimarySelected(this: any) {
       this.thirdFormGroup.value.educations;
-    
-    }    
+
+    }
   }
-  private mediaSub!:Subscription;  
+  private mediaSub!: Subscription;
 
   constructor(
     private router: Router,
@@ -115,7 +127,9 @@ export class RegistrationComponent implements OnInit {
     private httpClient: HttpClient,
     private registrationService: RegistrationServiceService,
     private customValidator: CustomValidationService,
-    private mediaObserver:MediaObserver,
+    private mediaObserver: MediaObserver,
+    private genderListService: GenderListService,
+    private languageListService: LanguageListService,
 
   ) {
 
@@ -170,24 +184,24 @@ export class RegistrationComponent implements OnInit {
 
     this.fifthFormGroup = this._formBuilder.group(
       {
-      enteredBeneficiaryName: ['', Validators.required],
-      selectedBankName: new FormControl('', Validators.required),
-      enteredIfscCode: new FormControl('', [
-        Validators.required,
-        Validators.pattern("^[A-Z]{4}0[A-Z0-9]{6}$")]),
-      enteredAccountNumber: new FormControl('', [
-        Validators.required,
-        Validators.minLength(10)
-      ]),
-      confirmAccountnumber: new FormControl('', Validators.required),
-    },
+        enteredBeneficiaryName: ['', Validators.required],
+        selectedBankName: new FormControl('', Validators.required),
+        enteredIfscCode: new FormControl('', [
+          Validators.required,
+          Validators.pattern("^[A-Z]{4}0[A-Z0-9]{6}$")]),
+        enteredAccountNumber: new FormControl('', [
+          Validators.required,
+          Validators.minLength(10)
+        ]),
+        confirmAccountnumber: new FormControl('', Validators.required),
+      },
       {
         validator: this.customValidator.accountMatchValidator(
           "enteredAccountNumber",
           "confirmAccountnumber"
         )
       }
-      );
+    );
 
     this.sixthFormGroup = this._formBuilder.group({
       enteredAddressline1: ['', Validators.required],
@@ -253,7 +267,7 @@ export class RegistrationComponent implements OnInit {
       );
   }
 
-// BAR COUNCIL
+  // BAR COUNCIL
 
   selectedFile1!: File;
   retrievedImage1: any;
@@ -262,44 +276,44 @@ export class RegistrationComponent implements OnInit {
   message1!: string;
   imageName1: any;
 
-    //Gets called when the user selects an image
-    public onFileChanged1(event: any) {
-      //Select File
-      this.selectedFile1 = event.target.files[0];
-    }
-    //Gets called when the user clicks on submit to upload the image
-    onUpload1() {
-      console.log(this.selectedFile1);
-  
-      //FormData API provides methods and properties to allow us easily prepare form data to be sent with POST HTTP requests.
-      const uploadImageData1 = new FormData();
-      uploadImageData1.append('imageFile', this.selectedFile1, this.selectedFile1.name);
-  
-      //Make a call to the Spring Boot Application to save the image
-      this.httpClient.post('http://localhost:8080/image/upload', uploadImageData1, { observe: 'response' })
-        .subscribe((response) => {
-          if (response.status === 200) {
-            this.message1 = 'Image uploaded successfully';
-          } else {
-            this.message1 = 'Image not uploaded successfully';
-          }
+  //Gets called when the user selects an image
+  public onFileChanged1(event: any) {
+    //Select File
+    this.selectedFile1 = event.target.files[0];
+  }
+  //Gets called when the user clicks on submit to upload the image
+  onUpload1() {
+    console.log(this.selectedFile1);
+
+    //FormData API provides methods and properties to allow us easily prepare form data to be sent with POST HTTP requests.
+    const uploadImageData1 = new FormData();
+    uploadImageData1.append('imageFile', this.selectedFile1, this.selectedFile1.name);
+
+    //Make a call to the Spring Boot Application to save the image
+    this.httpClient.post('http://localhost:8080/image/upload', uploadImageData1, { observe: 'response' })
+      .subscribe((response) => {
+        if (response.status === 200) {
+          this.message1 = 'Image uploaded successfully';
+        } else {
+          this.message1 = 'Image not uploaded successfully';
         }
-        );
-    }
-    // retieve image
-  
-    //Gets called when the user clicks on retieve image button to get the image from back end
-    getImage1() {
-      //Make a call to Sprinf Boot to get the Image Bytes.
-      this.httpClient.get('http://localhost:8080/image/get/' + this.imageName1)
-        .subscribe(
-          res => {
-            this.retrieveResonse1 = res;
-            this.base64Data1 = this.retrieveResonse1.picByte;
-            this.retrievedImage1 = 'data:image/jpeg;base64,' + this.base64Data1;
-          }
-        );
-    }
+      }
+      );
+  }
+  // retieve image
+
+  //Gets called when the user clicks on retieve image button to get the image from back end
+  getImage1() {
+    //Make a call to Sprinf Boot to get the Image Bytes.
+    this.httpClient.get('http://localhost:8080/image/get/' + this.imageName1)
+      .subscribe(
+        res => {
+          this.retrieveResonse1 = res;
+          this.base64Data1 = this.retrieveResonse1.picByte;
+          this.retrievedImage1 = 'data:image/jpeg;base64,' + this.base64Data1;
+        }
+      );
+  }
 
 
 
@@ -375,16 +389,23 @@ export class RegistrationComponent implements OnInit {
     this.accomplishments().removeAt(i);
   }
 
-  
+  genderList() {
+    return this.genderListService.getGenderList();
+  }
 
+  languageList(){
+    return this.languageListService.getlanguage();
+  }
 
 
 
 
   ngOnInit() {
 
+    this.gender$ = this.genderList();
+    this.language$ = this.languageList();
 
-// tells page size in console
+    // tells page size in console
     // this.mediaSub = this.mediaObserver.media$.subscribe(
     //   (change:MediaChange)=>{
     //     console.log(change.mqAlias);
@@ -412,6 +433,12 @@ export class RegistrationComponent implements OnInit {
 
     // AREA OF PRATICE Service
     this.areaOfPraticeList = this.areaOfPraticeListService.areaOfPraticeList();
+
+    // GenderList Service
+    this.getGenderList = this.genderListService.getGenderList();
+
+    // LanguageList Service
+    this.getlanguage = this.languageListService.getlanguage();
 
     //Add Certs
     this.addcerts();
@@ -523,7 +550,7 @@ export class RegistrationComponent implements OnInit {
     this.registrationPayload.enteredIfscCode = this.fifthFormGroup.value.enteredIfscCode;
     this.registrationPayload.confirmAccountnumber = this.fifthFormGroup.value.confirmAccountnumber;
     this.registrationPayload.selectedBankName = this.fifthFormGroup.value.selectedBankName;
-   
+
   }
   sixthFormToRegistrationPayload() {
     this.registrationPayload.enteredAddressline1 = this.sixthFormGroup.value.enteredAddressline1;

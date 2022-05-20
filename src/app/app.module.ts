@@ -15,14 +15,14 @@ import { ProfileComponent } from './modules/profile/profile.component'; // a plu
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TaxAdvisorModule } from './tax-advisor/tax-advisor.module';
+import { AdminModuleModule } from './admin-module/admin-module.module';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProfileComponent
-    
-   
+    ProfileComponent,
    
   ],
   imports: [
@@ -36,7 +36,9 @@ import { TaxAdvisorModule } from './tax-advisor/tax-advisor.module';
     NgbModule,
     ReactiveFormsModule,
     FormsModule,
-    TaxAdvisorModule
+    TaxAdvisorModule,
+    AdminModuleModule
+
    
   ],
   providers: [],

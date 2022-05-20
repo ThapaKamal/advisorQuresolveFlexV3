@@ -1,5 +1,8 @@
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminLayoutComponent } from './admin-module/admin-layout/admin-layout.component';
+import { CourtOfPraticeComponent } from './admin-module/admin-sidebarMenu/Services/court-of-pratice/court-of-pratice.component';
+import { YearOfExperienceComponent } from './admin-module/admin-sidebarMenu/Services/year-of-experience/year-of-experience.component';
 import { DefaultComponent } from './layouts/default/default.component';
 import { RegistrationComponent } from './legaladvisor/registration/registration.component';
 import { ErrorPageComponent } from './login/error-page/error-page.component';
@@ -24,74 +27,87 @@ const routes: Routes = [{
   path: '',
   component: DefaultComponent,
   children: [{
-    path:'',
+    path: '',
     component: DashboardComponent
   }, {
-    path:'calender',
+    path: 'calender',
     component: CalenderComponent
   },
   {
-    path:'consulationhistory',
+    path: 'consulationhistory',
     component: ConsulationhistoryComponent
   },
   {
-    path:'payments',
+    path: 'payments',
     component: PaymentsComponent
   },
   {
-    path:'appointments',
+    path: 'appointments',
     component: AppointmentsComponent
   },
   {
-    path:'reviews',
+    path: 'reviews',
     component: CustomerReviewsComponent
   },
   {
-    path:'visitors',
+    path: 'visitors',
     component: VisitorsComponent
   },
   {
-    path:'profile',
+    path: 'profile',
     component: ProfileComponent
   },
   {
-    path:'articlesAndPublications',
+    path: 'articlesAndPublications',
     component: ArticlesAndPublicationsComponent
   }]
 },
+{
+  path: 'admin',
+  component: AdminLayoutComponent,
+  children: [{
+    path: 'court',
+    component: CourtOfPraticeComponent
+  },{
+    path: 'yearofexp',
+    component: YearOfExperienceComponent
+  }
+
+]
+},
 
 {
-  path:'login',
+  path: 'login',
   component: SignInComponent
 },
 
 {
-  path:'signup',
+  path: 'signup',
   component: SignUpComponent
 },
 {
-  path:'signupFailed',
+  path: 'signupFailed',
   component: SignupFailedComponent
 },
 
 {
-  path:'forgetPassword',
+  path: 'forgetPassword',
   component: ForgetPasswordComponent
 },
 {
-  path:'registrationConfirmation',
+  path: 'registrationConfirmation',
   component: RegisterConfirmationComponent
 },
 {
-  path:'lawyerRegistration',
+  path: 'lawyerRegistration',
   component: RegistrationComponent
 },
 {
-  path:'taxAdvisorRegistration',
+  path: 'taxAdvisorRegistration',
   component: TaxRegistrationComponent
 },
 {
-  path:'**',
+  path: '**',
   component: ErrorPageComponent
 },
 
@@ -99,7 +115,7 @@ const routes: Routes = [{
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{ useHash: true })],
-    exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }

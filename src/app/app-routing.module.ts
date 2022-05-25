@@ -1,7 +1,13 @@
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminLayoutComponent } from './admin-module/admin-layout/admin-layout.component';
+import { DashboardComponent } from './admin-module/admin-sidebarMenu/dashboard/dashboard.component';
+import { AreaOfPracticeComponent } from './admin-module/admin-sidebarMenu/Services/area-of-practice/area-of-practice.component';
+import { BankNameComponent } from './admin-module/admin-sidebarMenu/Services/bank-name/bank-name.component';
+import { BarMembershipComponent } from './admin-module/admin-sidebarMenu/Services/bar-membership/bar-membership.component';
+import { BaseCityComponent } from './admin-module/admin-sidebarMenu/Services/base-city/base-city.component';
 import { CourtOfPraticeComponent } from './admin-module/admin-sidebarMenu/Services/court-of-pratice/court-of-pratice.component';
+import { LanguageComponent } from './admin-module/admin-sidebarMenu/Services/language/language.component';
 import { YearOfExperienceComponent } from './admin-module/admin-sidebarMenu/Services/year-of-experience/year-of-experience.component';
 import { DefaultComponent } from './layouts/default/default.component';
 import { RegistrationComponent } from './legaladvisor/registration/registration.component';
@@ -16,7 +22,6 @@ import { ArticlesAndPublicationsComponent } from './modules/articles-and-publica
 import { CalenderComponent } from './modules/calender/calender.component';
 import { ConsulationhistoryComponent } from './modules/consulationhistory/consulationhistory.component';
 import { CustomerReviewsComponent } from './modules/customer-reviews/customer-reviews.component';
-import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { PaymentsComponent } from './modules/payments/payments.component';
 import { ProfileComponent } from './modules/profile/profile.component';
 import { VisitorsComponent } from './modules/visitors/visitors.component';
@@ -66,12 +71,37 @@ const routes: Routes = [{
   path: 'admin',
   component: AdminLayoutComponent,
   children: [{
-    path: 'court',
-    component: CourtOfPraticeComponent
-  },{
+    path: 'dashboard',
+    component: DashboardComponent
+  },
+  {
     path: 'yearofexp',
     component: YearOfExperienceComponent
-  }
+  },
+  {
+    path: 'areaofpratice',
+    component: AreaOfPracticeComponent
+  },
+  {
+    path: 'language',
+    component: LanguageComponent
+  },
+  {
+    path: 'basecity',
+    component: BaseCityComponent
+  },
+  {
+    path: 'barmembership',
+    component: BarMembershipComponent
+  },
+  {
+    path: 'bankname',
+    component: BankNameComponent
+  },
+  {
+    path: 'court',
+    component: CourtOfPraticeComponent
+  },
 
 ]
 },

@@ -15,9 +15,20 @@ import { YearOfExperienceComponent } from './admin-sidebarMenu/Services/year-of-
 import { ConfirmDeleteDialogBoxComponent } from './admin-sidebarMenu/Services/Common/confirm-delete-dialog-box/confirm-delete-dialog-box.component';
 import { AreaOfPracticeComponent } from './admin-sidebarMenu/Services/area-of-practice/area-of-practice.component';
 import { AreaofpracticeDialogboxComponent } from './admin-sidebarMenu/Services/area-of-practice/areaofpractice-dialogbox/areaofpractice-dialogbox.component';
-
-
-
+import { BankNameComponent } from './admin-sidebarMenu/Services/bank-name/bank-name.component';
+import { BankNameDialogBoxComponent } from './admin-sidebarMenu/Services/bank-name/bank-name-dialog-box/bank-name-dialog-box.component';
+import { BarMembershipComponent } from './admin-sidebarMenu/Services/bar-membership/bar-membership.component';
+import { BarMembershipDialogBoxComponent } from './admin-sidebarMenu/Services/bar-membership/bar-membership-dialog-box/bar-membership-dialog-box.component';
+import { BaseCityComponent } from './admin-sidebarMenu/Services/base-city/base-city.component';
+import { BaseCityDialogBoxComponent } from './admin-sidebarMenu/Services/base-city/base-city-dialog-box/base-city-dialog-box.component';
+import { LanguageComponent } from './admin-sidebarMenu/Services/language/language.component';
+import { LanguageDialogBoxComponent } from './admin-sidebarMenu/Services/language/language-dialog-box/language-dialog-box.component';
+import { DashboardComponent } from './admin-sidebarMenu/dashboard/dashboard.component';
+import { PieChartComponent } from './admin-sidebarMenu/dashboard/widgets/pie/pie-chart/pie-chart.component';
+import { ChartComponent } from './admin-sidebarMenu/dashboard/widgets/chart/chart/chart.component';
+import { AreaComponent } from './admin-sidebarMenu/dashboard/widgets/area/area/area.component';
+import { CardComponent } from './admin-sidebarMenu/dashboard/widgets/card/card/card.component';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 
 
@@ -32,7 +43,20 @@ import { AreaofpracticeDialogboxComponent } from './admin-sidebarMenu/Services/a
     YearOfExperienceComponent,
     ConfirmDeleteDialogBoxComponent,
     AreaOfPracticeComponent,
-    AreaofpracticeDialogboxComponent
+    AreaofpracticeDialogboxComponent,
+    BankNameComponent,
+    BankNameDialogBoxComponent,
+    BarMembershipComponent,
+    BarMembershipDialogBoxComponent,
+    BaseCityComponent,
+    BaseCityDialogBoxComponent,
+    LanguageComponent,
+    LanguageDialogBoxComponent,
+    DashboardComponent,
+    PieChartComponent,
+    ChartComponent,
+    AreaComponent,
+    CardComponent
  
 
   ],
@@ -44,7 +68,8 @@ import { AreaofpracticeDialogboxComponent } from './admin-sidebarMenu/Services/a
     FormsModule,
     SharedModule,
     HttpClientModule,
-    MatTableModule
+    MatTableModule,
+    HighchartsChartModule,
 
   ]
 })

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,CAAA;EACD,KAAK,EAAE,IAAI;CACd;;AACD,AAAA,eAAe,CAAA;EACX,KAAK,EAAE,IAAI;CACd",
+    "sources": [
+        "appointments.component.scss"
+    ],
+    "names": [],
+    "file": "appointments.component.css"
+}

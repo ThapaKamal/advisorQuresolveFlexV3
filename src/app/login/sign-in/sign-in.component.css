@@ -1,0 +1,43 @@
+mat-card {
+  max-width: 250px;
+  margin: 2em auto;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-shadow: 1px 3px 15px 0;
+          box-shadow: 1px 3px 15px 0;
+  font-weight: 400;
+  margin-top: 50px;
+}
+
+.mat-card:hover {
+  -webkit-box-shadow: -1px 10px 29px 0px rgba(0, 0, 0, 0.8);
+          box-shadow: -1px 10px 29px 0px rgba(0, 0, 0, 0.8);
+}
+
+mat-form-field {
+  display: block;
+}
+
+mat-icon {
+  font-size: 50px;
+}
+
+.outline {
+  border-style: solid;
+  border-width: 1.5px;
+  border-color: #3c92b4;
+}
+
+h1 {
+  font-weight: 500;
+}
+
+.logo {
+  padding-left: 50px;
+}
+/*# sourceMappingURL=sign-in.component.css.map */

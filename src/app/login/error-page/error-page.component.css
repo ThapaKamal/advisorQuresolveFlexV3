@@ -1,0 +1,14 @@
+.container1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding-top: 90px;
+}
+
+.logo {
+  padding-left: 50px;
+}
+/*# sourceMappingURL=error-page.component.css.map */

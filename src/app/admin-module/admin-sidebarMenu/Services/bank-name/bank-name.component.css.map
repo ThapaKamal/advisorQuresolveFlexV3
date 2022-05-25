@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,CAAA;EACD,KAAK,EAAE,IAAI;CACd;;AACD,AAAA,eAAe,CAAA;EACX,KAAK,EAAE,IAAI;CACd;;AACD,AAAA,UAAU,CAAA;EACN,SAAS,EAAE,KAAK;EAChB,MAAM,EAAE,MAAM;CACjB",
+    "sources": [
+        "bank-name.component.scss"
+    ],
+    "names": [],
+    "file": "bank-name.component.css"
+}

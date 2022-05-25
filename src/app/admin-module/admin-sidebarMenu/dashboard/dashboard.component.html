@@ -1,0 +1,49 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px" class="stats-cards">
+   
+    <mat-card fxFlex="30">
+        <app-admin-card label="TOTAL CONSULTATION" total="12k" percentage="50" [data]="cards"></app-admin-card>
+    </mat-card>
+
+    <mat-card fxFlex="30">
+        <app-admin-card label="UPCOMINGCONSULTATION" total="8k" percentage="40" [data]="cards"></app-admin-card>
+    </mat-card>
+
+    <mat-card fxFlex="30">
+        <app-admin-card label="TOTAL HITS" total="4k" percentage="20" [data]="cards"></app-admin-card>
+    </mat-card>
+</div>
+
+<br>
+<mat-divider></mat-divider>
+<br>
+
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20" class="stats-cards">
+   <mat-card fxFlex="100"  >
+        <div class="mbox"> ARTICLE: CRITICAL ANALYSIS OF LALITRA KUMARI VS STATE OF UP - JUDGEMENT - SUPREME COURT (CONST. BENCH)
+        </div>
+        <div class="mbox1">
+            <mat-card fxFlex="30" fxLayoutGap="0" >View: 6</mat-card>
+
+            <mat-card fxFlex="30" fxLayoutGap="0">Read: 2</mat-card>
+
+            <mat-card fxFlex="30" fxLayoutGap="0">Shared: 1</mat-card>
+        </div>
+    </mat-card>
+</div>
+
+<br>
+<mat-divider></mat-divider>
+<br>
+
+
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+    <div fxFlex="50">
+        <app-admin-pie-chart [data]="pieChart"></app-admin-pie-chart>
+    </div>
+
+    <div fxFlex="50">
+        <app-admin-area [data]="bigChart"></app-admin-area>
+    </div>
+</div>
+<br><br>
+<br><br>

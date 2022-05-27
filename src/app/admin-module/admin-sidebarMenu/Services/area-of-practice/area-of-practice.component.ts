@@ -15,7 +15,7 @@ import { AreaofpracticeDialogboxComponent } from './areaofpractice-dialogbox/are
 })
 export class AreaOfPracticeComponent implements OnInit {
 
-  displayedColumns: string[] = [ 'sn','value','action'];
+  displayedColumns: string[] = ['sn','value','action'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -60,9 +60,6 @@ export class AreaOfPracticeComponent implements OnInit {
       next:(res)=>{
        this.areaOfPraticeForm.reset();
         // this.dialogRef.close('update');
-
-      
-        
         // this.dialog.open(ConfirmDeleteDialogBoxComponent,{
         //   width:'30%',
         // })
@@ -70,10 +67,8 @@ export class AreaOfPracticeComponent implements OnInit {
         //   if (result === true) {
         //     this.api.deleteValue(id)
         //     this.yearOfExpForm.reset();
-           
         //   }
         // }); 
-        
       },
       error:()=>{
         alert("Error while Deleting the product!!")

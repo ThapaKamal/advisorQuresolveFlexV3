@@ -9,6 +9,8 @@ import { BaseCityComponent } from './admin-module/admin-sidebarMenu/Services/bas
 import { CourtOfPraticeComponent } from './admin-module/admin-sidebarMenu/Services/court-of-pratice/court-of-pratice.component';
 import { LanguageComponent } from './admin-module/admin-sidebarMenu/Services/language/language.component';
 import { YearOfExperienceComponent } from './admin-module/admin-sidebarMenu/Services/year-of-experience/year-of-experience.component';
+import { LegalAdvisorUserComponent } from './admin-module/admin-sidebarMenu/users/legal-advisor-user/legal-advisor-user.component';
+import { TaxAdvisorUserComponent } from './admin-module/admin-sidebarMenu/users/tax-advisor-user/tax-advisor-user.component';
 import { DefaultComponent } from './layouts/default/default.component';
 import { RegistrationComponent } from './legaladvisor/registration/registration.component';
 import { ErrorPageComponent } from './login/error-page/error-page.component';
@@ -70,40 +72,50 @@ const routes: Routes = [{
 {
   path: 'admin',
   component: AdminLayoutComponent,
-  children: [{
-    path: 'dashboard',
-    component: DashboardComponent
-  },
-  {
-    path: 'yearofexp',
-    component: YearOfExperienceComponent
-  },
-  {
-    path: 'areaofpratice',
-    component: AreaOfPracticeComponent
-  },
-  {
-    path: 'language',
-    component: LanguageComponent
-  },
-  {
-    path: 'basecity',
-    component: BaseCityComponent
-  },
-  {
-    path: 'barmembership',
-    component: BarMembershipComponent
-  },
-  {
-    path: 'bankname',
-    component: BankNameComponent
-  },
-  {
-    path: 'court',
-    component: CourtOfPraticeComponent
-  },
+  children: [
+    {
+      path: 'dashboard',
+      component: DashboardComponent
+    },
+    {
+      path: 'yearofexp',
+      component: YearOfExperienceComponent
+    },
+    {
+      path: 'areaofpratice',
+      component: AreaOfPracticeComponent
+    },
+    {
+      path: 'language',
+      component: LanguageComponent
+    },
+    {
+      path: 'basecity',
+      component: BaseCityComponent
+    },
+    {
+      path: 'barmembership',
+      component: BarMembershipComponent
+    },
+    {
+      path: 'bankname',
+      component: BankNameComponent
+    },
+    {
+      path: 'court',
+      component: CourtOfPraticeComponent
+    },
+    {
+      path: 'legalUser',
+      component: LegalAdvisorUserComponent
+    },
+    {
+      path: 'taxUser',
+      component: TaxAdvisorUserComponent
+    },
+    
 
-]
+  ]
 },
 
 {

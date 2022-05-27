@@ -29,6 +29,8 @@ import { ChartComponent } from './admin-sidebarMenu/dashboard/widgets/chart/char
 import { AreaComponent } from './admin-sidebarMenu/dashboard/widgets/area/area/area.component';
 import { CardComponent } from './admin-sidebarMenu/dashboard/widgets/card/card/card.component';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { LegalAdvisorUserComponent } from './admin-sidebarMenu/users/legal-advisor-user/legal-advisor-user.component';
+import { TaxAdvisorUserComponent } from './admin-sidebarMenu/users/tax-advisor-user/tax-advisor-user.component';
 
 
 
@@ -56,7 +58,9 @@ import { HighchartsChartModule } from 'highcharts-angular';
     PieChartComponent,
     ChartComponent,
     AreaComponent,
-    CardComponent
+    CardComponent,
+    LegalAdvisorUserComponent,
+    TaxAdvisorUserComponent
  
 
   ],

@@ -8,6 +8,12 @@ import { MaterialModule } from '../material/material.module';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import { RegisterConfirmationComponent } from './register-confirmation/register-confirmation.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgxWebstorageModule} from 'ngx-webstorage';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { SignupFailedComponent } from './sign-up/signup-failed/signup-failed.component';
+
+
 
 
 
@@ -20,16 +26,21 @@ import { RegisterConfirmationComponent } from './register-confirmation/register-
     ForgetPasswordComponent,
     ErrorPageComponent,
     FooterComponent,
-    RegisterConfirmationComponent
+    RegisterConfirmationComponent,
+    SignupFailedComponent,
   ],
   imports: [
     CommonModule,
     MaterialModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgxWebstorageModule.forRoot(),
   ],
   exports: [
     FooterComponent,
-
-  ]
+  ],
 })
+  
 export class LoginModule { }

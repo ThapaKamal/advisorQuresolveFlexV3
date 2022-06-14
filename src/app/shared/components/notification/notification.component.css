@@ -1,0 +1,24 @@
+.iconBox {
+  background-color: #1493ce;
+  padding: 2px;
+  color: white;
+}
+
+.box {
+  background-color: #8a9ba3;
+  color: white;
+}
+
+.mat-toolbar {
+  background-color: #1e4356;
+  color: #fff;
+}
+
+.notificationPopUp {
+  text-align: center;
+}
+
+::ng-deep .notificationPopUp {
+  width: 280px;
+}
+/*# sourceMappingURL=notification.component.css.map */

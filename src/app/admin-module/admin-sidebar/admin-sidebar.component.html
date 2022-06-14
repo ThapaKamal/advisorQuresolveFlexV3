@@ -1,0 +1,142 @@
+<mat-nav-list>
+    <div class="profile-card">
+        <div>
+            <img src="https://quresolve.com/assets/img/team/male.png" alt="Photo">
+        </div>
+        <div class="header">
+            <h2>Your Name</h2>
+            <h4>Your Email Id</h4>
+            <mat-slide-toggle color="green" class="no-hover-effect">Online</mat-slide-toggle>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+
+    <mat-sidenav-container autosize>
+        <!-- <h2 matSubheader>Menu</h2> -->
+
+
+        <a mat-list-item routerLinkActive="list-item-active" routerLink="/admin/dashboard">
+            <mat-icon>dashboard</mat-icon>
+            Dashboard
+        </a>
+
+        <mat-nav-list>
+            <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+                <span class="full-width" *ngIf="isExpanded || isShowing">Users</span>
+                <mat-icon mat-list-icon>dashboard</mat-icon>
+                <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">
+                    expand_more</mat-icon>
+            </mat-list-item>
+            <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+
+                <a mat-list-item routerLinkActive="list-item-active" routerLink="/admin/legalUser">
+                    <mat-icon>dashboard</mat-icon>
+                    Legal User
+                </a>
+                <a mat-list-item routerLinkActive="list-item-active" routerLink="/admin/taxUser">
+                    <mat-icon>dashboard</mat-icon>
+                    Tax User
+                </a>
+                <!-- <a mat-list-item routerLinkActive="list-item-active" routerLink="/admin/areaofpratice">
+                    <mat-icon>dashboard</mat-icon>
+                    Area of Practice
+                </a> -->
+
+            </div>
+        </mat-nav-list>
+
+
+        <mat-nav-list>
+            <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent">
+                <span class="full-width" *ngIf="isExpanded || isShowing">Common Services</span>
+                <mat-icon mat-list-icon>dashboard</mat-icon>
+                <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="isExpanded || isShowing">
+                    expand_more</mat-icon>
+            </mat-list-item>
+            <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="isShowing || isExpanded">
+
+                <a mat-list-item routerLinkActive="list-item-active" routerLink="/admin/court">
+                    <mat-icon>dashboard</mat-icon>
+                    Court Of Pratice
+                </a>
+                <a mat-list-item routerLinkActive="list-item-active" routerLink="/admin/yearofexp">
+                    <mat-icon>dashboard</mat-icon>
+                    Year of Experience
+                </a>
+                <a mat-list-item routerLinkActive="list-item-active" routerLink="/admin/areaofpratice">
+                    <mat-icon>dashboard</mat-icon>
+                    Area of Practice
+                </a>
+                <a mat-list-item routerLinkActive="list-item-active" routerLink="/admin/basecity">
+                    <mat-icon>dashboard</mat-icon>
+                    Base City
+                </a>
+                <a mat-list-item routerLinkActive="list-item-active" routerLink="/admin/barmembership">
+                    <mat-icon>dashboard</mat-icon>
+                    Bar Membership
+                </a>
+                <a mat-list-item routerLinkActive="list-item-active" routerLink="/admin/bankname">
+                    <mat-icon>dashboard</mat-icon>
+                    Bank Name
+                </a>
+                <a mat-list-item routerLinkActive="list-item-active" routerLink="/admin/language">
+                    <mat-icon>dashboard</mat-icon>
+                    Language
+                </a>
+                <!-- <a mat-list-item href="...">Submenu Item 2</a> -->
+                <!-- <mat-list-item (click)="showSubSubMenu = !showSubSubMenu" class="parent">
+                    <span class="full-width" *ngIf="isExpanded || isShowing">Nested Menu</span>
+                    <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubSubMenu}"
+                        *ngIf="isExpanded || isShowing">expand_more</mat-icon>
+                </mat-list-item>
+                <div class="submenu" [ngClass]="{'expanded' : showSubSubMenu}" *ngIf="isShowing || isExpanded">
+                    <mat-list-item>SubSubmenu Item 1</mat-list-item>
+                    <mat-list-item>SubSubmenu Item 2</mat-list-item>
+                </div> -->
+            </div>
+        </mat-nav-list>
+
+        
+
+
+
+
+
+        <!-- <a mat-list-item routerLinkActive="list-item-active" routerLink="/">
+        <mat-icon>dashboard</mat-icon>
+        Dashboard</a>
+     <a mat-list-item routerLinkActive="list-item-active" routerLink="/consulationhistory">
+        <mat-icon>history</mat-icon>
+        Consulation History</a> 
+     <a mat-list-item routerLinkActive="list-item-active" routerLink="/inconsultation">
+        <mat-icon> chat</mat-icon>
+        In Consultation</a> 
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/appointments">
+        <mat-icon> chat</mat-icon>
+        Appointments</a> 
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/mynetwork">
+        <mat-icon> contacts</mat-icon>
+        My Network
+    </a> 
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/payments">
+        <mat-icon> contacts</mat-icon>
+        Payments
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/calender">
+        <mat-icon>calendar_today</mat-icon>
+        Calender
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/articlesAndPublications">
+        <mat-icon>calendar_today</mat-icon>
+        Articles & Publications
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/reviews">
+        <mat-icon>calendar_today</mat-icon>
+        Customer Reviews
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/visitors">
+        <mat-icon>calendar_today</mat-icon>
+        Visitors
+    </a>  -->
+    </mat-sidenav-container>
+</mat-nav-list>

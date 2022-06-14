@@ -5,8 +5,9 @@ import { MaterialModule } from '../material/material.module';
 import { RouterModule } from '@angular/router';
 import { LoginModule } from '../login/login.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { FlexModule } from '@angular/flex-layout';
 
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
 @NgModule({
@@ -20,7 +21,11 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     LoginModule,
     FormsModule,
     ReactiveFormsModule,
-    PdfViewerModule
+    HttpClientModule,
+    FlexModule
+    
+    
+    // PdfViewerModule
   ]
 })
 export class LegaladvisorModule { }

@@ -1,0 +1,22 @@
+<!-- <h1 mat-dialog-title>Delete Value ?</h1>
+<div mat-dialog-content>Are u sure u want to delete this value ?? </div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+  <button mat-button mat-dialog-actions color="primary">Delete</button>
+</div> -->
+<!-- 
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+  {{data.message}}
+</div>
+<div style="float:right;margin:20px;">
+  <input style="margin:0px 10px;" type="button" value="Confirm"  [mat-dialog-close]="true">
+  <input type="button" value="Cancel"  [mat-dialog-close]="false">
+</div> -->
+
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>Are u sure u want to delete this value ?? </div>
+<div mat-dialog-actions>
+  <button mat-button  value="Cancel"  [mat-dialog-close]="false" >Close</button>
+  <button mat-button  value="Confirm" [mat-dialog-close]="true" color="primary">Delete</button>
+</div>

@@ -1,0 +1,903 @@
+<header id="header" class="header-transparent" style="background: #1e4356;">
+    <div class="container">
+
+        <!--Header Logo-->
+        <div class="logo float-left">
+            <a href="index.html"><img src="../../assets/images/Logo/logo.png" height="70px" alt=""
+                    class="img-fluid"></a>
+        </div>
+
+    </div>
+</header>
+<br>
+
+<h1 class="tittle">Tax Advisor Registration</h1>
+<mat-stepper #stepper>
+    <!-- Personal Information -->
+    <mat-step [stepControl]="FormGroup1">
+        <form [formGroup]="FormGroup1" (ngSubmit)="Form1ToRegistrationPayload()">
+            <ng-template matStepLabel>Personal</ng-template>
+            <br>
+            <h2 class="tittle">Fill Personal Details</h2>
+            <mat-card class="mat-card">
+
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly stretch ">
+
+                    <!-- Name -->
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Name</mat-label>
+                            <input matInput placeholder="First & Last name" type="text" formControlName="taxAdvisorName"
+                                required>
+                            <mat-icon matSuffix>perm_identity</mat-icon>
+                            <mat-error *ngIf="errorHandling('taxAdvisorName', 'required')">
+                                This field is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <!-- Email -->
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Email</mat-label>
+                            <input matInput placeholder="Ex. mail@gmail.com" type="email" formControlName="taxAdvisorEmail"
+                                required>
+                            <mat-icon matSuffix>email</mat-icon>
+                            <mat-error *ngIf="errorHandling('taxAdvisorEmail', 'required')">
+                                This field is required
+                            </mat-error>
+                            <mat-error *ngIf="errorHandling('taxAdvisorEmail', 'email')">
+                                Please enter a valid email address </mat-error>
+                        </mat-form-field>
+                    </div>
+
+
+                    <!-- Phone number -->
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Phone number</mat-label>
+                            <input matInput placeholder="+91-" type="tel" formControlName="taxAdvisorPhone" required>
+                            <mat-icon matSuffix>phone</mat-icon>
+                            <mat-error *ngIf="errorHandling('taxAdvisorPhone', 'required')">
+                                This field is required
+                            </mat-error>
+                            <mat-error *ngIf="errorHandling('taxAdvisorPhone', 'pattern')">
+                                Please enter a valid Phone number </mat-error>
+                        </mat-form-field>
+
+                    </div>
+                </div>
+
+
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly stretch">
+                    <!-- Date Of Birth -->
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Date Of Birth</mat-label>
+                            <input matInput formControlName="taxAdvisorDoB" [matDatepicker]="picker">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="errorHandling('taxAdvisorDoB', 'required')">
+                                This field is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <!-- Gender -->
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Gender</mat-label>
+                            <mat-select matInput formControlName="taxAdvisorGender" required>
+                                <mat-option value="1">Male</mat-option>
+                                <mat-option value="2">Female</mat-option>
+                                <mat-option value="3">Other</mat-option>
+                            </mat-select>
+                            <mat-icon matSuffix>people</mat-icon>
+                            <mat-error *ngIf="errorHandling('taxAdvisorGender', 'required')">
+                                This field is required
+                            </mat-error>
+
+                        </mat-form-field>
+                    </div>
+                    <!-- Language -->
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Language</mat-label>
+                            <mat-select formControlName="taxAdvisorLanguage" multiple>
+                                <mat-option *ngFor="let language of languageList" [value]="language">{{language}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-icon matSuffix>language</mat-icon>
+                            <mat-error *ngIf="errorHandling('taxAdvisorLanguage', 'required')">
+                                This field is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly stretch">
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Photo</mat-label>
+                            <!-- Display files names -->
+                            <input formControlName="taxAdvisorPhoto" matInput readonly name="name" />
+                            <input type="file" formControlName="taxAdvisorPhoto" (change)="onFileChanged($event)">
+                            <input type="button" mat-button (click)="onUpload()" value="Upload">
+                            <!-- <input type="text" formControlName="imageName" name="imageName" matInput /> -->
+                            <!-- <div *ngIf=message>{{message}}</div> -->
+                            <!-- <input type="button" (click)="getImage()" value="Get Image"> -->
+                            <mat-error *ngIf="errorHandling('taxAdvisorPhoto', 'required')">
+                                This field is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="column" fxFlex="60"></div>
+
+                </div>
+
+            </mat-card>
+            <br>
+            <div>
+                <button mat-stroked-button [disabled]="!FormGroup1.valid" color="primary" mat-button
+                    matStepperNext>Next</button>
+            </div>
+
+        </form>
+    </mat-step>
+
+    <!-- Professional Information -->
+    <mat-step [stepControl]="Form2Group" label="Professional">
+        <form [formGroup]="Form2Group" (ngSubmit)="Form2ToRegistrationPayload()" #formtwo="ngForm">
+            <h2 class="tittle">Fill Professional Details</h2>
+
+            <mat-card class="mat-card">
+
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly stretch ">
+                    <!-- Years of Experience -->
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Years of Experience</mat-label>
+                            <mat-select formControlName="taxAdvisorYearsOfExp">
+                                <mat-option *ngFor="let item of yearsOfExpList" [value]="item.id">
+                                    {{ item.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="errorHandling1('taxAdvisorYearsOfExp', 'required')">
+                                This field is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Base City -->
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Base City</mat-label>
+                            <mat-select matInput formControlName="taxAdvisorBaseCity" required>
+                                <mat-option value="1">Delhi NCR</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="errorHandling1('taxAdvisorBaseCity', 'required')">
+                                This field is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Linkedin URL -->
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Linkedin URL</mat-label>
+                            <input matInput placeholder="Ex. https://www.linkedin.com/in/username" type="url"
+                                formControlName="taxAdvisorLinkedinUrl">
+                            <mat-icon matSuffix> public </mat-icon>
+                            <mat-error *ngIf="errorHandling1('taxAdvisorLinkedinUrl', 'pattern')">
+                                Please enter a valid Linkedin URL </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <br>
+
+                <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly stretch "> -->
+
+                    <!-- Enrollment Number -->
+                    <!-- <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Bar Enrollment Number</mat-label>
+                            <input matInput placeholder="Bar Council Enrollment Number" type="text"
+                                formControlName="enteredenrollment" required>
+                            <mat-icon matSuffix>perm_identity</mat-icon>
+                            <mat-error *ngIf="errorHandling1('enteredenrollment', 'required')">
+                                This field is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div> -->
+
+
+
+
+                <!-- </div> -->
+
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly stretch ">
+
+                    <!-- Specialisation -->
+                    <div fxLayout="column" fxFlex="90" fxFlex.md="70" fxFlex.sm="70" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Specialisation</mat-label>
+                            <mat-select formControlName="taxAdvisorSpecialisation" multiple>
+                                <mat-option *ngFor="let item of specialisationList" [value]="item.id">
+                                    {{item.value}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="errorHandling1('taxAdvisorSpecialisation', 'required')">
+                                This field is required
+                            </mat-error>
+                            <!-- <mat-error *ngIf="errorHandling1('taxAdvisorSpecialisation', 'max')">
+                                Maximum number can be 5
+                            </mat-error> -->
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Court of Practice  -->
+                    <!-- <div fxLayout="column" fxFlex="43" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Court of Practice</mat-label>
+                            <mat-select formControlName="selectedCourtOfPractice" multiple>
+                                <mat-option *ngFor="let item of courtOfPraticeList" [value]="item.id">
+                                    {{item.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="errorHandling1('selectedCourtOfPractice', 'required')">
+                                This field is required
+                            </mat-error>
+                            <mat-error *ngIf="errorHandling1('selectedCourtOfPractice', 'maxLength')">
+                                Maximum number can be 5
+                            </mat-error>
+                        </mat-form-field>
+                    </div> -->
+                </div>
+
+
+                <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly stretch "> -->
+                <!-- Major Client/Empanelment -->
+                <!-- <div fxLayout="column" fxFlex="27" fxFlex.md="25" fxFlex.sm="27" fxFlex.xs="100">
+                        <button mat-stroked-button color="primary" (click)="addClients()">Add Major
+                            Client/Empanelment
+                        </button>
+                        <mat-card class="mat-card">
+                            <div formArrayName="clients">
+                                <div *ngFor="let client of clients().controls; let i=index" [formGroupName]="i">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Major Client/Empanelment</mat-label>
+                                        <input matInput placeholder="" type="text" formControlName="majorClient">
+                                        <mat-icon matSuffix>perm_identity</mat-icon>
+                                    </mat-form-field>
+
+                                    <button mat-stroked-button color="primary"
+                                        (click)="removeClients(i)">Remove</button>
+                                    <hr>
+                                    <br>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div> -->
+                <br>
+
+                <!-- Accomplishments  -->
+                <div fxLayout="row"   fxLayout.xs="column" fxLayoutAlign="space-evenly stretch ">
+                <div  fxFlex="90" class="container " formArrayName="taxAdvisorAccomplishments">
+                    <div class="row"  >
+                        <button class="btn1" mat-stroked-button color="primary" (click)="addAccomplishments()">Add
+                            Accomplishments</button>
+                        </div>
+                    <br>
+                    <div *ngFor="let accomplishment of taxAdvisorAccomplishments().controls; let i=index" [formGroupName]="i">
+                        <mat-card class="mat-card">
+                            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly stretch ">
+
+                                <!-- Heading -->
+                                <div fxLayout="column" fxFlex="35" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Heading</mat-label>
+                                        <input matInput placeholder="" type="text" formControlName="taxAdvisorHeading">
+                                        <mat-icon matSuffix>perm_identity</mat-icon>
+                                    </mat-form-field>
+                                </div>
+                                <!-- Descripition -->
+                                <div fxLayout="column" fxFlex="35" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Descripition</mat-label>
+                                        <textarea matInput placeholder="" type="text" formControlName="taxAdvisorDesc"></textarea>
+                                        <mat-icon matSuffix>perm_identity</mat-icon>
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxLayout="column" class="paddingbtn" fxFlex="10" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                                <button  mat-stroked-button color="primary"
+                                    (click)="removeAccomplishments(i)">Remove</button>
+                            </div>
+                            </div>
+                        </mat-card>
+                        <br>
+                   
+                    <!-- </div> -->
+                    <br>
+                </div>
+            </div>
+            </div>
+
+
+                <!-- <button mat-stroked-button color="primary" (click)="addAccomplishments()">Add
+                            Accomplishments</button>
+                        <mat-card class="mat-card">
+                            <div fxLayout="column" fxFlex="90" fxFlex.md="70" fxFlex.sm="70" fxFlex.xs="100">
+                            <div formArrayName="accomplishments">
+                                <div *ngFor="let accomplishment of accomplishments().controls; let i=index"
+                                    [formGroupName]="i">
+
+                                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Heading</mat-label>
+                                        <input matInput placeholder="" type="text" formControlName="heading">
+                                        <mat-icon matSuffix>perm_identity</mat-icon>
+                                    </mat-form-field>
+                                    </div>
+
+                                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Descripition</mat-label>
+                                        <textarea matInput placeholder="" type="text" formControlName="desc"></textarea>
+                                        <mat-icon matSuffix>perm_identity</mat-icon>
+                                    </mat-form-field>
+                                    </div>
+
+                                    <button mat-stroked-button color="primary"
+                                        (click)="removeAccomplishments(i)">Remove</button>
+                                    <hr>
+                                    <br>
+                                </div> 
+                            
+                             </div>
+                            </div>
+                        </mat-card> -->
+
+
+
+                <!-- </div> -->
+
+                <br>
+            </mat-card>
+            <br>
+            <div>
+                <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+                <button mat-stroked-button color="primary" [disabled]="!Form2Group.valid"
+                    matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+
+    <!-- Education -->
+    <mat-step [stepControl]="Form3Group" label="Education">
+        <form [formGroup]="Form3Group" (ngSubmit)="Form3ToRegistrationPayload()">
+            <h2 class="tittle">Fill Education Details</h2>
+            <div class="container " formArrayName="taxAdvisorEducations">
+                <div class="row ">
+                    <button class="btn" mat-stroked-button color="primary" (click)="addEducation()">Add</button>
+                </div>
+                <br>
+                 <div *ngFor="let education of taxAdvisorEducations().controls; let i=index" [formGroupName]="i">
+                    <mat-card class="mat-card">
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly stretch ">
+                            <!--Type of Degree -->
+                            <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Type of Degree</mat-label>
+                                    <mat-select formControlName="taxAdvisorTypeofDegree" required>
+                                        <mat-option *ngFor="let item of typeOfDegreeList" [value]="item.id">
+                                            {{ item.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-icon matSuffix>school </mat-icon>
+                                    <mat-error *ngIf="errorHandling2('taxAdvisorTypeofDegree', 'required')">
+                                        This field is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <!-- Degree / Diploma Name -->
+                            <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Degree/Diploma Name</mat-label>
+                                    <input matInput placeholder="Degree with Specialisation in" type="text"
+                                        formControlName="taxAdvisorDegreeName" required>
+                                    <mat-icon matSuffix>school </mat-icon>
+                                    <mat-error *ngIf="errorHandling2('taxAdvisorDegreeName', 'required')">
+                                        This field is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <!-- Institute / College Name -->
+                            <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Institute / College Name</mat-label>
+                                    <input matInput placeholder="" type="text" formControlName="taxAdvisorCollegeName"
+                                        required>
+                                    <mat-icon matSuffix>school </mat-icon>
+                                    <mat-error *ngIf="errorHandling2('taxAdvisorCollegeName', 'required')">
+                                        This field is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly stretch ">
+                            <!-- Year of Passing -->
+                            <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Year of Passing</mat-label>
+                                    <input matInput formControlName="taxAdvisorYearOfPassing" [matDatepicker]="picker1" required>
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                    <mat-error *ngIf="errorHandling2('taxAdvisorYearOfPassing', 'required')">
+                                        This field is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div fxLayout="column" fxFlex="59" fxFlex.md="62" fxFlex.sm="27" fxFlex.xs="100">
+                                <mat-checkbox [checked]="selected === i" (change)="selected = i"
+                                    formControlName="taxAdvisorPrimary" color="primary">
+                                    Primary</mat-checkbox>
+                                <!-- <mat-error *ngIf="errorHandling2('primary', 'required')">
+                                        This field is required
+                                    </mat-error> -->
+                            </div>
+                        </div>
+
+                        <br>
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly stretch ">
+                            <div fxLayout="column" fxFlex="100" fxFlex.md="100" fxFlex.sm="27" fxFlex.xs="100">
+                                <button class="btn btn-primary" (click)="removeEducation(i)" mat-stroked-button
+                                    color="primary">Remove</button>
+                            </div>
+                        </div>
+                    </mat-card>
+                    <br>
+                </div>
+                <br>
+            </div>
+            <div>
+                <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+                <button mat-stroked-button color="primary" matStepperNext>Next</button>
+                <!-- <button mat-stroked-button color="primary" [disabled]="!Form3Group.valid"
+                    matStepperNext>Next</button> -->
+            </div>
+        </form>
+    </mat-step>
+
+    <!-- Certification -->
+    <mat-step [stepControl]="Form4Group" label="Certification">
+        <form [formGroup]="Form4Group" (ngSubmit)="Form4ToRegistrationPayload()">
+            <h2 class="tittle">Fill Certification Details</h2>
+            <div class="container " formArrayName="taxAdvisorCerts">
+                <div class="row ">
+                    <button class="btn" mat-stroked-button color="primary" (click)="addcerts()">Add</button>
+                </div>
+                <br>
+                <!-- <div class="row"> -->
+                <div *ngFor="let cert of taxAdvisorCerts().controls; let i=index" [formGroupName]="i">
+                    <mat-card class="mat-card">
+                        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly stretch ">
+
+
+                            <!-- Certificate Name -->
+                            <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Certificate Name</mat-label>
+                                    <input matInput placeholder="" type="text" formControlName="taxAdvisorCertificateName">
+                                    <mat-icon matSuffix>perm_identity</mat-icon>
+                                    <!-- <mat-error *ngIf="errorHandling3('taxAdvisorCertificateName', 'required')">
+                                            This field is required
+                                        </mat-error> -->
+                                </mat-form-field>
+                            </div>
+                            <!-- Issuing Authority -->
+                            <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Issuing Authority</mat-label>
+                                    <input matInput placeholder="" type="text"
+                                        formControlName="taxAdvisorIssuingAuthority">
+                                    <mat-icon matSuffix>perm_identity</mat-icon>
+                                    <!-- <mat-error *ngIf="errorHandling3('enteredIssuingAuthority', 'required')">
+                                            This field is required
+                                        </mat-error> -->
+                                </mat-form-field>
+                            </div>
+                            <!-- Date of Issuance -->
+                            <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Date of Issuance</mat-label>
+                                    <input matInput formControlName="taxAdvisorDateofIssuance" [matDatepicker]="picker2">
+                                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker2></mat-datepicker>
+                                    <!-- <mat-error *ngIf="errorHandling3('dateofIssuance', 'required')">
+                                            This field is required
+                                        </mat-error> -->
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button class="btn btn-primary" (click)="removecerts(i)" mat-stroked-button
+                                color="primary">Remove</button>
+                        </div>
+                    </mat-card>
+                    <br>
+                </div>
+                <!-- </div> -->
+                <br>
+            </div>
+            <br>
+            <div>
+                <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+                <button mat-stroked-button color="primary" matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+
+    <!-- Banking -->
+    <mat-step [stepControl]="Form5Group" label="Banking">
+        <form [formGroup]="Form5Group" (ngSubmit)="Form5ToRegistrationPayload()">
+            <h2 class="tittle">Fill Banking Details</h2>
+            <mat-card class="mat-card">
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly stretch ">
+                    <!-- Beneficiary Name -->
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Beneficiary Name</mat-label>
+                            <input matInput placeholder="First and last name" type="text"
+                                formControlName="taxAdvisorBeneficiaryName" required>
+                            <mat-icon matSuffix>account_balance</mat-icon>
+                            <mat-error *ngIf="errorHandling4('taxAdvisorBeneficiaryName', 'required')">
+                                This field is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Bank Name -->
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label> Bank Name</mat-label>
+                            <mat-select formControlName="taxAdvisorBankName">
+                                <mat-option *ngFor="let item of bankNameList" [value]="item.id">
+                                    {{ item.name}}
+                                </mat-option>
+                                <mat-error *ngIf="errorHandling4('taxAdvisorBankName', 'required')">
+                                    This field is required
+                                </mat-error>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- IFSC Code -->
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>IFSC Code</mat-label>
+                            <input matInput placeholder="Ex. SBINXXXXXXX" type="text" formControlName="taxAdvisorIfscCode"
+                                required>
+                            <mat-icon matSuffix>account_balance</mat-icon>
+                            <mat-error *ngIf="errorHandling4('taxAdvisorIfscCode', 'required')">
+                                This field is required
+                            </mat-error>
+                            <mat-error *ngIf="errorHandling4('taxAdvisorIfscCode', 'pattern')">
+                                Please enter a valid IFSC Code
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly stretch ">
+                    <!-- Account number -->
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field hintLabel="Max 10 characters" appearance="fill">
+                            <mat-label>Account number</mat-label>
+                            <input matInput #taxAdvisorAccountNumber placeholder="Ex. XXXXXXXXXX" minlength="10"
+                                type="number" formControlName="taxAdvisorAccountNumber" required>
+                            <mat-icon matSuffix>account_balance</mat-icon>
+                            <mat-hint align="end">{{taxAdvisorAccountNumber.value?.length || 0}}/10</mat-hint>
+                            <!-- <mat-hint >Max 10 characters</mat-hint>
+                        <mat-hint align="end">{{Form5Group.get('taxAdvisorAccountNumber').value?.length || 0}}/10</mat-hint> -->
+                            <mat-error *ngIf="errorHandling4('taxAdvisorAccountNumber', 'required')">
+                                This field is required
+                            </mat-error>
+                            <!-- <mat-error *ngIf="errorHandling4('taxAdvisorAccountNumber', 'minLength')">
+                            Mininum number can be 10
+                        </mat-error>  -->
+
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Confirm Account number -->
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Confirm Account number</mat-label>
+                            <input matInput placeholder="Ex. XXXXXXXXXX" type="number"
+                                formControlName="taxAdvisorConfirmAccountnumber" required>
+                            <mat-icon matSuffix>account_balance</mat-icon>
+                            <mat-error *ngIf="errorHandling4('taxAdvisorConfirmAccountnumber', 'required')">
+                                This field should match Account number
+                            </mat-error>
+
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100"></div>
+                </div>
+                <br>
+            </mat-card>
+            <br>
+
+            <div>
+                <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+                <button mat-stroked-button color="primary" matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+
+    <!-- Address -->
+    <mat-step [stepControl]="Form6Group" label="Address">
+        <form [formGroup]="Form6Group" (ngSubmit)="Form6ToRegistrationPayload()">
+            <h2 class="tittle">Fill Address Details</h2>
+            <mat-card class="mat-card">
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly stretch ">
+                    <!-- Type of Address -->
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label> Type of Address </mat-label>
+                            <mat-select formControlName="taxAdvisorTypeofAddress">
+                                <mat-option *ngFor="let item of typeOfAddressList" [value]="item.id">
+                                    {{ item.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="errorHandling5('taxAdvisorTypeofAddress', 'required')">
+                                This field is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="column" fxFlex="59" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100"></div>
+                </div>
+
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly stretch ">
+                    <!-- Line 1 -->
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Line 1</mat-label>
+                            <input matInput placeholder="Street address, P.O. box, company name, c/o" type="text"
+                                formControlName="taxAdvisorAddressline1" required>
+                            <mat-icon matSuffix>home</mat-icon>
+                            <mat-error *ngIf="errorHandling5('taxAdvisorAddressline1', 'required')">
+                                This field is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <!--  Line 2  -->
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Line 2</mat-label>
+                            <input matInput placeholder="Apartment, suite, unit, building, floor, etc." type="text"
+                                formControlName="taxAdvisorAddressline2">
+                            <mat-icon matSuffix>home</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Pin Code-->
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Pin Code</mat-label>
+                            <input matInput placeholder="######" type="number" formControlName="taxAdvisorPinCode"
+                                required>
+                            <mat-icon matSuffix>domain </mat-icon>
+                            <mat-error *ngIf="errorHandling5('taxAdvisorPinCode', 'required')">
+                                This field is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly stretch ">
+
+                    <!-- Pin Code Area -->
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Pin Code Area</mat-label>
+                            <input matInput placeholder="" type="text" formControlName="taxAdvisorPinCodeArea" required>
+                            <mat-icon matSuffix>domain </mat-icon>
+                            <mat-error *ngIf="errorHandling5('taxAdvisorPinCodeArea', 'required')">
+                                This field is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- City-->
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>City</mat-label>
+                            <input matInput placeholder="Ex. Delhi" type="text" formControlName="taxAdvisorCity" required>
+                            <mat-icon matSuffix>location_city </mat-icon>
+                            <mat-error *ngIf="errorHandling5('taxAdvisorCity', 'required')">
+                                This field is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+
+                    <!-- State -->
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>State</mat-label>
+                            <input matInput placeholder="Ex. New Delhi" type="text" formControlName="taxAdvisorState"
+                                required>
+                            <mat-icon matSuffix>location_city </mat-icon>
+                            <mat-error *ngIf="errorHandling5('taxAdvisorState', 'required')">
+                                This field is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <br>
+            </mat-card>
+            <br>
+            <div>
+                <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+                <button mat-stroked-button color="primary" matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+
+    <!-- Consultation Fee -->
+    <mat-step [stepControl]="Form7Group" label="Terms and Conditions">
+        <form [formGroup]="Form7Group" (ngSubmit)="Form7ToRegistrationPayload()">
+
+            <div fxLayout="column" fxLayoutAlign="space-evenly center ">
+                <div fxFlex="100" fxFlex.md="90" fxFlex.sm="90" fxFlex.xs="100">
+                    <h2 class="tittle">Accept and Submit</h2>
+                </div>
+
+                <mat-card fxLayout="column" fxFlex="80" fxFlex.md="90" fxFlex.sm="90" fxFlex.xs="100">
+                    <div class="tnc">
+                        <!-- terms and conditions-->
+                        <h2 mat-dialog-title></h2>
+                        <!-- <div fxLayout="column" fxFlex="70" fxFlex.md="70" fxFlex.sm="70" fxFlex.xs="70"> -->
+                        <mat-dialog-content class="dialog">
+
+                            <h1 class="h1center">Advisor Terms &#45; NKSA</h1>
+                            <h2>LETTER OF UNDERSTANDING</h2>
+                            <p>
+                                This Letter of Understanding (“LOU”) is issued in favour of M/s NKSA Associates
+                                LLP,
+                                a limited liability partnership firm registered under the LLP Act, 2008, having
+                                its
+                                registered office at 68, Western Wing, Tis Hazari, New Delhi &#45; 110054
+                                (“QuResolve”)
+                                By You, an individual, Registering herein as an Advisor in pursuance of our
+                                discussions and intent to avail the Services offered by QuResolve.</p>
+
+
+                            <h2>YOU THE ADVISOR HEREBY AGREES:</h2>
+                            <p>
+                                Capitalized terms used but not defined herein shall have the meaning assigned to
+                                them under the Advisor Terms of Use available at
+                                <a href="https://advisor.quresolve.com/">(“Advisor Terms”)</a>.
+
+                            </p>
+                            <p>
+                                1. Advisor understands that QuResolve is engaged in the business of inter alia
+                                operating an online platform under the name and style “QuResolve”, through its
+                                Platform, which enables transactions between Advisors and Clients, dealing in
+                                online
+                                consultation. The Platform is utilized by Client(s) to choose and avail
+                                Consultation
+                                Services from a various listed consultants/advisor for fixed charges and further
+                                offer some free consultation to specific client by some specific Advisors on the
+                                Platform, pursuant to which QuResolve facilitates online hourly Consultation
+                                through
+                                the independent Advisor engaged on principal-to-principal basis in some selected
+                                serviceable geographical area of the cities in India. The Advisor wishes to
+                                avail
+                                the Services enabled by QuResolve on a non-exclusive and contractual basis
+                                subject
+                                to the terms and conditions set out in the Advisor Terms, which includes, inter
+                                alia, warranties provided, obligations, intellectual property rights,
+                                confidentiality, responsibilities and grounds for termination.
+                            </p>
+
+                            <p> 2. The Advisor represents that (i) he/she is engaged in the business of
+                                Consultation
+                                and is providing consultation and advising his/her own clients as well; (ii)
+                                he/she
+                                has full power and capacity to enter into and perform its obligations under this
+                                LOU; (iii) has taken all necessary licenses/registration applicable to its
+                                Advisory
+                                and is fully compliant with the provisions of the respective statute, its rules
+                                and
+                                regulations prescribed by its governing/regulating body, as amended from time to
+                                time; (iv) he/she shall not provide his/her personal details to the client
+                                during
+                                consultation using the platform, or solicit client indirectly or directly for
+                                meeting him/her in person at his office facilitated on the Platform, any advice
+                                that
+                                may be wrong or illegal or unlawful or advice bar by any law of the land or give
+                                advice on the topic for which the advisor in not qualified, except in accordance
+                                with the conditions of the Registration; and (v) all the information and
+                                contents
+                                provided by advisor, as required, to QuResolve are true, correct and accurate.
+                            </p>
+
+                            <p>3. The QuResolve shall deduct 20% of the Net Value of Advisor&#39;s consultation
+                                earning
+                                made through platform and shall also deduct the applicable GST & Service Fee and
+                                shall remit the remaining amount as per monthly settlement. The Parties agree
+                                that
+                                the Service Fee shall be valid for one (1) month from the Effective Date, upon
+                                expiry of which they may review the same.</p>
+
+                            <p>4. The Advisor shall pay to QuResolve Rs. 2500.00 (Rupees Two thousand five
+                                hundred
+                                Only) towards one-time listing facilitation services (Listing Facilitation
+                                Service
+                                Fee) availed by the Advisor at the time of Platform on-boarding.</p>
+
+                            <p> 5. The Advisor understands and agrees that QuResolve shall collect, for and on
+                                behalf of the Advisor, the payments received from the Clients and remit the same
+                                to
+                                the bank account of the Advisor in accordance with the Payment Terms after
+                                deductions of Service Fee, Other Charges as mentioned under the Schedule of
+                                Charges
+                                and GST & other taxes applicable thereon at the prevailing rates.</p>
+
+                            <p> 6. The Advisor understands that QuResolve shall send consolidated reports of
+                                Consultation and other details for the Settlement Period and invoice/s to the
+                                Advisor by electronic mail to their registered email.</p>
+
+                            <p>7. The Advisor confirms and undertakes that it has read, understood and agrees to
+                                be
+                                bound by the terms set out in the Advisor Terms that are incorporated by
+                                reference
+                                herein and are deemed to be part of this LOU.</p>
+
+                            <p>8. The effective date (“Effective Date”) of this LOU shall be the date on which
+                                the
+                                Advisor clicks to agree digitally or otherwise and relay the same to QuResolve.
+                                This
+                                LOU shall thereon have full force of a contract and shall bind both Advisor and
+                                QuResolve fully upon on-boarding of Advisor on Platform.</p>
+
+                            <p> 9. The Advisor further confirms and undertakes that the documents provided by
+                                the
+                                Advisor at the time of registration along with this LOU are true and correct to
+                                their knowledge and understanding.</p>
+                            <br>
+
+                        </mat-dialog-content>
+                        <!-- </div> -->
+                        <br>
+
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="center ">
+                        <input type="checkbox" formControlName="taxAdvisorterms"> Accept Terms and Conditions
+                    </div>
+
+                </mat-card>
+            </div>
+            <br>
+            <div>
+                <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+
+                <button mat-stroked-button color="primary" matStepperSubmit type="submit"
+                    [disabled]="Form7Group.invalid" (click)="submit()">Submit</button>
+            </div>
+
+        </form>
+    </mat-step>
+
+</mat-stepper>
+<br><br><br><br><br>
+<!-- <app-footer></app-footer> -->

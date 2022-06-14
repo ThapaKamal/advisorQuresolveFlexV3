@@ -1,0 +1,22 @@
+<form [formGroup]="bankNameForm">
+    <h1 mat-dialog-title>Add Area Of Pratice</h1>
+    <div mat-dialog-content>
+        <!-- <mat-form-field appearance="fill">
+            <mat-label>Id</mat-label>
+            <input formControlName="id" matInput placeholder="" type="text" >
+            <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field> -->
+      
+
+        <mat-form-field appearance="fill">
+            <mat-label>Value</mat-label>
+            <input formControlName="value" matInput placeholder="" type="text" required>
+            <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+        
+    </div>
+    <div mat-dialog-actions [align]="'end'">
+        <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+        <button class="btn" mat-raised-button color="primary" (click)="addValue()">{{actionBtn}}</button>
+    </div>
+</form>

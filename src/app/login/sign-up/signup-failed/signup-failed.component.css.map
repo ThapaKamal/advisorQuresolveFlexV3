@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "signup-failed.component.scss"
+    ],
+    "names": [],
+    "file": "signup-failed.component.css"
+}

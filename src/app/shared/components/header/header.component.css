@@ -1,9 +1,22 @@
 ul li {
   list-style: none;
+  padding: 0;
 }
 
 .mat-toolbar {
   background-color: #1e4356;
   color: #fff;
+}
+
+.notifications {
+  text-align: center;
+}
+
+::ng-deep .notifications {
+  width: 250px;
+}
+
+.logo {
+  padding-left: 15px;
 }
 /*# sourceMappingURL=header.component.css.map */

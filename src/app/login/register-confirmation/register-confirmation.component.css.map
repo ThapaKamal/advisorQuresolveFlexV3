@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,CAAA;EACD,YAAY,EAAE,IAAI;CAChB;;AAEN,AAAA,WAAW,CAAA;EACP,aAAa,EAAE,MAAM;EACrB,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,MAAM;EACvB,WAAW,EAAE,IAAI;CACpB",
+    "sources": [
+        "register-confirmation.component.scss"
+    ],
+    "names": [],
+    "file": "register-confirmation.component.css"
+}

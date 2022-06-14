@@ -1,0 +1,697 @@
+<div class="example-action-buttons">
+    <button mat-button (click)="accordion.openAll()">Expand All</button>
+    <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+</div>
+<mat-accordion class="example-headers-align" multi>
+
+    <!-- 0 -->
+    <form [formGroup]="Form1Group">
+
+        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+
+
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Personal
+                </mat-panel-title>
+                <mat-panel-description>
+                    <!-- Type your Personal Details -->
+                    <!-- <mat-icon>account_circle</mat-icon> -->
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-card class="mat-card">
+
+                <div class="row">
+
+                    <!-- Name -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Name</mat-label>
+                        <input matInput [disabled]=true placeholder="First & Last name" type="text"
+                            formControlName="receivedName" required>
+                        <mat-icon matSuffix>perm_identity</mat-icon>
+                        <mat-error *ngIf="errorHandling('receivedName', 'required')">
+                            This field is require
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Email -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput placeholder="Ex. mail@gmail.com" type="email" formControlName="receivedEmail"
+                            required>
+                        <mat-icon matSuffix>email</mat-icon>
+                        <mat-error *ngIf="errorHandling('receivedEmail', 'required')">
+                            This field is required
+                        </mat-error>
+                        <mat-error *ngIf="errorHandling('receivedEmail', 'email')">
+                            Please enter a valid email address </mat-error>
+                    </mat-form-field>
+
+
+                    <!-- Phone number -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Phone number</mat-label>
+                        <input matInput placeholder="+91-" type="tel" formControlName="receivedPhone" required>
+                        <mat-icon matSuffix>phone</mat-icon>
+                        <mat-error *ngIf="errorHandling('receivedPhone', 'required')">
+                            This field is required
+                        </mat-error>
+                        <mat-error *ngIf="errorHandling('receivedPhone', 'pattern')">
+                            Please enter a valid Phone number </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="row">
+
+                    <!-- Date Of Birth -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Date Of Birth</mat-label>
+                        <input placeholder="DD-MM-YYYY" matInput formControlName="receivedDoB"
+                            [matDatepicker]="picker5">
+                        <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+                        <mat-datepicker #picker5></mat-datepicker>
+                        <mat-error *ngIf="errorHandling('receivedDoB', 'required')">
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- [(ngModel)]="advisorProfile.enteredDoB" -->
+
+                    <!-- Gender -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Gender</mat-label>
+                        <mat-select matInput formControlName="receivedGender" required>
+                            <mat-option *ngFor="let gender of genders" [value]="gender.id">{{gender.value}}</mat-option>
+                            <!-- <mat-option value="1">Male</mat-option>
+                            <mat-option value="2">Female</mat-option>
+                            <mat-option value="3">Other</mat-option> -->
+                        </mat-select>
+                        <mat-icon matSuffix>people</mat-icon>
+                        <mat-error *ngIf="errorHandling('receivedGender', 'required')">
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Language -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Language</mat-label>
+                        <mat-select formControlName="receivedLanguage" multiple>
+                            <mat-option *ngFor="let language of languageList" [value]="language.id">{{language.value}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-icon matSuffix>language</mat-icon>
+                        <mat-error *ngIf="errorHandling('receivedLanguage', 'required')">
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </mat-card>
+            <mat-action-row>
+                <button mat-stroked-button color="warn"
+                    (click)="onEdit(Form1Group);enableSave()">{{enableMode?'Edit':'Cancel'}}</button>
+                <button mat-stroked-button [disabled]='this.enableMode' (click)="submit()" #submitButton>Save</button>
+            </mat-action-row>
+
+        </mat-expansion-panel>
+    </form>
+
+    <!-- 1 -->
+    <form [formGroup]="Form2Group">
+        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Professional
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <mat-card class="mat-card">
+                <div class="row">
+
+                    <!-- Years of Experience -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Years of Experience</mat-label>
+                        <mat-select formControlName="receivedYearsOfExp">
+                            <mat-option *ngFor="let item of yearsOfExpList" [value]="item.id">
+                                {{ item.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-icon matSuffix>email</mat-icon>
+                        <mat-error *ngIf="errorHandling1('receivedYearsOfExp', 'required')">
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Base City -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Base City</mat-label>
+                        <mat-select matInput formControlName="receivedBaseCity" required>
+                            <mat-option *ngFor="let item of baseCitylist" [value]="item.id">
+                                {{ item.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-icon matSuffix>email</mat-icon>
+                        <mat-error *ngIf="errorHandling1('receivedBaseCity', 'required')">
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Bar Memberships -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Bar Membership</mat-label>
+                        <mat-select formControlName="receivedBarMembership">
+                            <mat-option *ngFor="let item of barMembershipsList" [value]="item.id">
+                                {{ item.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-icon matSuffix>email</mat-icon>
+                        <mat-error *ngIf="errorHandling1('receivedBarMembership', 'required')">
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="row">
+
+                    <!-- Enrollment Number -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Bar Enrollment Number</mat-label>
+                        <input matInput placeholder="Bar council Enrollment Number" type="text"
+                            formControlName="receivedEnrollment" required>
+                        <mat-icon matSuffix>perm_identity</mat-icon>
+                        <mat-error *ngIf="errorHandling1('receivedEnrollment', 'required')">
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Linkedin URL -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Linkedin URL</mat-label>
+                        <input matInput placeholder="Ex. https://www.linkedin.com/in/username" type="url"
+                            formControlName="receivedLinkedinUrl">
+                        <mat-icon matSuffix> public </mat-icon>
+                        <mat-error *ngIf="errorHandling1('receivedLinkedinUrl', 'pattern')">
+                            Please enter a valid Linkedin URL </mat-error>
+                    </mat-form-field>
+
+                    <!-- Bar Council ID card -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Bar Council ID card</mat-label>
+                        <!-- Display files names -->
+                        <input formControlName="receivedBarCouncilId" matInput readonly name="name" />
+                        <input type="file" formControlName="receivedBarCouncilId" (change)="onFileChanged1($event)">
+                        <!-- <input type="button" mat-button (click)="onUpload1()" value="Upload"> -->
+                        <!-- <input type="text" formControlName="imageName" name="imageName" matInput /> -->
+                        <!-- <div *ngIf=message>{{message}}</div> -->
+                        <!-- <input type="button" (click)="getImage()" value="Get Image"> -->
+                        <mat-error *ngIf="errorHandling1('receivedBarCouncilId', 'required')">
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+
+                <div class="row">
+                    <!-- Area of Practice -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Area of Practice</mat-label>
+                        <mat-select formControlName="receivedAreaofpractice" multiple>
+                            <mat-option *ngFor="let item of areaOfPraticeList" [value]="item.id">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="errorHandling1('receivedAreaofpractice', 'required')">
+                            This field is required
+                        </mat-error>
+                        <mat-error *ngIf="errorHandling1('receivedAreaofpractice', 'max')">
+                            Maximum number can be 5
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Court of Practice  -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Court of Practice</mat-label>
+                        <mat-select formControlName="receivedCourtOfPractice" multiple>
+                            <mat-option *ngFor="let item of courtOfPraticeList" [value]="item.id">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="errorHandling1('receivedCourtOfPractice', 'required')">
+                            This field is required
+                        </mat-error>
+                        <mat-error *ngIf="errorHandling1('receivedCourtOfPractice', 'maxLength')">
+                            Maximum number can be 5
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+                <div class="row">
+                    <!-- Major Client/Empanelment -->
+                    <div class="column">
+                        <mat-card>
+                            <button mat-stroked-button color="primary" (click)="addClients()">Add Major
+                                Client/Empanelment
+                            </button>
+                            <br>
+
+                            <div formArrayName="clients">
+                                <div *ngFor="let client of clients().controls; let i=index" [formGroupName]="i">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Major Client/Empanelment</mat-label>
+                                        <input matInput placeholder="" type="text"
+                                            formControlName="receivedMajorClient">
+                                        <mat-icon matSuffix>perm_identity</mat-icon>
+                                    </mat-form-field>
+                                    <button mat-stroked-button color="primary"
+                                        (click)="removeClients(i)">Remove</button>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+                    <br>
+
+                    <!-- Accomplishments  -->
+                    <div class="column">
+                        <mat-card>
+                            <button mat-stroked-button color="primary" (click)="addAccomplishments()">Add
+                                Accomplishments</button>
+                            <div formArrayName="accomplishments">
+                                <div *ngFor="let accomplishment of accomplishments().controls; let i=index"
+                                    [formGroupName]="i">
+
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Heading</mat-label>
+                                        <input matInput placeholder="" type="text" formControlName="receivedHeading">
+                                        <mat-icon matSuffix>perm_identity</mat-icon>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Descripition</mat-label>
+                                        <textarea matInput placeholder="" type="text"
+                                            formControlName="receivedHeading"></textarea>
+                                        <mat-icon matSuffix>perm_identity</mat-icon>
+                                    </mat-form-field>
+
+                                    <button mat-stroked-button color="primary"
+                                        (click)="removeAccomplishments(i)">Remove</button>
+                                </div>
+                            </div>
+                        </mat-card>
+
+                    </div>
+                </div>
+                <br>
+            </mat-card>
+            <mat-action-row>
+                <button mat-stroked-button color="warn"
+                    (click)="onEdit(Form2Group);enableSave2()">{{enableMode2?'Edit':'Cancel'}}</button>
+                <button mat-stroked-button [disabled]='this.enableMode2' (click)="submit()">Save</button>
+            </mat-action-row>
+            <!-- (click)="onTogglenotEditMode1()" -->
+
+
+        </mat-expansion-panel>
+    </form>
+
+    <!-- 2 -->
+    <form [formGroup]="Form3Group">
+        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Education
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="container " formArrayName="educations">
+                <div class="row ">
+                    <button mat-stroked-button color="primary" (click)="addEducation()">Add</button>
+                </div>
+                <br>
+                <div class="row">
+                    <div *ngFor="let education of educations().controls; let i=index" [formGroupName]="i">
+                        <mat-card class="mat-card">
+                            <div class="row">
+                                <!--Type of Degree -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Type of Degree</mat-label>
+                                    <mat-select formControlName="receivedTypeofDegree" required>
+                                        <mat-option *ngFor="let item of typeOfDegreeList" [value]="item.id">
+                                            {{ item.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="errorHandling2('receivedTypeofDegree', 'required')">
+                                        This field is required
+                                    </mat-error>
+                                </mat-form-field>
+                                <!-- Degree / Diploma Name -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Degree/Diploma Name</mat-label>
+                                    <input matInput placeholder="Degree with Specialisation in" type="text"
+                                        formControlName="receivedDegreeName" required>
+                                    <mat-icon matSuffix>school </mat-icon>
+                                    <mat-error *ngIf="errorHandling2('receivedDegreeName', 'required')">
+                                        This field is required
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <!-- Institute / College Name -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Institute / College Name</mat-label>
+                                    <input matInput placeholder="" type="text" formControlName="receivedCollegeName"
+                                        required>
+                                    <mat-icon matSuffix>school </mat-icon>
+                                    <mat-error *ngIf="errorHandling2('receivedCollegeName', 'required')">
+                                        This field is required
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="row">
+                                <!-- Year of Passing -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Year of Passing</mat-label>
+                                    <input matInput formControlName="receivedYearOfPassing" [matDatepicker]="picker1"
+                                        required>
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                    <mat-error *ngIf="errorHandling2('receivedYearOfPassing', 'required')">
+                                        This field is required
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <div class="col-5 ">
+                                    <mat-checkbox [checked]="selected === i" (change)="selected = i"
+                                        formControlName="receivedprimary" color="primary">
+                                        Primary</mat-checkbox>
+                                    <!-- <mat-error *ngIf="errorHandling2('primary', 'required')">
+                                        This field is required
+                                    </mat-error> -->
+                                </div>
+                                <br>
+
+                                <div class="col-3">
+                                    <button class="btn btn-primary" (click)="removeEducation(i)" mat-stroked-button
+                                        color="primary">Remove</button>
+                                </div>
+                            </div>
+                        </mat-card>
+                        <br>
+                    </div>
+                </div>
+                <br>
+            </div>
+
+
+            <mat-action-row>
+                <button mat-stroked-button color="warn"
+                    (click)="onEdit(Form3Group);enableSave3()">{{enableMode3?'Edit':'Cancel'}}</button>
+                <button mat-stroked-button [disabled]='this.enableMode3' (click)="submit()">Save</button>
+            </mat-action-row>
+            <!-- (click)="onTogglenotEditMode2()" -->
+
+        </mat-expansion-panel>
+    </form>
+
+    <!-- 3 -->
+    <form [formGroup]="Form4Group">
+        <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Certification
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="container " formArrayName="certs">
+                <div class="row ">
+                    <button class="btn" mat-stroked-button color="primary" (click)="addcerts()">Add</button>
+                </div>
+                <br>
+                <div class="row">
+                    <div *ngFor="let cert of certs().controls; let i=index" [formGroupName]="i">
+                        <mat-card class="mat-card">
+                            <div class="row">
+
+                                <div class="row">
+                                    <!-- Certificate Name -->
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Certificate Name</mat-label>
+                                        <input matInput placeholder="" type="text"
+                                            formControlName="receivedCertificateName">
+                                        <mat-icon matSuffix>perm_identity</mat-icon>
+                                    </mat-form-field>
+
+                                    <!-- Issuing Authority -->
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Issuing Authority</mat-label>
+                                        <input matInput placeholder="" type="text"
+                                            formControlName="receivedIssuingAuthority">
+                                        <mat-icon matSuffix>perm_identity</mat-icon>
+                                    </mat-form-field>
+
+                                    <!-- Date of Issuance -->
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Date of Issuance</mat-label>
+                                        <input matInput formControlName="receivedDateofIssuance"
+                                            [matDatepicker]="picker2">
+                                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker2></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary" (click)="removecerts(i)" mat-stroked-button
+                                    color="primary">Remove</button>
+                            </div>
+                        </mat-card>
+                        <br>
+                    </div>
+                </div>
+                <br>
+            </div>
+
+
+            <mat-action-row>
+                <button mat-stroked-button color="warn"
+                    (click)="onEdit(Form4Group);enableSave4()">{{enableMode4?'Edit':'Cancel'}}</button>
+                <button mat-stroked-button [disabled]='this.enableMode4' (click)="submit()">Save</button>
+            </mat-action-row>
+            <!-- (click)="onTogglenotEditMode3()" -->
+
+        </mat-expansion-panel>
+    </form>
+
+    <!-- 4 -->
+    <form [formGroup]="Form5Group">
+        <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Banking
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <mat-card class="mat-card">
+                <div class="row">
+                    <!-- Beneficiary Name -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Beneficiary Name</mat-label>
+                        <input matInput placeholder="First and last name" type="text"
+                            formControlName="receivedBeneficiaryName" required>
+                        <mat-icon matSuffix>account_balance</mat-icon>
+                        <mat-error *ngIf="errorHandling4('receivedBeneficiaryName', 'required')">
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Bank Name -->
+                    <mat-form-field appearance="outline">
+                        <mat-label> Bank Name</mat-label>
+                        <mat-select formControlName="receivedSelectedBankName">
+                            <mat-option *ngFor="let item of bankNameList" [value]="item.id">
+                                {{ item.name}}
+                            </mat-option>
+                            <mat-error *ngIf="errorHandling4('receivedSelectedBankName', 'required')">
+                                This field is required
+                            </mat-error>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <!-- IFSC Code -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>IFSC Code</mat-label>
+                        <input matInput placeholder="Ex. SBINXXXXXXX" type="text" formControlName="receivedIfscCode"
+                            required>
+                        <mat-icon matSuffix>account_balance</mat-icon>
+                        <mat-error *ngIf="errorHandling4('receivedIfscCode', 'required')">
+                            This field is required
+                        </mat-error>
+                        <mat-error *ngIf="errorHandling4('receivedIfscCode', 'pattern')">
+                            Please enter a valid IFSC Code
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+                <div class="row">
+                    <!-- Account number -->
+                    <mat-form-field hintLabel="Max 10 characters" appearance="outline">
+                        <mat-label>Account number</mat-label>
+                        <input matInput #receivedAccountNumber placeholder="Ex. XXXXXXXXXX" minlength="10" type="number"
+                            formControlName="receivedAccountNumber" required>
+                        <mat-icon matSuffix>account_balance</mat-icon>
+                        <mat-hint align="end">{{receivedAccountNumber.value?.length || 0}}/10</mat-hint>
+                        <!-- <mat-hint >Max 10 characters</mat-hint>
+                        <mat-hint align="end">{{fifthFormGroup.get('receivedAccountNumber').value?.length || 0}}/10</mat-hint> -->
+                        <mat-error *ngIf="errorHandling4('receivedAccountNumber', 'required')">
+                            This field is required
+                        </mat-error>
+                        <mat-error *ngIf="errorHandling4('receivedAccountNumber', 'maxLength')">
+                            Mininum number can be 10
+                        </mat-error>
+
+                    </mat-form-field>
+
+                    <!-- Confirm Account number -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Confirm Account number</mat-label>
+                        <input matInput placeholder="Ex. XXXXXXXXXX" type="number"
+                            formControlName="receivedConfirmAccountnumber" required>
+                        <mat-icon matSuffix>account_balance</mat-icon>
+                        <!-- <mat-error *ngIf="errorHandling4('receivedConfirmAccountnumber', 'required')">
+                            This field should match Account number
+                        </mat-error> -->
+
+                    </mat-form-field>
+                </div>
+                <br>
+            </mat-card>
+
+
+            <mat-action-row>
+                <button mat-stroked-button color="warn"
+                    (click)="onEdit(Form5Group);enableSave5()">{{enableMode5?'Edit':'Cancel'}}</button>
+                <button mat-stroked-button [disabled]='this.enableMode5' (click)="submit()">Save</button>
+            </mat-action-row>
+            <!-- (click)="onTogglenotEditMode4()" -->
+
+
+        </mat-expansion-panel>
+    </form>
+
+    <!-- 5 -->
+    <form [formGroup]="Form6Group">
+        <mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)" hideToggle>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Address
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <mat-card class="mat-card">
+                <div class="row">
+                    <!-- Type of Address -->
+                    <mat-form-field appearance="outline">
+                        <mat-label> Type of Address </mat-label>
+                        <mat-select formControlName="receivedTypeofAddress">
+                            <mat-option *ngFor="let item of typeOfAddressList" [value]="item.id">
+                                {{item.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="errorHandling5('receivedTypeofAddress', 'required')">
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="row">
+                    <!-- Line 1 -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Line 1</mat-label>
+                        <input matInput placeholder="Street address, P.O. box, company name, c/o" type="text"
+                            formControlName="receivedAddressline1" required>
+                        <mat-icon matSuffix>home</mat-icon>
+                        <mat-error *ngIf="errorHandling5('receivedAddressline1', 'required')">
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!--  Line 2  -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Line 2</mat-label>
+                        <input matInput placeholder="Apartment, suite, unit, building, floor, etc." type="text"
+                            formControlName="receivedAddressline2">
+                        <mat-icon matSuffix>home</mat-icon>
+                    </mat-form-field>
+
+                    <!-- Pin Code-->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Pin Code</mat-label>
+                        <input matInput placeholder="######" type="number" formControlName="receivedPinCode" required>
+                        <mat-icon matSuffix>domain </mat-icon>
+                        <mat-error *ngIf="errorHandling5('receivedPinCode', 'required')">
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="row">
+
+                    <!-- Pin Code Area -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Pin Code Area</mat-label>
+                        <input matInput placeholder="" type="text" formControlName="receivedPinCodeArea" required>
+                        <mat-icon matSuffix>domain </mat-icon>
+                        <mat-error *ngIf="errorHandling5('receivedPinCodeArea', 'required')">
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- City-->
+                    <mat-form-field appearance="outline">
+                        <mat-label>City</mat-label>
+                        <input matInput placeholder="Ex. Delhi" type="text" formControlName="receivedCity" required>
+                        <mat-icon matSuffix>location_city </mat-icon>
+                        <mat-error *ngIf="errorHandling5('receivedCity', 'required')">
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- State -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>State</mat-label>
+                        <input matInput placeholder="Ex. New Delhi" type="text" formControlName="receivedState"
+                            required>
+                        <mat-icon matSuffix>location_city </mat-icon>
+                        <mat-error *ngIf="errorHandling5('receivedState', 'required')">
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+                <br>
+            </mat-card>
+
+
+            <mat-action-row>
+                <button mat-stroked-button color="warn"
+                    (click)="onEdit(Form6Group);enableSave6()">{{enableMode6?'Edit':'Cancel'}}</button>
+                <button mat-stroked-button [disabled]='this.enableMode6' (click)="submit()">Save</button>
+            </mat-action-row>
+            <!-- (click)="onTogglenotEditMode5()" -->
+
+        </mat-expansion-panel>
+        <br><br><br><br>
+    </form>
+
+    <!-- <mat-expansion-panel [expanded]="step === 6" (opened)="setStep(6)" hideToggle>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Consultation Fee
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+    
+    </mat-expansion-panel> -->
+</mat-accordion>
+
+<br><br><br><br>
+
+<app-footer></app-footer>

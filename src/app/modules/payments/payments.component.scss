@@ -11,7 +11,11 @@ table {
 }
 .shadow{
     box-shadow: 5px 3px 4px 1px #888888;
-    height: 270px;
+    height: 300px;
+}
+.bankDetails{
+    width: 800px;
+    padding-top: 30px;
 }
 
 .contentcenter {
@@ -32,7 +36,7 @@ table {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-bottom: 30px;
+    padding-bottom: 70px;
 }
 .endalign{
     padding-inline-end: 50px;

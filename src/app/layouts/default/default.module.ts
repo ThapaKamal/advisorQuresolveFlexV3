@@ -26,6 +26,8 @@ import { CalendarModule } from 'angular-calendar';
 
 import { DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns'; // a plugin!
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddPostComponent } from 'src/app/modules/articles-and-publications/addPost/add-post/add-post.component';
 // import { ProfileComponent } from 'src/app/modules/profile/profile.component';
 // import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -50,6 +52,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ArticlesAndPublicationsComponent,
     CustomerReviewsComponent,
     VisitorsComponent,
+    AddPostComponent
     // ProfileComponent,
     // FormsModule,
     // ReactiveFormsModule
@@ -61,6 +64,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     SharedModule,
     MaterialModule,
     FullCalendarModule, // register FullCalendar with you app
+    FormsModule,
+    ReactiveFormsModule,
 
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
 

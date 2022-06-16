@@ -20,6 +20,7 @@ import { SignInComponent } from './login/sign-in/sign-in.component';
 import { SignUpComponent } from './login/sign-up/sign-up.component';
 import { SignupFailedComponent } from './login/sign-up/signup-failed/signup-failed.component';
 import { AppointmentsComponent } from './modules/appointments/appointments.component';
+import { AddPostComponent } from './modules/articles-and-publications/addPost/add-post/add-post.component';
 import { ArticlesAndPublicationsComponent } from './modules/articles-and-publications/articles-and-publications.component';
 import { CalenderComponent } from './modules/calender/calender.component';
 import { ConsulationhistoryComponent } from './modules/consulationhistory/consulationhistory.component';
@@ -67,7 +68,12 @@ const routes: Routes = [{
   {
     path: 'articlesAndPublications',
     component: ArticlesAndPublicationsComponent
-  }]
+  },
+  {
+    path: 'addPost',
+    component: AddPostComponent
+  }
+]
 },
 {
   path: 'admin',

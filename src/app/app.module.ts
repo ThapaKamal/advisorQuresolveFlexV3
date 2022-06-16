@@ -23,6 +23,7 @@ import { AdminModuleModule } from './admin-module/admin-module.module';
   declarations: [
     AppComponent,
     ProfileComponent,
+    
    
   ],
   imports: [

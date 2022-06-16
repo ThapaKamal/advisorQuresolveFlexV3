@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
+import { BankNameListService } from 'src/app/legaladvisor/legalService/bank-name-list.service';
+import { CustomValidationService } from 'src/app/legaladvisor/registration/service/custom-validation.service';
+import { BankName } from '../profile/Models/bankName';
 
 interface Appointment {
   sno: string;
@@ -13,6 +16,7 @@ interface Appointment {
   payment: string;
   amount: string;
 }
+
 @Component({
   selector: 'app-payments',
   templateUrl: './payments.component.html',
@@ -28,8 +32,39 @@ export class PaymentsComponent implements OnInit {
    @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
 
-  constructor() { 
-   
+   BankFormGroup!: FormGroup;
+
+  bankNameList!: BankName[];
+
+  enableMode: boolean = true;
+
+  constructor(    
+    private _formBuilder: FormBuilder,
+    private customValidator: CustomValidationService,
+    private bankNameListService: BankNameListService,
+    
+    ) { 
+
+    this.BankFormGroup = this._formBuilder.group({
+      receivedBeneficiaryName: [{ value: 'Ankit Kumar', disabled: true }, Validators.required],
+      receivedIfscCode: new FormControl({ value: 'ICIC0000225', disabled: true }, [
+        Validators.required,
+        Validators.pattern("^[A-Z]{4}0[A-Z0-9]{6}$")]),
+      receivedAccountNumber: new FormControl({ value: '1234567890', disabled: true }, [
+        Validators.required,
+        Validators.maxLength(10)
+      ]),
+      receivedConfirmAccountnumber: new FormControl({ value: '1234567890', disabled: true }, Validators.required),
+      receivedSelectedBankName: new FormControl({ value: '', disabled: true }, Validators.required),
+    },
+      {
+        validator: this.customValidator.accountMatchValidator(
+          "receivedAccountNumber",
+          "receivedConfirmAccountnumber"
+        )
+      });
+
+
   this.appointment = [{
       sno:'1',
       time:'1:30 PM',
@@ -91,10 +126,37 @@ export class PaymentsComponent implements OnInit {
   ngOnInit(){
     this.dataSource.sort =this.sort;
     this.dataSource.paginator =this.paginator;
+
+    this.bankNameList = this.bankNameListService.bankNameList();
+
   }
+
+
   applyFilter(event: any){
     const filterValue =(event.target as HTMLInputElement).value;
 
     this.dataSource.filter =filterValue.trim().toLowerCase();
   }
+
+
+  submit() {
+    alert('Updated Values Submitted succesfully!!!.');
+    console.log();
+    window.location.reload();
+  }
+
+
+  onEdit(control: AbstractControl) {
+    control.status === 'DISABLED' ? control.enable() : control.disable();
+  }
+
+  enableSave() {
+    this.enableMode = !this.enableMode;
+  }
+
+  public errorHandling = (control: string, error: string) => {
+    return this.BankFormGroup.controls[control].hasError(error);
+  }
 }
+
+

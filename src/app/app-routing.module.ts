@@ -11,6 +11,7 @@ import { LanguageComponent } from './admin-module/admin-sidebarMenu/Services/lan
 import { YearOfExperienceComponent } from './admin-module/admin-sidebarMenu/Services/year-of-experience/year-of-experience.component';
 import { LegalAdvisorUserComponent } from './admin-module/admin-sidebarMenu/users/legal-advisor-user/legal-advisor-user.component';
 import { TaxAdvisorUserComponent } from './admin-module/admin-sidebarMenu/users/tax-advisor-user/tax-advisor-user.component';
+import { AuthGuard } from './auth.guard';
 import { DefaultComponent } from './layouts/default/default.component';
 import { RegistrationComponent } from './legaladvisor/registration/registration.component';
 import { ErrorPageComponent } from './login/error-page/error-page.component';
@@ -21,6 +22,8 @@ import { SignUpComponent } from './login/sign-up/sign-up.component';
 import { SignupFailedComponent } from './login/sign-up/signup-failed/signup-failed.component';
 import { AppointmentsComponent } from './modules/appointments/appointments.component';
 import { AddPostComponent } from './modules/articles-and-publications/addPost/add-post/add-post.component';
+import { HomeComponent } from './modules/articles-and-publications/addPost/home/home.component';
+import { PostComponent } from './modules/articles-and-publications/addPost/post/post.component';
 import { ArticlesAndPublicationsComponent } from './modules/articles-and-publications/articles-and-publications.component';
 import { CalenderComponent } from './modules/calender/calender.component';
 import { ConsulationhistoryComponent } from './modules/consulationhistory/consulationhistory.component';
@@ -28,13 +31,16 @@ import { CustomerReviewsComponent } from './modules/customer-reviews/customer-re
 import { PaymentsComponent } from './modules/payments/payments.component';
 import { ProfileComponent } from './modules/profile/profile.component';
 import { VisitorsComponent } from './modules/visitors/visitors.component';
+import { ContactUsComponent } from './shared/components/contact-us/contact-us.component';
 import { TaxRegistrationComponent } from './tax-advisor/tax-registration/tax-registration.component';
 
 const routes: Routes = [{
 
   path: '',
   component: DefaultComponent,
-  children: [{
+  // canActivate:[AuthGuard],
+  children: [
+    {
     path: '',
     component: DashboardComponent
   }, {
@@ -72,6 +78,14 @@ const routes: Routes = [{
   {
     path: 'addPost',
     component: AddPostComponent
+  },
+  {
+    path: 'home',
+    component: HomeComponent
+  },
+  {  
+    path: 'post/:id',
+    component: PostComponent
   }
 ]
 },
@@ -79,6 +93,11 @@ const routes: Routes = [{
   path: 'admin',
   component: AdminLayoutComponent,
   children: [
+    {
+      path: '',
+      redirectTo: 'dashboard',
+      pathMatch: 'full'
+    },
     {
       path: 'dashboard',
       component: DashboardComponent
@@ -127,6 +146,10 @@ const routes: Routes = [{
 {
   path: 'login',
   component: SignInComponent
+},
+{
+  path: 'contactus',
+  component: ContactUsComponent
 },
 
 {

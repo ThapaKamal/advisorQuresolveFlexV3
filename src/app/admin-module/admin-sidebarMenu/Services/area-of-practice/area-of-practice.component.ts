@@ -57,7 +57,7 @@ export class AreaOfPracticeComponent implements OnInit {
   deleteValue(id:number){
     this.api.deleteValue(id)
     .subscribe({
-      next:(res)=>{
+      next:(res)=>{  
        this.areaOfPraticeForm.reset();
         // this.dialogRef.close('update');
         // this.dialog.open(ConfirmDeleteDialogBoxComponent,{

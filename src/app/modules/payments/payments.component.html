@@ -76,7 +76,7 @@
                 <!-- Confirm Account number -->
                 <mat-form-field id="space" appearance="outline">
                     <mat-label>Confirm Account number</mat-label>
-                    <input  matInput placeholder="Ex. XXXXXXXXXX" type="number"
+                    <input matInput placeholder="Ex. XXXXXXXXXX" type="number"
                         formControlName="receivedConfirmAccountnumber" required type="password">
                     <mat-icon matSuffix>account_balance</mat-icon>
                     <mat-error *ngIf="errorHandling('receivedConfirmAccountnumber', 'required')">
@@ -91,8 +91,9 @@
         </mat-card-content>
 
         <mat-card-actions class="endalign" align="end">
-            <button  mat-stroked-button color="warn" (click)="onEdit(BankFormGroup);enableSave()">{{enableMode?' Update
+            <button mat-stroked-button color="warn" (click)="onEdit(BankFormGroup);enableSave()">{{enableMode?' Update
                 Bank A/C':'Cancel'}} </button>
+
             <button mat-stroked-button [disabled]='this.enableMode' (click)="submit()">Save</button>
             <!-- <button mat-stroked-button color="primary">UPDATE BANK A/C</button> -->
         </mat-card-actions>

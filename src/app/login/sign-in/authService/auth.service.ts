@@ -28,7 +28,7 @@ export class AuthService {
 
   login(loginPayload: LoginPayload): Observable<boolean> {
 
-    console.log('inside auth Service loginMethod');
+    console.log('inside auth Service login Method');
     
     return this.httpClient.post<JwtAutResponse>(this.url + 'login', loginPayload).pipe(map(data => {
       this.localStorageService.store('authenticationToken', data.authenticationToken);

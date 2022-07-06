@@ -1,0 +1,38 @@
+.date {
+    margin-top: 11px;
+    font-weight: 500;
+}
+
+.title {
+    font-weight: 450;
+    font-size: 140%;
+}
+
+.content {
+    font-weight: 500;
+}
+
+// for toggler color
+::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: #22db22;
+}
+
+::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: #6df85a;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-ripple .mat-ripple-element {
+    background-color: #fff;
+}
+
+::ng-deep .mat-expansion-panel-header {
+    height: 80px !important;
+}
+
+::ng-deep .mat-expansion-panel-body {
+    max-height: 200px !important;
+    word-wrap: break-word;
+    line-height: 20px;
+    overflow: hidden;
+    white-space: pre;
+}

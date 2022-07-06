@@ -1,0 +1,62 @@
+<!-- <div class="content">
+    <div class="container">
+        <div class="row" *ngFor="let post of posts |async">
+            <div>
+                <h3><a href="/post/{{post.id}}" class="blog-title">{{post.title}}</a></h3>
+                <div>
+                    <i class=""></i> Author: <p>{{post.username}}</p>
+                </div>
+                <p [innerHTML]="post.body"></p>
+                <div>
+                    <a type="button" href="#/post/{{post.id}}" class="read-more">Read More</a>
+                </div>
+                <hr>
+            </div>
+<hr>
+        </div>
+    </div>
+</div>  -->
+
+
+<mat-accordion multi="true">
+    <mat-expansion-panel class="blogExpPanel" *ngFor="let post of posts$ |async">
+
+        <!-- TITLE -->
+        <mat-expansion-panel-header  class="title">
+            <p>
+                {{post.title}}
+            </p>
+        </mat-expansion-panel-header>
+
+
+        <!-- <BODY> -->
+        <p class="content" [innerHTML]="post.body"></p>
+
+
+        <mat-action-row>
+            <p class="date">{{post.created | date : 'MMM d,y,h:mm:ss a'}}</p>
+            <button mat-button routerLink="/post/{{post.id}}" class="read-more" color="primary">Read More</button>
+
+
+            <button mat-button color="primary">
+                <mat-slide-toggle class="color">Publish</mat-slide-toggle>
+            </button>
+
+            <button mat-button (click)="editPost()" color="primary">
+                <mat-icon>edit</mat-icon>
+                Edit Post
+            </button>
+
+            <button mat-button (click)="deleteValue(post.id)" color="warn">
+                <mat-icon>delete</mat-icon>
+                Delete Post
+            </button>
+
+        </mat-action-row>
+
+    </mat-expansion-panel>
+</mat-accordion>
+
+<!-- NO POST -->
+
+<p *ngIf="(posts$ | async)?.length==0"> NO POST AVAILABLE !</p>

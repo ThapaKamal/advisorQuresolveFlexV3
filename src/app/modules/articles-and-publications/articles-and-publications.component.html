@@ -1,74 +1,87 @@
 
 <mat-card class="shadow">
-    <mat-card-title class="tittle">Articles & Publications </mat-card-title>
-    <button mat-stroked-button color="primary" routerLink="/addPost"> Add Post</button>
+    <mat-card-title class="tittle">
+        ADD NEW POST </mat-card-title>
+    <button mat-stroked-button color="primary" routerLink="/addPost">
+        <mat-icon>add</mat-icon> Add Post</button>
 
     <br><br>
+<mat-card class="card">
+    <h1 class="center">Articles & Publications</h1>
 
-    <h1 class="center">PAYMENTS</h1>
-
-    <mat-form-field class="filterLength">
+    <br>
+    <!-- <mat-form-field class="filterLength">
         <mat-label>Filter</mat-label>
         <input matInput placeholder="Ex.Name ,caseType" (keyup)='applyFilter($event)'>
-    </mat-form-field>
+    </mat-form-field> -->
 
+<!-- 
     <div>
         <table mat-table [dataSource]="dataSource" matSort>
-
+    
             <ng-container matColumnDef="sno">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>S.No</th>
                 <td mat-cell *matCellDef="let row">{{ row.sno }}</td>
             </ng-container>
-
-            <ng-container matColumnDef="clientName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Client Name</th>
-                <td mat-cell *matCellDef="let row">{{ row.clientName }}</td>
+    
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+                <td mat-cell *matCellDef="let row">{{ row.title }}</td>
+            </ng-container>
+    
+            <ng-container matColumnDef="body">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Body</th>
+                <td mat-cell *matCellDef="let row">{{ row.body }}</td>
+            </ng-container>
+    
+            <ng-container matColumnDef="created">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Created On</th>
+                <td mat-cell *matCellDef="let row">{{ row.created }}</td>
+            </ng-container>
+    
+            <ng-container matColumnDef="modified">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Modified On</th>
+                <td mat-cell *matCellDef="let row"> {{ row.modified }}</td>
             </ng-container>
 
-            <ng-container matColumnDef="place">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Place</th>
-                <td mat-cell *matCellDef="let row">{{ row.place }}</td>
+            <ng-container matColumnDef="published">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Published By</th>
+                <td mat-cell *matCellDef="let row"> {{ row.published }}</td>
             </ng-container>
 
-            <ng-container matColumnDef="payment">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Payment Status</th>
-                <td mat-cell *matCellDef="let row">{{ row.payment }}</td>
+            <ng-container matColumnDef="url">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Url</th>
+                <td mat-cell *matCellDef="let row"> {{ row.url }}</td>
             </ng-container>
 
-            <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Date</th>
-                <td mat-cell *matCellDef="let row"> {{ row.date }}</td>
-            </ng-container>
 
-            <ng-container matColumnDef="time">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Time</th>
-                <td mat-cell *matCellDef="let row">{{row.time}}</td>
+            <ng-container matColumnDef="user_id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>User_id</th>
+                <td mat-cell *matCellDef="let row"> {{ row.user_id }}</td>
             </ng-container>
-
-            <ng-container matColumnDef="amount">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
-                <td mat-cell *matCellDef="let row">{{row.amount}}</td>
+    
+            <ng-container matColumnDef="view">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>View</th>
+                <td mat-cell *matCellDef="let row">
+                     <button mat-button>View</button>
+                    </td>
             </ng-container>
-            <!-- <ng-container matColumnDef="id1">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Accept</th>
-            <td mat-cell *matCellDef="let row">
-                 <button mat-button>Accept</button>
-                </td>
-        </ng-container>
-        <ng-container matColumnDef="id2">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Reject</th>
-            <td mat-cell *matCellDef="let row">
-                 <button mat-button>Reject</button>
-                </td>
-        </ng-container> -->
 
             <tr mat-header-row *matHeaderRowDef="columns"></tr>
             <tr mat-row *matRowDef="let row; columns:columns;"></tr>
-
+    
         </table>
-
-        <mat-paginator [length]="appointment.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
-            aria-label="Select page">
-        </mat-paginator>
+    
+        <mat-paginator [length]="appointment.length"
+                  [pageSize]="10"
+                  [pageSizeOptions]="[5, 10, 25, 100]"
+                  aria-label="Select page">
+    </mat-paginator>
     </div>
-    <br><br><br>
+    <br><br><br> -->
+
+<hr>
+    <app-home class="body"></app-home>
+    <br><br>
+</mat-card>
+

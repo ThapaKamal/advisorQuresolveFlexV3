@@ -4,8 +4,23 @@
 
 .new-post-title{
     color: royalblue;
+    font-size: 40px;
 }
 
 .post-title, .post-content{
     color: royalblue;
+    font-size: 20px;
+    padding: 20px;
+    width: 100%;
+    }
+
+.btn{
+    padding-top: 25px;
+  text-align: center;
 }
+.input-full{
+    width: 100%;
+}
+.example-chip-list {
+    width: 100%;
+  }

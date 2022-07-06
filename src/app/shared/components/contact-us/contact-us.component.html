@@ -1,0 +1,72 @@
+<div class="backgroundimage">
+    <header id="header" class="header-transparent" style="background: #1e4356;">
+        <div class="container">
+            <!--Header Logo-->
+            <div class="logo float-left">
+                <a href="index.html"><img src="../../assets/images/Logo/logo.png" height="70px" alt=""
+                        class="img-fluid"></a>
+            </div>
+        </div>
+    </header>
+
+    <mat-card class=" card mat-elevation-z0 outline">
+        <mat-card-content>
+            <form class="form-contactus" [formGroup]="contactUsForm" (ngSubmit)="onSubmit()">
+                <!-- <mat-icon>person_add</mat-icon> -->
+                <h1>Contact Us</h1>
+                <mat-error *ngIf="!contactUsValid">
+                    The username and password were not recognized
+                </mat-error>
+
+                <!-- Name -->
+                <mat-form-field appearance="outline">
+                    <input matInput placeholder="Name" formControlName="name" class="form-control" required
+                        autocomplete>
+                    <mat-error>
+                        Please provide a valid name
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Select Consulting Subject -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Select Consulting Subject</mat-label>
+                    <mat-select formControlName="subject" class="form-control" name="subject" required
+                        autocomplete>
+                        <mat-option value="legalAdvisor">Legal Advisor</mat-option>
+                        <mat-option value="taxAdvisor">Tax Advisor</mat-option>
+                        <mat-option value="contentWriter">Content Writer</mat-option>
+                        <mat-option value="other">Other</mat-option>
+                    </mat-select>
+                    <mat-error>Please choose an profession</mat-error>
+                </mat-form-field>
+
+                <!-- Email -->
+                <mat-form-field appearance="outline">
+                    <input matInput placeholder="Email" formControlName="email" class="form-control" name="email"
+                        required autocomplete>
+                    <mat-error>
+                        Please provide a valid email address
+                    </mat-error>
+                </mat-form-field>
+
+                <!-- Your Message -->
+                <mat-form-field appearance="outline">
+                    <textarea matInput name="message" formControlName="message" class="textarea"
+                        placeholder="Your Message" required>
+                    </textarea>
+                    <mat-error>
+                        Please provide a valid Message
+                    </mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button color="primary" type="submit" [disabled]="!contactUsForm.valid">
+                    Send
+                </button>
+            </form>
+
+        </mat-card-content>
+    </mat-card>
+
+    <br><br>
+    <app-footer></app-footer>
+</div>

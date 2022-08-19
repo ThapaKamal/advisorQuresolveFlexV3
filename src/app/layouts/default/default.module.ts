@@ -36,6 +36,7 @@ import { HttpClientInterceptor } from 'src/app/modules/articles-and-publications
 import { HomeComponent } from 'src/app/modules/articles-and-publications/addPost/home/home.component';
 import { PostComponent } from 'src/app/modules/articles-and-publications/addPost/post/post.component';
 import { StarRatingComponent } from 'src/app/modules/customer-reviews/star-rating/star-rating.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 
@@ -74,10 +75,11 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     CommonModule,
     RouterModule,
     SharedModule,
+    FlexLayoutModule,
     MaterialModule,
     FullCalendarModule, // register FullCalendar with you app
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule,  
     CKEditorModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
 

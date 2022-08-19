@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpEventType  } from '@angular/common/http';
 
 // SERVICES
 import { AreaOfPraticeListService } from '../legalService/area-of-pratice-list.service';
@@ -220,52 +220,32 @@ export class RegistrationComponent implements OnInit {
 
   }
 
+  uploadedImage!: File;
+  dbImage: any;
+  postResponse: any;
+  successResponse!: string;
+  image: any;
 
-  selectedFile!: File;
-  retrievedImage: any;
-  base64Data: any;
-  retrieveResonse: any;
-  message!: string;
-  imageName: any;
-
-  //Gets called when the user selects an image
-  public onFileChanged(event: any) {
-    //Select File
-    this.selectedFile = event.target.files[0];
+  public onImageUpload(event:any) {    
+    this.uploadedImage = event.target.files[0];
   }
-  //Gets called when the user clicks on submit to upload the image
-  onUpload() {
-    console.log(this.selectedFile);
 
-    //FormData API provides methods and properties to allow us easily prepare form data to be sent with POST HTTP requests.
-    const uploadImageData = new FormData();
-    uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
+  imageUploadAction() {    
+    const imageFormData = new FormData();
+    imageFormData.append('image', this.uploadedImage);
+  
 
-    //Make a call to the Spring Boot Application to save the image
-    this.httpClient.post('http://localhost:8080/image/upload', uploadImageData, { observe: 'response' })
+    this.httpClient.post('http://localhost:8080/api/upload/image/', imageFormData, { observe: 'response' })
       .subscribe((response) => {
-        if (response.status === 200) {
-          this.message = 'Image uploaded successfully';
+        if (response.status === 200) { 
+          this.postResponse = response;                
+          this.successResponse = this.postResponse.body.message;
         } else {
-          this.message = 'Image not uploaded successfully';
+          this.successResponse = 'Image not uploaded due to some error!';
         }
       }
       );
-  }
-  // retieve image
-
-  //Gets called when the user clicks on retieve image button to get the image from back end
-  getImage() {
-    //Make a call to Sprinf Boot to get the Image Bytes.
-    this.httpClient.get('http://localhost:8080/image/get/' + this.imageName)
-      .subscribe(
-        res => {
-          this.retrieveResonse = res;
-          this.base64Data = this.retrieveResonse.picByte;
-          this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
-        }
-      );
-  }
+    }
 
   // BAR COUNCIL
 

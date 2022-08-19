@@ -7,6 +7,7 @@ import { LoginModule } from '../login/login.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexModule } from '@angular/flex-layout';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -22,7 +23,9 @@ import { FlexModule } from '@angular/flex-layout';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FlexModule
+    FlexModule,
+
+  
     
     
     // PdfViewerModule

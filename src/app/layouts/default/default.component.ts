@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-default',
   templateUrl: './default.component.html',
@@ -13,7 +14,7 @@ export class DefaultComponent implements OnInit {
 
   ngOnInit() {  }
 
-  sideBarToggler(event: Event){
+  sideBarToggler(event: Event){ 
     this.sideBarOpen=!this.sideBarOpen;
   }
 }

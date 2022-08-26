@@ -5,17 +5,18 @@ export class RegistrationPayload {
     enteredPhone: String='';
     enteredDoB: String='';
     gender: String='';
-    selectedlanguage: String='';
+    selectedLanguage: String='';
     uploadedPhoto: String='';
+    aboutMe: String='';
 
     // accomplishments!: string[];AccomplishmentPayload
     accomplishments!:{ heading: string; desc: string; }[];
     clients: String='';
     selectedBaseCity: String='';
-    enteredenrollment: String='';
-    linkedinUrl: String='';
-    selectedAreaofpractice: String='';
-    selectedCourtOfPractice: String='';
+    enteredEnrollment: String='';
+    designation: String='';
+    selectedAreaOfPractice!: string[];
+    selectedCourtOfPractice!: string[];
     selectedYearsOfExp: String='';
     selectedBarMembership: String='';
     barCouncilId: String='';
@@ -24,7 +25,7 @@ export class RegistrationPayload {
     // enteredDegreeName: String='';
     // enteredCollegeName: String='';
     // yearOfPassing: String='';
-    // selectedTypeofDegree: String='';
+    // selectedTypeOfDegree: String='';
 
     certs: String='';
     // certList != certificationPayload[],
@@ -34,12 +35,12 @@ export class RegistrationPayload {
   
     enteredBeneficiaryName: String='';
     enteredAccountNumber: String='';
-    enteredIfscCode: String='';
+    enteredIFSC: String='';
     confirmAccountnumber: String='';
     selectedBankName: String='';
     
-    enteredAddressline1: String='';
-    enteredAddressline2: String='';
+    enteredAddressLine1: String='';
+    enteredAddressLine2: String='';
     enteredPinCode: String='';
     enteredCity: String='';
     enteredPinCodeArea: String='';

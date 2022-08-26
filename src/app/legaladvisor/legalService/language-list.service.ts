@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,8 @@ export class LanguageListService {
     private httpClient: HttpClient
   ) { }
 
-  private url = 'http://localhost:8080/api/get';
-
   getlanguage():Observable<any>{
-    return this.httpClient.get(this.url + '/language')
+    return this.httpClient.get(environment.apiUrl + '/api/get/language')
   }
 
 }

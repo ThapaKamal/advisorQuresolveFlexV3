@@ -20,6 +20,9 @@ import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Subscriber, Subscription } from 'rxjs';
 import { GenderListService } from '../legalService/gender-list.service';
 import { LanguageListService } from '../legalService/language-list.service';
+import { BaseCityService } from 'src/app/admin-module/admin-sidebarMenu/Services/base-city/APIService/base-city.service';
+import { BaseCitylistService } from '../legalService/base-citylist.service';
+import { MatSelectChange } from '@angular/material/select/select';
 
 
 @Component({
@@ -28,6 +31,7 @@ import { LanguageListService } from '../legalService/language-list.service';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
+
 
 
   firstFormGroup!: FormGroup;
@@ -55,6 +59,10 @@ export class RegistrationComponent implements OnInit {
   areaOfPraticeList: any = [];
   getGenderList: any = [];
   getlanguage: any = [];
+  getBaseCity: any = [];
+
+  //Dropdown error limit
+  dropDownLimit=true;
 
   // clients! :{ heading: string; desc: string; }[];
 
@@ -77,8 +85,19 @@ export class RegistrationComponent implements OnInit {
 
   genderModel: any;
 
+
   gender$: any;
   language$: any;
+  yearsOfExp$: any;
+  barMembership$: any;
+  bankName$: any;
+  address$: any;
+  degree$: any;
+  courtOfPractice$: any;
+  areaOfPratice$: any;
+  basecity$: any;
+  selectedAreaOfPractice:any;
+
 
 
   uploadFileEvt(imgFile: any) {
@@ -130,6 +149,8 @@ export class RegistrationComponent implements OnInit {
     private mediaObserver: MediaObserver,
     private genderListService: GenderListService,
     private languageListService: LanguageListService,
+    private basecityService:BaseCitylistService,
+
 
   ) {
 
@@ -141,28 +162,31 @@ export class RegistrationComponent implements OnInit {
         Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
       enteredDoB: new FormControl('', Validators.required),
       gender: new FormControl('', Validators.required),
-      selectedlanguage: new FormControl('', Validators.required),
+      selectedLanguage: new FormControl('', Validators.required),
       uploadedPhoto: new FormControl('', Validators.required),
+      aboutMe: new FormControl(''),
     });
 
     this.secondFormGroup = this._formBuilder.group({
       accomplishments: this._formBuilder.array([]),
       clients: this._formBuilder.array([]),
       selectedBaseCity: ['', Validators.required],
-      enteredenrollment: new FormControl('', Validators.required),
-      linkedinUrl: new FormControl('', [
-        Validators.pattern("^https?://((www|\w\w)\.)?linkedin.com/((in/[^/]+/?)|(pub/[^/]+/((\w|\d)+/?){3}))$")]),
-      selectedAreaofpractice: new FormControl('', [
+      enteredEnrollment: new FormControl('', Validators.required),
+      designation: new FormControl('', Validators.required),
+      // linkedinUrl: new FormControl('', [
+      //   Validators.pattern("^https?://((www|\w\w)\.)?linkedin.com/((in/[^/]+/?)|(pub/[^/]+/((\w|\d)+/?){3}))$")]),
+      selectedAreaOfPractice: new FormControl('', [
         Validators.required,
         Validators.maxLength(5)
       ]),
       selectedCourtOfPractice: new FormControl('', [
         Validators.required,
-        Validators.max(5)
+        Validators.maxLength(5)
       ]),
       selectedYearsOfExp: new FormControl('', Validators.required),
       selectedBarMembership: new FormControl('', Validators.required),
-      barCouncilId: new FormControl('', Validators.required),
+      barCouncilId: new FormControl(''),
+     
 
     });
 
@@ -170,8 +194,9 @@ export class RegistrationComponent implements OnInit {
       educations: this._formBuilder.array([]),
       enteredDegreeName: ['', Validators.required],
       enteredCollegeName: new FormControl('', Validators.required),
+      enteredUniversity: new FormControl('', Validators.required),
       yearOfPassing: new FormControl('', Validators.required),
-      selectedTypeofDegree: new FormControl('', Validators.required),
+      selectedTypeOfDegree: new FormControl('', Validators.required),
       primary: new FormControl('', Validators.required),
     });
 
@@ -186,7 +211,7 @@ export class RegistrationComponent implements OnInit {
       {
         enteredBeneficiaryName: ['', Validators.required],
         selectedBankName: new FormControl('', Validators.required),
-        enteredIfscCode: new FormControl('', [
+        enteredIFSC: new FormControl('', [
           Validators.required,
           Validators.pattern("^[A-Z]{4}0[A-Z0-9]{6}$")]),
         enteredAccountNumber: new FormControl('', [
@@ -204,8 +229,8 @@ export class RegistrationComponent implements OnInit {
     );
 
     this.sixthFormGroup = this._formBuilder.group({
-      enteredAddressline1: ['', Validators.required],
-      enteredAddressline2: new FormControl(''),
+      enteredAddressLine1: ['', Validators.required],
+      enteredAddressLine2: new FormControl(''),
       enteredPinCode: new FormControl('', Validators.required),
       enteredCity: new FormControl('', Validators.required),
       enteredPinCodeArea: new FormControl('', Validators.required),
@@ -303,8 +328,9 @@ export class RegistrationComponent implements OnInit {
   }
   newEducations(): FormGroup {
     return this._formBuilder.group({
-      selectedTypeofDegree: '',
+      selectedTypeOfDegree: '',
       enteredDegreeName: '',
+      enteredUniversity: '',
       enteredCollegeName: '',
       yearOfPassing: '',
       primary: '',
@@ -368,13 +394,46 @@ export class RegistrationComponent implements OnInit {
   removeAccomplishments(i: number) {
     this.accomplishments().removeAt(i);
   }
+  
 
-  genderList() {
+  gender() {
     return this.genderListService.getGenderList();
   }
 
-  languageList(){
+  language(){
     return this.languageListService.getlanguage();
+  }
+
+  yearOfExp(){
+    return this.yearOfExpListService.getYearsOfExpList();
+  }
+
+  barMembership(){
+    return this.barMembershipListService.getBarMembershipsList();
+  }
+  
+  bankName(){
+    return this.bankNameListService.getBankNameList();
+  }
+
+  address(){
+    return this.typeOfAddressListService.getTypeOfAddressList();
+  }
+
+  degree(){
+    return this.typeOfDegreeListService.getTypeOfDegreeList();
+  }
+
+  courtOfPractice(){
+    return this.courtOfPracticeService.getCourtOfPraticeList();
+  }
+
+  areaOfPratice(){
+    return this.areaOfPraticeListService.getAreaOfPratice();
+  }
+
+ baseCity(){
+    return this.basecityService.getBaseCityList();
   }
 
 
@@ -382,10 +441,20 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit() {
 
-    this.gender$ = this.genderList();
-    this.language$ = this.languageList();
+    this.gender$ = this.gender();
+    this.language$ = this.language();
+    this.yearsOfExp$ = this.yearOfExp();
+    this.barMembership$ = this.barMembership();
+    this.bankName$ = this.bankName();
+    this.address$ = this.address();
+    this.degree$ = this.degree();
+    this.courtOfPractice$ = this.courtOfPractice();
+    this.areaOfPratice$ = this.areaOfPratice();
 
-    // tells page size in console
+    this.basecity$ = this.baseCity();
+
+
+  // tells page size in console
     // this.mediaSub = this.mediaObserver.media$.subscribe(
     //   (change:MediaChange)=>{
     //     console.log(change.mqAlias);
@@ -394,31 +463,34 @@ export class RegistrationComponent implements OnInit {
 
 
     // YearOfExpListService
-    this.yearsOfExpList = this.yearOfExpListService.yearsOfExpList();
+    this.yearsOfExpList = this.yearOfExpListService.getYearsOfExpList();
 
     // barMembershipList
-    this.barMembershipsList = this.barMembershipListService.barMembershipsList();
+    this.barMembershipsList = this.barMembershipListService.getBarMembershipsList();
 
     // BankNameListServiceService
-    this.bankNameList = this.bankNameListService.bankNameList();
+    this.bankNameList = this.bankNameListService.getBankNameList();
 
     // typeOfAddressListService
-    this.typeOfAddressList = this.typeOfAddressListService.typeOfAddressList();
+    this.typeOfAddressList = this.typeOfAddressListService.getTypeOfAddressList();
 
     // TypeOfDegreeListService
-    this.typeOfDegreeList = this.typeOfDegreeListService.typeOfDegreeList();
+    this.typeOfDegreeList = this.typeOfDegreeListService.getTypeOfDegreeList();
 
     // COURT OF PRATICE Service
-    this.courtOfPraticeList = this.courtOfPracticeService.courtOfPraticeList();
+    this.courtOfPraticeList = this.courtOfPracticeService.getCourtOfPraticeList();
 
     // AREA OF PRATICE Service
-    this.areaOfPraticeList = this.areaOfPraticeListService.areaOfPraticeList();
+    this.areaOfPraticeList = this.areaOfPraticeListService.getAreaOfPratice();
 
     // GenderList Service
     this.getGenderList = this.genderListService.getGenderList();
 
     // LanguageList Service
     this.getlanguage = this.languageListService.getlanguage();
+
+    // BaseCitylistService 
+    this.getBaseCity = this.basecityService.getBaseCityList();
 
     //Add Certs
     this.addcerts();
@@ -451,8 +523,7 @@ export class RegistrationComponent implements OnInit {
 
   /* Handle form errors in Angular 8 */
   public errorHandling = (control: string, error: string) => {
-    return this.firstFormGroup.controls[control].hasError(error);
-    // return this.secondFormGroup.controls[control].hasError(error);
+      return this.firstFormGroup.controls[control].hasError(error);
   }
   public errorHandling1 = (control: string, error: string) => {
     return this.secondFormGroup.controls[control].hasError(error);
@@ -469,6 +540,7 @@ export class RegistrationComponent implements OnInit {
   public errorHandling5 = (control: string, error: string) => {
     return this.sixthFormGroup.controls[control].hasError(error);
   }
+
 
   submit() {
 
@@ -496,8 +568,9 @@ export class RegistrationComponent implements OnInit {
     this.registrationPayload.enteredPhone = this.firstFormGroup.value.enteredPhone;
     this.registrationPayload.enteredDoB = this.firstFormGroup.value.enteredDoB;
     this.registrationPayload.gender = this.firstFormGroup.value.gender;
-    this.registrationPayload.selectedlanguage = this.firstFormGroup.value.selectedlanguage;
+    this.registrationPayload.selectedLanguage = this.firstFormGroup.value.selectedLanguage;
     this.registrationPayload.uploadedPhoto = this.firstFormGroup.value.uploadedPhoto;
+    this.registrationPayload.aboutMe = this.firstFormGroup.value.aboutMe;
 
   }
 
@@ -505,9 +578,9 @@ export class RegistrationComponent implements OnInit {
     this.registrationPayload.accomplishments = this.secondFormGroup.value.accomplishments;
     this.registrationPayload.clients = this.secondFormGroup.value.clients;
     this.registrationPayload.selectedBaseCity = this.secondFormGroup.value.selectedBaseCity;
-    this.registrationPayload.enteredenrollment = this.secondFormGroup.value.enteredenrollment;
-    this.registrationPayload.linkedinUrl = this.secondFormGroup.value.linkedinUrl;
-    this.registrationPayload.selectedAreaofpractice = this.secondFormGroup.value.selectedAreaofpractice;
+    this.registrationPayload.enteredEnrollment = this.secondFormGroup.value.enteredEnrollment;
+    this.registrationPayload.designation = this.secondFormGroup.value.designation;
+    this.registrationPayload.selectedAreaOfPractice = this.secondFormGroup.value.selectedAreaOfPractice;
     this.registrationPayload.selectedCourtOfPractice = this.secondFormGroup.value.selectedCourtOfPractice;
     this.registrationPayload.selectedYearsOfExp = this.secondFormGroup.value.selectedYearsOfExp;
     this.registrationPayload.selectedBarMembership = this.secondFormGroup.value.selectedBarMembership;
@@ -527,14 +600,14 @@ export class RegistrationComponent implements OnInit {
   fifthFormToRegistrationPayload() {
     this.registrationPayload.enteredBeneficiaryName = this.fifthFormGroup.value.enteredBeneficiaryName;
     this.registrationPayload.enteredAccountNumber = this.fifthFormGroup.value.enteredAccountNumber;
-    this.registrationPayload.enteredIfscCode = this.fifthFormGroup.value.enteredIfscCode;
+    this.registrationPayload.enteredIFSC = this.fifthFormGroup.value.enteredIFSC;
     this.registrationPayload.confirmAccountnumber = this.fifthFormGroup.value.confirmAccountnumber;
     this.registrationPayload.selectedBankName = this.fifthFormGroup.value.selectedBankName;
 
   }
   sixthFormToRegistrationPayload() {
-    this.registrationPayload.enteredAddressline1 = this.sixthFormGroup.value.enteredAddressline1;
-    this.registrationPayload.enteredAddressline2 = this.sixthFormGroup.value.enteredAddressline2;
+    this.registrationPayload.enteredAddressLine1 = this.sixthFormGroup.value.enteredAddressLine1;
+    this.registrationPayload.enteredAddressLine2 = this.sixthFormGroup.value.enteredAddressLine2;
     this.registrationPayload.enteredPinCode = this.sixthFormGroup.value.enteredPinCode;
     this.registrationPayload.enteredCity = this.sixthFormGroup.value.enteredCity;
     this.registrationPayload.enteredPinCodeArea = this.sixthFormGroup.value.enteredPinCodeArea;
@@ -546,8 +619,18 @@ export class RegistrationComponent implements OnInit {
     this.registrationPayload.terms = this.seventhFormGroup.value.terms;
   }
 
+  areaValidation() {   
+    if (this.secondFormGroup.value.selectedAreaOfPractice.length > 5) {
+      this.dropDownLimit=false;
+    }
+    
+  }
+
+  courtValidation() {
+
+    if (this.secondFormGroup.value.selectedCourtOfPractice.length >= 5) {
+      this.dropDownLimit=false;
+    }
+    
+  }
 }
-
-
-
-

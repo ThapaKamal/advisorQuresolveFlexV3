@@ -8,6 +8,7 @@ table {
 
 .container {
   max-width: 900px;
+  min-height: 700px;
   margin: 0 auto;
 }
 /*# sourceMappingURL=base-city.component.css.map */

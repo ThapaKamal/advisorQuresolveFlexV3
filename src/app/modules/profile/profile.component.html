@@ -78,25 +78,27 @@
                     <!-- [(ngModel)]="advisorProfile.enteredDoB" -->
 
                     <!-- Gender -->
+
                     <mat-form-field appearance="outline">
                         <mat-label>Gender</mat-label>
-                        <mat-select matInput formControlName="receivedGender" required>
-                            <mat-option *ngFor="let gender of genders" [value]="gender.id">{{gender.value}}</mat-option>
-                            <!-- <mat-option value="1">Male</mat-option>
-                            <mat-option value="2">Female</mat-option>
-                            <mat-option value="3">Other</mat-option> -->
+                        <mat-select formControlName="gender">
+                            <mat-option *ngFor="let gender of gender$ | async" [value]="gender.id">
+                                {{ gender.value}}
+                            </mat-option>
                         </mat-select>
                         <mat-icon matSuffix>people</mat-icon>
-                        <mat-error *ngIf="errorHandling('receivedGender', 'required')">
+                        <mat-error *ngIf="errorHandling('gender', 'required')">
                             This field is required
                         </mat-error>
+
                     </mat-form-field>
 
                     <!-- Language -->
                     <mat-form-field appearance="outline">
                         <mat-label>Language</mat-label>
                         <mat-select formControlName="receivedLanguage" multiple>
-                            <mat-option *ngFor="let language of languageList" [value]="language.id">{{language.value}}
+                            <mat-option *ngFor="let language of language$| async" [value]="language.id">
+                                {{language.value}}
                             </mat-option>
                         </mat-select>
                         <mat-icon matSuffix>language</mat-icon>
@@ -104,6 +106,7 @@
                             This field is required
                         </mat-error>
                     </mat-form-field>
+
                 </div>
             </mat-card>
             <mat-action-row>
@@ -131,7 +134,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Years of Experience</mat-label>
                         <mat-select formControlName="receivedYearsOfExp">
-                            <mat-option *ngFor="let item of yearsOfExpList" [value]="item.id">
+                            <mat-option *ngFor="let item of yearsOfExp$| async" [value]="item.id">
                                 {{ item.name}}
                             </mat-option>
                         </mat-select>
@@ -145,7 +148,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Base City</mat-label>
                         <mat-select matInput formControlName="receivedBaseCity" required>
-                            <mat-option *ngFor="let item of baseCitylist" [value]="item.id">
+                            <mat-option *ngFor="let item of basecity$| async" [value]="item.id">
                                 {{ item.name}}
                             </mat-option>
                         </mat-select>
@@ -159,7 +162,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Bar Membership</mat-label>
                         <mat-select formControlName="receivedBarMembership">
-                            <mat-option *ngFor="let item of barMembershipsList" [value]="item.id">
+                            <mat-option *ngFor="let item of barMembership$ | async" [value]="item.id">
                                 {{ item.name}}
                             </mat-option>
                         </mat-select>
@@ -215,7 +218,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Area of Practice</mat-label>
                         <mat-select formControlName="receivedAreaofpractice" multiple>
-                            <mat-option *ngFor="let item of areaOfPraticeList" [value]="item.id">
+                            <mat-option *ngFor="let item of areaOfPratice$ | async" [value]="item.id">
                                 {{item.name}}
                             </mat-option>
                         </mat-select>
@@ -231,7 +234,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label>Court of Practice</mat-label>
                         <mat-select formControlName="receivedCourtOfPractice" multiple>
-                            <mat-option *ngFor="let item of courtOfPraticeList" [value]="item.id">
+                            <mat-option *ngFor="let item of courtOfPractice$ | async" [value]="item.id">
                                 {{item.name}}
                             </mat-option>
                         </mat-select>
@@ -335,7 +338,7 @@
                                 <mat-form-field appearance="outline">
                                     <mat-label>Type of Degree</mat-label>
                                     <mat-select formControlName="receivedTypeofDegree" required>
-                                        <mat-option *ngFor="let item of typeOfDegreeList" [value]="item.id">
+                                        <mat-option *ngFor="let item of degree$ | async" [value]="item.id">
                                             {{ item.name}}
                                         </mat-option>
                                     </mat-select>
@@ -506,7 +509,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label> Bank Name</mat-label>
                         <mat-select formControlName="receivedSelectedBankName">
-                            <mat-option *ngFor="let item of bankNameList" [value]="item.id">
+                            <mat-option *ngFor="let item of bankName$ | async" [value]="item.id">
                                 {{ item.name}}
                             </mat-option>
                             <mat-error *ngIf="errorHandling4('receivedSelectedBankName', 'required')">
@@ -591,7 +594,7 @@
                     <mat-form-field appearance="outline">
                         <mat-label> Type of Address </mat-label>
                         <mat-select formControlName="receivedTypeofAddress">
-                            <mat-option *ngFor="let item of typeOfAddressList" [value]="item.id">
+                            <mat-option *ngFor="let item of address$ | async" [value]="item.id">
                                 {{item.name}}
                             </mat-option>
                         </mat-select>

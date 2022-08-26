@@ -85,11 +85,9 @@
                     <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
                         <mat-form-field appearance="fill">
                             <mat-label>Gender</mat-label>
-                            <mat-select matInput formControlName="taxAdvisorGender" required>
-                                <mat-option value="1">Male</mat-option>
-                                <mat-option value="2">Female</mat-option>
-                                <mat-option value="3">Other</mat-option>
-                            </mat-select>
+                            <mat-option *ngFor="let gender of gender$ | async" [value]="gender.id">
+                                {{ gender.value}}
+                            </mat-option>
                             <mat-icon matSuffix>people</mat-icon>
                             <mat-error *ngIf="errorHandling('taxAdvisorGender', 'required')">
                                 This field is required
@@ -102,7 +100,8 @@
                         <mat-form-field appearance="fill">
                             <mat-label>Language</mat-label>
                             <mat-select formControlName="taxAdvisorLanguage" multiple>
-                                <mat-option *ngFor="let language of languageList" [value]="language">{{language}}
+                                <mat-option *ngFor="let language of language$| async" [value]="language.id">
+                                    {{language.value}}
                                 </mat-option>
                             </mat-select>
                             <mat-icon matSuffix>language</mat-icon>
@@ -158,7 +157,7 @@
                             <mat-label>Years of Experience</mat-label>
                             <mat-select formControlName="taxAdvisorYearsOfExp">
                                 <mat-option *ngFor="let item of yearsOfExpList" [value]="item.id">
-                                    {{ item.name}}
+                                    {{ item.value}}
                                 </mat-option>
                             </mat-select>
                             <mat-error *ngIf="errorHandling1('taxAdvisorYearsOfExp', 'required')">
@@ -389,8 +388,8 @@
                                 <mat-form-field appearance="fill">
                                     <mat-label>Type of Degree</mat-label>
                                     <mat-select formControlName="taxAdvisorTypeofDegree" required>
-                                        <mat-option *ngFor="let item of typeOfDegreeList" [value]="item.id">
-                                            {{ item.name}}
+                                        <mat-option *ngFor="let item of degree$ | async" [value]="item.id">
+                                            {{ item.value}}
                                         </mat-option>
                                     </mat-select>
                                     <mat-icon matSuffix>school </mat-icon>
@@ -566,8 +565,8 @@
                         <mat-form-field appearance="fill">
                             <mat-label> Bank Name</mat-label>
                             <mat-select formControlName="taxAdvisorBankName">
-                                <mat-option *ngFor="let item of bankNameList" [value]="item.id">
-                                    {{ item.name}}
+                                <mat-option *ngFor="let item of bankName$ | async" [value]="item.id">
+                                    {{ item.value}}
                                 </mat-option>
                                 <mat-error *ngIf="errorHandling4('taxAdvisorBankName', 'required')">
                                     This field is required
@@ -651,8 +650,8 @@
                         <mat-form-field appearance="fill">
                             <mat-label> Type of Address </mat-label>
                             <mat-select formControlName="taxAdvisorTypeofAddress">
-                                <mat-option *ngFor="let item of typeOfAddressList" [value]="item.id">
-                                    {{ item.name}}
+                                <mat-option *ngFor="let item of address$ | async" [value]="item.id">  
+                                    {{ item.value}}
                                 </mat-option>
                             </mat-select>
                             <mat-error *ngIf="errorHandling5('taxAdvisorTypeofAddress', 'required')">

@@ -24,6 +24,9 @@ interface Appointment {
 })
 export class PaymentsComponent implements OnInit {
 
+  bankName$: any;
+
+
   dataSource!: MatTableDataSource<Appointment>;
   appointment!: Appointment[];
   columns: string[] = ['sno','clientName','place','time','date','payment','amount']
@@ -33,8 +36,9 @@ export class PaymentsComponent implements OnInit {
 
 
    BankFormGroup!: FormGroup;
+   
+   bankNameList: any = [];
 
-  bankNameList!: BankName[];
 
   enableMode: boolean = true;
 
@@ -123,13 +127,22 @@ export class PaymentsComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.appointment);
   }
 
+  bankName(){
+    return this.bankNameListService.getBankNameList();
+  }
+
   ngOnInit(){
     this.dataSource.sort =this.sort;
     this.dataSource.paginator =this.paginator;
 
-    this.bankNameList = this.bankNameListService.bankNameList();
+    this.bankName$ = this.bankName();
+
+   // BankNameListServiceService
+   this.bankNameList = this.bankNameListService.getBankNameList();
 
   }
+
+  
 
 
   applyFilter(event: any){

@@ -1,0 +1,61 @@
+<div class="add-post-content">
+  <div class="container">
+    <div>
+      <h3 class="new-post-title"> Create New Post</h3>
+    </div>
+    <hr>
+    <br>
+    <mat-card>
+      <form [formGroup]="addPostForm" (ngSubmit)="addPost()">
+
+        <!-- TITLE -->
+        <div class="form-group">
+          <mat-label class="post-content">Title</mat-label>
+          <mat-form-field class="input-full" appearance="fill">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" placeholder="Title" required>
+          </mat-form-field>
+        </div>
+
+
+<!-- TODO  coming in future version -->
+        <!-- TAGS -->
+        <!-- <mat-form-field class="example-chip-list" appearance="fill">
+          <mat-label>Tags</mat-label>
+          <mat-chip-list #chipList aria-label="Tags selection">
+            <mat-chip *ngFor="let tag of tags" (removed)="remove(tag)">
+              {{tag}}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip>
+            <input placeholder="New tag..." #fruitInput formControlName="tagCtrl" [matAutocomplete]="auto"
+              [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              (matChipInputTokenEnd)="add($event)">
+          </mat-chip-list>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+              {{tag}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error>At least 1 tag need to be added</mat-error>
+        </mat-form-field> -->
+
+        <!-- BODY -->
+        <div class="form-group">
+          <mat-label class="post-content">Body</mat-label>
+          <ckeditor 
+          formControlName="body" 
+          [editor]="Editor"
+           data="<h2>Write your post content here !</h2>">
+          </ckeditor>
+          <!-- (ready)="onReady($event)" -->
+
+        </div>
+        <div class="btn">
+          <button mat-raised-button color="primary" type="submit">Save Post</button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+</div>

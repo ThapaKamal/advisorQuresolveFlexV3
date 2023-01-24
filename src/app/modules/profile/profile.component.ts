@@ -27,6 +27,8 @@ import { IProfile } from './interfaces/IProfile';
 import { Clients } from './interfaces/clients';
 import { Educations } from './interfaces/educations';
 import { Certification } from './interfaces/certification';
+import { GenderListService } from 'src/app/legaladvisor/legalService/gender-list.service';
+import { LanguageListService } from 'src/app/legaladvisor/legalService/language-list.service';
 
 
 
@@ -52,8 +54,20 @@ export class ProfileComponent implements OnInit {
   accomplishment!: Accomplishment
   createForm: any;
 
+  gender$: any;
+  language$: any;
+  yearsOfExp$: any;
+  barMembership$: any;
+  bankName$: any;
+  address$: any;
+  degree$: any;
+  courtOfPractice$: any;
+  areaOfPratice$: any;
+  basecity$: any;
+  getBaseCity: any = [];
 
 
+  advisorProfileList!: IProfile[];
 
   setStep(index: number) {
     this.step = index;
@@ -72,17 +86,28 @@ export class ProfileComponent implements OnInit {
 
 
   // ServiceVariables
-  yearsOfExpList!: yearsOfExp[];
-  typeOfDegreeList!: TypeOfDegree[];
-  bankNameList!: BankName[];
-  barMembershipsList!: BarMembership[];
-  typeOfAddressList!: TypeOfAddress[];
-  courtOfPraticeList!: CourtOfPratice[];
-  advisorProfileList!: IProfile[];
-  baseCitylist!: BaseCity[];
-  areaOfPraticeList!: AreaOfPratice[];
+  // yearsOfExpList!: yearsOfExp[];
+  // typeOfDegreeList!: TypeOfDegree[];
+  // bankNameList!: BankName[];
+  // barMembershipsList!: BarMembership[];
+  // typeOfAddressList!: TypeOfAddress[];
+  // courtOfPraticeList!: CourtOfPratice[];
+  // advisorProfileList!: IProfile[];
+  // baseCitylist!: BaseCity[];
+  // areaOfPraticeList!: AreaOfPratice[];
   advisorProfile: any = [];
   loadAccom: any = [];
+
+    // ServiceVariables
+    yearsOfExpList: any = [];
+    typeOfDegreeList: any = [];
+    bankNameList: any = [];
+    barMembershipsList: any = [];
+    typeOfAddressList: any = [];
+    courtOfPraticeList: any = [];
+    areaOfPraticeList: any = [];
+    getGenderList: any = [];
+    getlanguage: any = [];
 
   // checkBoxIsselected
   selected = -1;
@@ -285,9 +310,11 @@ export class ProfileComponent implements OnInit {
     private typeOfAddressListService: TypeOfAddressListService,
     private typeOfDegreeListService: TypeOfDegreeListService,
     private advisorProfileService: AdvisorProfileService,
-    private baseCitylistService: BaseCitylistService,
+    private basecityService: BaseCitylistService,
     private httpClient: HttpClient,
     private customValidator: CustomValidationService,
+    private genderListService: GenderListService,
+    private languageListService: LanguageListService,
 
   ) {
 
@@ -385,19 +412,19 @@ export class ProfileComponent implements OnInit {
 
 
 
-  loadGender() {
-    this.genders = [
-      { id: '1', value: "Male" },
-      { id: '2', value: "Female" },
-      { id: '3', value: "Other" },
-    ]
-  }
-  loadLanguage() {
-    this.languageList = [
-      { id: '1', value: "English" },
-      { id: '2', value: "Hindi" }
-    ]
-  }
+  // loadGender() {
+  //   this.genders = [
+  //     { id: '1', value: "Male" },
+  //     { id: '2', value: "Female" },
+  //     { id: '3', value: "Other" },
+  //   ]
+  // }
+  // loadLanguage() {
+  //   this.languageList = [
+  //     { id: '1', value: "English" },
+  //     { id: '2', value: "Hindi" }
+  //   ]
+  // }
 
   // public loadItems(){
   //   this.Form2Group.patchValue({
@@ -507,44 +534,91 @@ export class ProfileComponent implements OnInit {
   }
 
 
+  gender() {
+    return this.genderListService.getGenderList();
+  }
+
+  language(){
+    return this.languageListService.getlanguage();
+  }
+
+  yearOfExp(){
+    return this.yearOfExpListService.getYearsOfExpList();
+  }
+
+  barMembership(){
+    return this.barMembershipListService.getBarMembershipsList();
+  }
+  
+  bankName(){
+    return this.bankNameListService.getBankNameList();
+  }
+
+  address(){
+    return this.typeOfAddressListService.getTypeOfAddressList();
+  }
+
+  degree(){
+    return this.typeOfDegreeListService.getTypeOfDegreeList();
+  }
+
+  courtOfPractice(){
+    return this.courtOfPracticeService.getCourtOfPraticeList();
+  }
+
+  areaOfPratice(){
+    return this.areaOfPraticeListService.getAreaOfPratice();
+  }
+  baseCity(){
+    return this.basecityService.getBaseCityList();
+  }
 
 
 
   ngOnInit() {
 
-    this.loadGender();
-    this.loadLanguage();
+    this.gender$ = this.gender();
+    this.language$ = this.language();
+    this.yearsOfExp$ = this.yearOfExp();
+    this.barMembership$ = this.barMembership();
+    this.bankName$ = this.bankName();
+    this.address$ = this.address();
+    this.degree$ = this.degree();
+    this.courtOfPractice$ = this.courtOfPractice();
+    this.areaOfPratice$ = this.areaOfPratice();
+    
+    this.basecity$ = this.baseCity();
 
-    // for (var item of this.advisorProfileList) {
-    //   console.log(item);
-    // }
+     // YearOfExpListService
+     this.yearsOfExpList = this.yearOfExpListService.getYearsOfExpList();
 
-    // console.log(this.Form1Group.get('receivedName'));
+     // barMembershipList
+     this.barMembershipsList = this.barMembershipListService.getBarMembershipsList();
+ 
+     // BankNameListServiceService
+     this.bankNameList = this.bankNameListService.getBankNameList();
+ 
+     // typeOfAddressListService
+     this.typeOfAddressList = this.typeOfAddressListService.getTypeOfAddressList();
+ 
+     // TypeOfDegreeListService
+     this.typeOfDegreeList = this.typeOfDegreeListService.getTypeOfDegreeList();
+ 
+     // COURT OF PRATICE Service
+     this.courtOfPraticeList = this.courtOfPracticeService.getCourtOfPraticeList();
+ 
+     // AREA OF PRATICE Service
+     this.areaOfPraticeList = this.areaOfPraticeListService.getAreaOfPratice();
+ 
+     // GenderList Service
+     this.getGenderList = this.genderListService.getGenderList();
+ 
+     // LanguageList Service
+     this.getlanguage = this.languageListService.getlanguage();
+     
+    // BaseCitylistService 
+    this.getBaseCity = this.basecityService.getBaseCityList();
 
-    // YearOfExpListService
-    this.yearsOfExpList = this.yearOfExpListService.yearsOfExpList();
-
-    // barMembershipList
-    this.barMembershipsList = this.barMembershipListService.barMembershipsList();
-
-    // BankNameListServiceService
-    this.bankNameList = this.bankNameListService.bankNameList();
-
-    // typeOfAddressListService
-    this.typeOfAddressList = this.typeOfAddressListService.typeOfAddressList();
-
-    // TypeOfDegreeListService
-    this.typeOfDegreeList = this.typeOfDegreeListService.typeOfDegreeList();
-
-    // COURT OF PRATICE Service
-    this.courtOfPraticeList = this.courtOfPracticeService.courtOfPraticeList();
-
-    // AREA OF PRATICE Service
-    this.areaOfPraticeList = this.areaOfPraticeListService.areaOfPraticeList();
-
-
-    // BASE CITY Service
-    this.baseCitylist = this.baseCitylistService.baseCityList();
 
     // Advisor Profile Service
     this.advisorProfileList = this.advisorProfileService.advisorProfileList();

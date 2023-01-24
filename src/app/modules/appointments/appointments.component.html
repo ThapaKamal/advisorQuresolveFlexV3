@@ -37,19 +37,25 @@
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Rescudule</th>
             <td mat-cell *matCellDef="let row">
-                 <button mat-button>Rescudule Meeting</button>
+                 <button class="gcolor" mat-stroked-button>Rescudule Meeting
+                    <mat-icon>autorenew</mat-icon>
+                 </button>
                 </td>
         </ng-container>
         <ng-container matColumnDef="id1">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Accept</th>
             <td mat-cell *matCellDef="let row">
-                 <button mat-button>Accept</button>
+                 <button mat-stroked-button color="primary">Accept
+                    <mat-icon>done</mat-icon>
+                 </button>
                 </td>
         </ng-container>
         <ng-container matColumnDef="id2">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Reject</th>
             <td mat-cell *matCellDef="let row">
-                 <button mat-button>Reject</button>
+                 <button mat-stroked-button color="warn">Reject
+                    <mat-icon>close</mat-icon>
+                 </button>
                 </td>
         </ng-container>
 

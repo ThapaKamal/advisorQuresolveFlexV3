@@ -26,8 +26,19 @@ import { CalendarModule } from 'angular-calendar';
 
 import { DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns'; // a plugin!
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddPostComponent } from 'src/app/modules/articles-and-publications/addPost/add-post/add-post.component';
 // import { ProfileComponent } from 'src/app/modules/profile/profile.component';
 // import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientInterceptor } from 'src/app/modules/articles-and-publications/addPost/add-post/http-client-interceptor';
+import { HomeComponent } from 'src/app/modules/articles-and-publications/addPost/home/home.component';
+import { PostComponent } from 'src/app/modules/articles-and-publications/addPost/post/post.component';
+import { StarRatingComponent } from 'src/app/modules/customer-reviews/star-rating/star-rating.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
+
 
 
 
@@ -50,6 +61,11 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ArticlesAndPublicationsComponent,
     CustomerReviewsComponent,
     VisitorsComponent,
+    AddPostComponent,
+    HomeComponent,
+    PostComponent,
+    StarRatingComponent,
+
     // ProfileComponent,
     // FormsModule,
     // ReactiveFormsModule
@@ -59,16 +75,20 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     CommonModule,
     RouterModule,
     SharedModule,
+    FlexLayoutModule,
     MaterialModule,
     FullCalendarModule, // register FullCalendar with you app
-
+    FormsModule,
+    ReactiveFormsModule,  
+    CKEditorModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
 
   ],
   providers:[
     AreaDataService,
     CardsDataService,
-    PieDataService
+    PieDataService,
+    {provide:HTTP_INTERCEPTORS,useClass:HttpClientInterceptor,multi:true}
   ]
 })
 export class DefaultModule { }

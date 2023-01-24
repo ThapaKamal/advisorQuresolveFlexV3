@@ -18,7 +18,6 @@ import { TaxAdvisorModule } from './tax-advisor/tax-advisor.module';
 import { AdminModuleModule } from './admin-module/admin-module.module';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,8 +37,7 @@ import { AdminModuleModule } from './admin-module/admin-module.module';
     FormsModule,
     TaxAdvisorModule,
     AdminModuleModule
-
-   
+  
   ],
   providers: [],
   bootstrap: [AppComponent]

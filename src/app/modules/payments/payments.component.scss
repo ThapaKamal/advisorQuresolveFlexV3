@@ -1,9 +1,47 @@
-.center{
+.center {
     text-align: center;
 }
-table{
+
+table {
     width: 100%;
 }
-.mat-form-field{
+
+.filterLength {
     width: 100%;
+}
+
+.shadow {
+    box-shadow: 5px 3px 4px 1px #888888;
+    height: 300px;
+}
+
+.bankDetails {
+    width: inherit;
+    padding-top: 30px;
+}
+
+.contentcenter {
+    display: flex;
+    align-items: center;
+    // width: 100%;
+    height: 50px;
+    padding: 25px;
+    padding-left: 50px;
+}
+
+#space {
+    justify-content: space-evenly;
+    padding-right: 30px;
+}
+
+.tittle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+padding-bottom: 50px;
+}
+
+.endalign {
+    padding-inline-end: 50px;
+    padding: 60px;
 }

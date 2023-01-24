@@ -17,14 +17,17 @@
             <ul fxLayout="row" fxLayoutGap="10px">
                 <li>
                     <button mat-icon-button title="Search">
+                    
                         <mat-icon>search</mat-icon>
+                        
                     </button>
+                  
                 </li>
-                <!-- <li>
+                <li>
                     <button mat-icon-button>
                         <mat-icon matBadge="5" matBadgeColor="warn">mail_outline</mat-icon>
                     </button>
-                </li> -->
+                </li>
                 <li>
                     <app-notification ></app-notification>
                     
@@ -39,11 +42,11 @@
                             <mat-icon>person</mat-icon>
                             Profile
                         </button>
-                        <button mat-menu-item>
+                        <button routerLink="/payments" mat-menu-item>
                             <mat-icon>account_balance_wallet</mat-icon>
                             Account
                         </button>
-                        <button mat-menu-item>
+                        <button routerLink="/contactus" mat-menu-item>
                             <mat-icon>help_outline</mat-icon>
                             Contact Support
                         </button>

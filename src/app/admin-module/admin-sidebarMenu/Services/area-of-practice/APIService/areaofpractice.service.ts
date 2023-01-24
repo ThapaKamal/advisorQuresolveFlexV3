@@ -31,5 +31,5 @@ export class AreaofpracticeService {
    
   deleteValue(id:number){
     return this.http.delete<any>(this.url+'/areaofpracticedelete/'+id)
-  }
+  }       
 }

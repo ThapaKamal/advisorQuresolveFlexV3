@@ -73,7 +73,7 @@
                     <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
                         <mat-form-field appearance="fill">
                             <mat-label>Date Of Birth</mat-label>
-                            <input matInput formControlName="enteredDoB" [matDatepicker]="picker">
+                            <input matInput formControlName="enteredDoB" [matDatepicker]="picker" required>
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                             <mat-error *ngIf="errorHandling('enteredDoB', 'required')">
@@ -85,17 +85,11 @@
                     <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
                         <mat-form-field appearance="fill">
                             <mat-label>Gender</mat-label>
-                            <mat-select formControlName="gender">
+                            <mat-select formControlName="gender" required>
                                 <mat-option *ngFor="let gender of gender$ | async" [value]="gender.id">
                                     {{ gender.value}}
                                 </mat-option>
                             </mat-select>
-
-                            <!-- <mat-select matInput formControlName="gender" required>
-                                <mat-option value="1">Male</mat-option>
-                                <mat-option value="2">Female</mat-option>
-                                <mat-option value="3">Other</mat-option>
-                            </mat-select> -->
                             <mat-icon matSuffix>people</mat-icon>
                             <mat-error *ngIf="errorHandling('gender', 'required')">
                                 This field is required
@@ -107,41 +101,44 @@
                     <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
                         <mat-form-field appearance="fill">
                             <mat-label>Language</mat-label>
-                            <mat-select formControlName="selectedlanguage" multiple>
+                            <mat-select formControlName="selectedLanguage" multiple required>
                                 <mat-option *ngFor="let language of language$| async" [value]="language.id">
                                     {{language.value}}
                                 </mat-option>
                             </mat-select>
                             <mat-icon matSuffix>language</mat-icon>
-                            <mat-error *ngIf="errorHandling('selectedlanguage', 'required')">
+                            <mat-error *ngIf="errorHandling('selectedLanguage', 'required')">
                                 This field is required
                             </mat-error>
                         </mat-form-field>
                     </div>
                 </div>
 
-
+                <!-- Image -->
                 <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly stretch">
-                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
-                        <mat-form-field appearance="fill">
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="40" fxFlex.sm="35" fxFlex.xs="100">
+                        <mat-form-field
+                            matTooltip="Photo should be in formal attire, white background and size should be less than 1 MB"
+                            matTooltipPosition="right" appearance="fill">
                             <mat-label>Photo</mat-label>
                             <!-- Display files names -->
-                            <input formControlName="uploadedPhoto" matInput readonly name="name" />
-                            <input type="file" formControlName="uploadedPhoto" (change)="onFileChanged($event)">
-                            <input type="button" mat-button (click)="onUpload()" value="Upload">
-                            <!-- <input type="text" formControlName="imageName" name="imageName" matInput /> -->
-                            <!-- <div *ngIf=message>{{message}}</div> -->
-                            <!-- <input type="button" (click)="getImage()" value="Get Image"> -->
-                            <mat-error *ngIf="errorHandling('uploadedPhoto', 'required')">
+                            <input formControlName="uploadedPhoto" matInput readonly name="name" required />
+                            <input formControlName="uploadedPhoto" type="file" (change)="onImageUpload($event)">
+                            <input type="button" mat-button (click)="imageUploadAction()" value="Upload">
+                            <mat-error *ngIf="errorHandling('uploadedPhoto','required')">
                                 This field is required
                             </mat-error>
                         </mat-form-field>
                     </div>
-                    <div fxLayout="column" fxFlex="60"></div>
+                    <div fxLayout="column" fxFlex="59" fxFlex.md="50" fxFlex.sm="45" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>About Me</mat-label>
+                            <textarea matInput placeholder="" type="text" formControlName="aboutMe"></textarea>
+                            <mat-icon matSuffix>description</mat-icon>
+                        </mat-form-field>
+                    </div>
 
                 </div>
-
-
 
             </mat-card>
             <br>
@@ -165,11 +162,12 @@
                     <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
                         <mat-form-field appearance="fill">
                             <mat-label>Years of Experience</mat-label>
-                            <mat-select formControlName="selectedYearsOfExp">
-                                <mat-option *ngFor="let item of yearsOfExpList" [value]="item.id">
-                                    {{ item.name}}
+                            <mat-select formControlName="selectedYearsOfExp" required>
+                                <mat-option *ngFor="let yoe of yearsOfExp$| async" [value]="yoe.id">
+                                    {{ yoe.value}}
                                 </mat-option>
                             </mat-select>
+                            <mat-icon matSuffix>email</mat-icon>
                             <mat-error *ngIf="errorHandling1('selectedYearsOfExp', 'required')">
                                 This field is required
                             </mat-error>
@@ -181,8 +179,11 @@
                         <mat-form-field appearance="fill">
                             <mat-label>Base City</mat-label>
                             <mat-select matInput formControlName="selectedBaseCity" required>
-                                <mat-option value="1">Delhi NCR</mat-option>
+                                <mat-option *ngFor="let item of basecity$| async" [value]="item.id">
+                                    {{ item.value}}
+                                </mat-option>
                             </mat-select>
+                            <mat-icon matSuffix>location_city</mat-icon>
                             <mat-error *ngIf="errorHandling1('selectedBaseCity', 'required')">
                                 This field is required
                             </mat-error>
@@ -193,11 +194,12 @@
                     <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
                         <mat-form-field appearance="fill">
                             <mat-label>Bar Membership</mat-label>
-                            <mat-select formControlName="selectedBarMembership">
-                                <mat-option *ngFor="let item of barMembershipsList" [value]="item.id">
-                                    {{ item.name}}
+                            <mat-select formControlName="selectedBarMembership" required>
+                                <mat-option *ngFor="let item of barMembership$ | async" [value]="item.id">
+                                    {{ item.value}}
                                 </mat-option>
                             </mat-select>
+                            <mat-icon matSuffix>card_membership</mat-icon>
                             <mat-error *ngIf="errorHandling1('selectedBarMembership', 'required')">
                                 This field is required
                             </mat-error>
@@ -213,16 +215,16 @@
                         <mat-form-field appearance="fill">
                             <mat-label>Bar Enrollment Number</mat-label>
                             <input matInput placeholder="Bar Council Enrollment Number" type="text"
-                                formControlName="enteredenrollment" required>
+                                formControlName="enteredEnrollment" required>
                             <mat-icon matSuffix>perm_identity</mat-icon>
-                            <mat-error *ngIf="errorHandling1('enteredenrollment', 'required')">
+                            <mat-error *ngIf="errorHandling1('enteredEnrollment', 'required')">
                                 This field is required
                             </mat-error>
                         </mat-form-field>
                     </div>
 
                     <!-- Linkedin URL -->
-                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                    <!-- <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
                         <mat-form-field appearance="fill">
                             <mat-label>Linkedin URL</mat-label>
                             <input matInput placeholder="Ex. https://www.linkedin.com/in/username" type="url"
@@ -230,6 +232,18 @@
                             <mat-icon matSuffix> public </mat-icon>
                             <mat-error *ngIf="errorHandling1('linkedinUrl', 'pattern')">
                                 Please enter a valid Linkedin URL </mat-error>
+                        </mat-form-field>
+                    </div> -->
+
+                    <!-- DESIGNATION  -->
+                    <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Designation</mat-label>
+                            <input matInput placeholder="Ex. Senior Advocate" type="text" formControlName="designation"
+                                required>
+                            <mat-icon matSuffix> public </mat-icon>
+                            <mat-error *ngIf="errorHandling1('designation', 'required')">
+                                Please enter your designation </mat-error>
                         </mat-form-field>
                     </div>
 
@@ -244,9 +258,6 @@
                             <!-- <input type="text" formControlName="imageName" name="imageName" matInput /> -->
                             <!-- <div *ngIf=message>{{message}}</div> -->
                             <!-- <input type="button" (click)="getImage()" value="Get Image"> -->
-                            <mat-error *ngIf="errorHandling1('barCouncilId', 'required')">
-                                This field is required
-                            </mat-error>
                         </mat-form-field>
                     </div>
                 </div>
@@ -255,36 +266,42 @@
 
                     <!-- Area of Practice -->
                     <div fxLayout="column" fxFlex="43" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
-                        <mat-form-field appearance="fill">
+                        <mat-form-field hintLabel="Max 5 Practices " class="dropPadding" appearance="fill">
                             <mat-label>Area of Practice</mat-label>
-                            <mat-select formControlName="selectedAreaofpractice" multiple>
-                                <mat-option *ngFor="let item of areaOfPraticeList" [value]="item.id">
-                                    {{item.name}}
+                            <mat-select #selectedAreaOfPractice formControlName="selectedAreaOfPractice" multiple required
+                            (selectionChange)="areaValidation()">
+                                <mat-option *ngFor="let item of areaOfPratice$ | async" [value]="item.id">
+                                    {{item.value}}
                                 </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="errorHandling1('selectedAreaofpractice', 'required')">
+                            <mat-hint align="end">{{selectedAreaOfPractice.value.length||0}}/5</mat-hint>
+                            <!-- <mat-icon matSuffix>co_present</mat-icon> --> 
+                            <mat-error *ngIf="errorHandling1('selectedAreaOfPractice', 'required')">
                                 This field is required
                             </mat-error>
-                            <mat-error *ngIf="errorHandling1('selectedAreaofpractice', 'max')">
-                                Maximum number can be 5
+                            <mat-error *ngIf="!dropDownLimit">
+                                Maximum selects can be 5
                             </mat-error>
                         </mat-form-field>
                     </div>
 
                     <!-- Court of Practice  -->
                     <div fxLayout="column" fxFlex="43" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
-                        <mat-form-field appearance="fill">
+                        <mat-form-field hintLabel="Max 5 Practices" class="dropPadding" appearance="fill">
                             <mat-label>Court of Practice</mat-label>
-                            <mat-select formControlName="selectedCourtOfPractice" multiple>
-                                <mat-option *ngFor="let item of courtOfPraticeList" [value]="item.id">
-                                    {{item.name}}
+                            <mat-select #selectedCourtOfPractice formControlName="selectedCourtOfPractice"  multiple required
+                            (selectionChange)="courtValidation()">
+                                <mat-option *ngFor="let item of courtOfPractice$ | async" [value]="item.id">
+                                    {{item.value}}
                                 </mat-option>
                             </mat-select>
+                            <mat-hint align="end">{{selectedCourtOfPractice.value.length||0}}/5</mat-hint>
+                            <!-- <mat-icon matSuffix>co_present</mat-icon> -->
                             <mat-error *ngIf="errorHandling1('selectedCourtOfPractice', 'required')">
                                 This field is required
                             </mat-error>
-                            <mat-error *ngIf="errorHandling1('selectedCourtOfPractice', 'maxLength')">
-                                Maximum number can be 5
+                            <mat-error *ngIf="!dropDownLimit">
+                                Maximum selects can be 5
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -377,13 +394,13 @@
                             <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
                                 <mat-form-field appearance="fill">
                                     <mat-label>Type of Degree</mat-label>
-                                    <mat-select formControlName="selectedTypeofDegree" required>
-                                        <mat-option *ngFor="let item of typeOfDegreeList" [value]="item.id">
-                                            {{ item.name}}
+                                    <mat-select formControlName="selectedTypeOfDegree" required>
+                                        <mat-option *ngFor="let item of degree$ | async" [value]="item.id">
+                                            {{ item.value}}
                                         </mat-option>
                                     </mat-select>
                                     <mat-icon matSuffix>school </mat-icon>
-                                    <mat-error *ngIf="errorHandling2('selectedTypeofDegree', 'required')">
+                                    <mat-error *ngIf="errorHandling2('selectedTypeOfDegree', 'required')">
                                         This field is required
                                     </mat-error>
                                 </mat-form-field>
@@ -402,14 +419,14 @@
                                 </mat-form-field>
                             </div>
 
-                            <!-- Institute / College Name -->
+                            <!-- University -->
                             <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
                                 <mat-form-field appearance="fill">
-                                    <mat-label>Institute / College Name</mat-label>
-                                    <input matInput placeholder="" type="text" formControlName="enteredCollegeName"
+                                    <mat-label>University</mat-label>
+                                    <input matInput placeholder="University" type="text" formControlName="enteredUniversity"
                                         required>
                                     <mat-icon matSuffix>school </mat-icon>
-                                    <mat-error *ngIf="errorHandling2('enteredCollegeName', 'required')">
+                                    <mat-error *ngIf="errorHandling2('enteredUniversity', 'required')">
                                         This field is required
                                     </mat-error>
                                 </mat-form-field>
@@ -417,6 +434,20 @@
                         </div>
 
                         <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-evenly stretch ">
+
+                                <!-- Institute / College Name -->
+                                <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Institute / College Name</mat-label>
+                                        <input matInput placeholder="" type="text" formControlName="enteredCollegeName"
+                                            required>
+                                        <mat-icon matSuffix>school </mat-icon>
+                                        <mat-error *ngIf="errorHandling2('enteredCollegeName', 'required')">
+                                            This field is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
                             <!-- Year of Passing -->
                             <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
                                 <mat-form-field appearance="fill">
@@ -430,7 +461,7 @@
                                 </mat-form-field>
                             </div>
 
-                            <div fxLayout="column" fxFlex="59" fxFlex.md="62" fxFlex.sm="27" fxFlex.xs="100">
+                            <div fxLayout="column" fxFlex="27" fxFlex.md="62" fxFlex.sm="27" fxFlex.xs="100">
                                 <mat-checkbox [checked]="selected === i" (change)="selected = i"
                                     formControlName="primary" color="primary">
                                     Primary</mat-checkbox>
@@ -553,9 +584,9 @@
                     <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
                         <mat-form-field appearance="fill">
                             <mat-label> Bank Name</mat-label>
-                            <mat-select formControlName="selectedBankName">
-                                <mat-option *ngFor="let item of bankNameList" [value]="item.id">
-                                    {{ item.name}}
+                            <mat-select formControlName="selectedBankName" required>
+                                <mat-option *ngFor="let item of bankName$ | async" [value]="item.id">
+                                    {{ item.value}}
                                 </mat-option>
                                 <mat-error *ngIf="errorHandling4('selectedBankName', 'required')">
                                     This field is required
@@ -568,13 +599,13 @@
                     <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
                         <mat-form-field appearance="fill">
                             <mat-label>IFSC Code</mat-label>
-                            <input matInput placeholder="Ex. SBINXXXXXXX" type="text" formControlName="enteredIfscCode"
+                            <input matInput placeholder="Ex. SBINXXXXXXX" type="text" formControlName="enteredIFSC"
                                 required>
                             <mat-icon matSuffix>account_balance</mat-icon>
-                            <mat-error *ngIf="errorHandling4('enteredIfscCode', 'required')">
+                            <mat-error *ngIf="errorHandling4('enteredIFSC', 'required')">
                                 This field is required
                             </mat-error>
-                            <mat-error *ngIf="errorHandling4('enteredIfscCode', 'pattern')">
+                            <mat-error *ngIf="errorHandling4('enteredIFSC', 'pattern')">
                                 Please enter a valid IFSC Code
                             </mat-error>
                         </mat-form-field>
@@ -589,7 +620,7 @@
                             <input matInput #enteredAccountNumber placeholder="Ex. XXXXXXXXXX" minlength="10"
                                 type="number" formControlName="enteredAccountNumber" required>
                             <mat-icon matSuffix>account_balance</mat-icon>
-                            <mat-hint align="end">{{enteredAccountNumber.value?.length || 0}}/10</mat-hint>
+                            <mat-hint align="end">{{enteredAccountNumber.value.length||0}}/10</mat-hint>
                             <!-- <mat-hint >Max 10 characters</mat-hint>
                         <mat-hint align="end">{{fifthFormGroup.get('enteredAccountNumber').value?.length || 0}}/10</mat-hint> -->
                             <mat-error *ngIf="errorHandling4('enteredAccountNumber', 'required')">
@@ -638,9 +669,9 @@
                     <div fxLayout="column" fxFlex="27" fxFlex.md="30" fxFlex.sm="27" fxFlex.xs="100">
                         <mat-form-field appearance="fill">
                             <mat-label> Type of Address </mat-label>
-                            <mat-select formControlName="selectedTypeofAddress">
-                                <mat-option *ngFor="let item of typeOfAddressList" [value]="item.id">
-                                    {{ item.name}}
+                            <mat-select formControlName="selectedTypeofAddress" required>
+                                <mat-option *ngFor="let item of address$ | async" [value]="item.id">
+                                    {{ item.value}}
                                 </mat-option>
                             </mat-select>
                             <mat-error *ngIf="errorHandling5('selectedTypeofAddress', 'required')">
@@ -657,9 +688,9 @@
                         <mat-form-field appearance="fill">
                             <mat-label>Line 1</mat-label>
                             <input matInput placeholder="Street address, P.O. box, company name, c/o" type="text"
-                                formControlName="enteredAddressline1" required>
+                                formControlName="enteredAddressLine1" required>
                             <mat-icon matSuffix>home</mat-icon>
-                            <mat-error *ngIf="errorHandling5('enteredAddressline1', 'required')">
+                            <mat-error *ngIf="errorHandling5('enteredAddressLine1', 'required')">
                                 This field is required
                             </mat-error>
                         </mat-form-field>
@@ -670,7 +701,7 @@
                         <mat-form-field appearance="fill">
                             <mat-label>Line 2</mat-label>
                             <input matInput placeholder="Apartment, suite, unit, building, floor, etc." type="text"
-                                formControlName="enteredAddressline2">
+                                formControlName="enteredAddressLine2">
                             <mat-icon matSuffix>home</mat-icon>
                         </mat-form-field>
                     </div>
@@ -888,4 +919,4 @@
 
 </mat-stepper>
 <br><br><br><br><br>
-<app-footer></app-footer>
+<!-- <app-footer></app-footer> -->

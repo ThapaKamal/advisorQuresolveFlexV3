@@ -15,6 +15,8 @@ import { ExitDialogComponent } from './components/header/exit-dialog/exit-dialog
 
 import { FormsModule } from '@angular/forms'; 
 import { ReactiveFormsModule } from '@angular/forms';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
+import { LoginModule } from '../login/login.module';
 
 
 
@@ -28,7 +30,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     AreaComponent,
     CardComponent,
     PieComponent,
-    ExitDialogComponent
+    ExitDialogComponent,
+    ContactUsComponent,
+    
   ],
 
   entryComponents:[ExitDialogComponent],
@@ -41,6 +45,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    
+
   
   ],
   exports:[

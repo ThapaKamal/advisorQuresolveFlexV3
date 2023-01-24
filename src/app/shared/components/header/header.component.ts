@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
 
   @Output() toggleSideBarVar: EventEmitter<any>= new EventEmitter();
 
+  searchText: any;
   constructor(public dialog: MatDialog) { }
 
   ngOnInit() {

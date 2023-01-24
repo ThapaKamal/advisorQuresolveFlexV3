@@ -11,6 +11,8 @@ import { YearOfExpListService } from 'src/app/legaladvisor/legalService/year-of-
 import { CustomValidationService } from 'src/app/legaladvisor/registration/service/custom-validation.service';
 import { TaxRegistrationPayload } from './payload/taxRegistrationPayload';
 import { SpecialisationService } from '../service/specialisation.service';
+import { GenderListService } from 'src/app/legaladvisor/legalService/gender-list.service';
+import { LanguageListService } from 'src/app/legaladvisor/legalService/language-list.service';
 
 @Component({
   selector: 'app-tax-registration',
@@ -27,6 +29,16 @@ export class TaxRegistrationComponent implements OnInit {
   Form6Group!: FormGroup;
   Form7Group!: FormGroup;
 
+  
+  gender$: any;
+  language$: any;
+  yearsOfExp$: any;
+  bankName$: any;
+  address$: any;
+  degree$: any;
+
+
+
   customErrors = { required: 'Please accept the terms' }
 
   taxRegistrationPayload!: TaxRegistrationPayload;
@@ -35,7 +47,7 @@ export class TaxRegistrationComponent implements OnInit {
 
 
   // ServiceVariables
-  yearsOfExpList!: { id: number; name: string; }[];
+  yearsOfExpList!: any;
   typeOfDegreeList: any = [];
   bankNameList: any = [];
   // barMembershipsList: any = [];
@@ -109,6 +121,8 @@ export class TaxRegistrationComponent implements OnInit {
     // private registrationService: RegistrationServiceService,
     private customValidator: CustomValidationService,
     private mediaObserver: MediaObserver,
+    private genderListService: GenderListService,
+    private languageListService: LanguageListService,
 
   ) {
 
@@ -124,7 +138,7 @@ export class TaxRegistrationComponent implements OnInit {
       taxAdvisorPhoto: new FormControl('', Validators.required),
     });
 
-    
+
     this.Form2Group = this._formBuilder.group({
       taxAdvisorAccomplishments: this._formBuilder.array([]),
       taxAdvisorHeading: new FormControl(''),
@@ -151,10 +165,10 @@ export class TaxRegistrationComponent implements OnInit {
     this.Form3Group = this._formBuilder.group({
       taxAdvisorEducations: this._formBuilder.array([]),
       taxAdvisorDegreeName: new FormControl(''),
-      taxAdvisorCollegeName:new FormControl(''),
-      taxAdvisorYearOfPassing:new FormControl(''),
-      taxAdvisorTypeofDegree:new FormControl(''),
-      taxAdvisorPrimary:new FormControl('')
+      taxAdvisorCollegeName: new FormControl(''),
+      taxAdvisorYearOfPassing: new FormControl(''),
+      taxAdvisorTypeofDegree: new FormControl(''),
+      taxAdvisorPrimary: new FormControl('')
     });
 
     // this.Form3Group = this._formBuilder.group({
@@ -382,12 +396,45 @@ export class TaxRegistrationComponent implements OnInit {
   }
 
 
+  gender() {
+    return this.genderListService.getGenderList();
+  }
+
+  language(){
+    return this.languageListService.getlanguage();
+  }
+
+  yearOfExp(){
+    return this.yearOfExpListService.getYearsOfExpList();
+  }
+
+  
+  bankName(){
+    return this.bankNameListService.getBankNameList();
+  }
+
+  address(){
+    return this.typeOfAddressListService.getTypeOfAddressList();
+  }
+
+  degree(){
+    return this.typeOfDegreeListService.getTypeOfDegreeList();
+  }
+
+
 
 
 
 
 
   ngOnInit() {
+
+    this.gender$ = this.gender();
+    this.language$ = this.language();
+    this.yearsOfExp$ = this.yearOfExp();
+    this.bankName$ = this.bankName();
+    this.address$ = this.address();
+    this.degree$ = this.degree();
 
 
     // tells page size in console
@@ -397,27 +444,22 @@ export class TaxRegistrationComponent implements OnInit {
     //   }
     // )  
 
-
     // YearOfExpListService
-    this.yearsOfExpList = this.yearOfExpListService.yearsOfExpList();
+    this.yearsOfExpList = this.yearOfExpListService.getYearsOfExpList();
 
-    // barMembershipList
-    // this.barMembershipsList = this.barMembershipListService.barMembershipsList();
 
     // BankNameListServiceService
-    this.bankNameList = this.bankNameListService.bankNameList();
+    this.bankNameList = this.bankNameListService.getBankNameList();
 
     // typeOfAddressListService
-    this.typeOfAddressList = this.typeOfAddressListService.typeOfAddressList();
+    this.typeOfAddressList = this.typeOfAddressListService.getTypeOfAddressList();
 
     // TypeOfDegreeListService
-    this.typeOfDegreeList = this.typeOfDegreeListService.typeOfDegreeList();
-
-    // COURT OF PRATICE Service
-    // this.courtOfPraticeList = this.courtOfPracticeService.courtOfPraticeList();
+    this.typeOfDegreeList = this.typeOfDegreeListService.getTypeOfDegreeList();
 
     // AREA OF PRATICE Service
     this.specialisationList = this.specialisationService.specialisationList();
+
 
     //Add Certs
     this.newAccomplishments();

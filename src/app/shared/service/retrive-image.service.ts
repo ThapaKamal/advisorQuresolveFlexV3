@@ -15,6 +15,6 @@ export class RetriveImageService {
   // }
 
   getImageData(): Observable<any> {
-    return this.http.get('http://localhost:8080/api/get/imageid/1', { responseType: 'blob' });
+    return this.http.get('http://localhost:8080/api/auth/get/imageid/1', { responseType: 'blob' });
     }
 }

@@ -1,10 +1,9 @@
 <mat-nav-list>
     <div class="profile-card">
         <div>
-            <img [src]='imageToShow' alt="Place image "
-            *ngIf="!isImageLoading; else noImageFound">
+            <img [src]='imageToShow' *ngIf="!isImageLoading; else noImageFound">
             <ng-template #noImageFound>
-                <img src="../../../../assets/images/Team/fallbackuser.png" alt="Fallbackimage">
+                <img src="../../../../assets/images/Team/fallbackuser.png">
            </ng-template>
         </div>  
         <div class="header">

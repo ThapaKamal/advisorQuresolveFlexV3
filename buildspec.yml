@@ -5,6 +5,7 @@ env:
         CACHE_CONTROL: "86400"
         S3_BUCKET: "{{s3_bucket_url}}"
         BUILD_FOLDER: "dist"
+        APP_NAME: "advisorQuresolve"
 phases:
   install:
     runtime-versions:
@@ -17,6 +18,12 @@ phases:
     commands:
         - echo Build started 
         - ng build
+   post_build:
+        commands:
+         - echo build process finished, we should uplload to S3 now
+         - cd dist/$APP_NAME
+         - ls -la
+         - aws s3 sync . $S3_BUCKET --delete
 artifacts:
     files:
         - '**/*'

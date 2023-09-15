@@ -260,7 +260,7 @@ export class RegistrationComponent implements OnInit {
     imageFormData.append('image', this.uploadedImage);
   
 
-    this.httpClient.post('http://localhost:8080/api/upload/image/', imageFormData, { observe: 'response' })
+    this.httpClient.post('http://localhost:8080/api/auth/upload/image/', imageFormData, { observe: 'response' })
       .subscribe((response) => {
         if (response.status === 200) { 
           this.postResponse = response;                
